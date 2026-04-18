@@ -101,7 +101,7 @@ def mostrar_inicio():
     # Estructura HTML con Logos y Título Animado
     # Importante: Usamos la URL RAW de tus archivos en GitHub
     url_logo_ucv = "https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_Universidad_Central_de_Venezuela.svg.png"
-    url_logo_quimica = "https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_ingeneriaquimica.png"
+    url_logo_quimica = "https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_ingenieriaquimica.png"
 
     st.markdown(f'''
         <div class="title-container">
