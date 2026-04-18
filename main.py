@@ -232,15 +232,6 @@ def mostrar_simulador(nombre):
         st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg", use_container_width=True)
         return
 
-    # ======================== DIAGRAMA DEL PROCESO ========================
-    with st.expander("Diagrama del Proceso", expanded=True):
-        col_img = st.columns([1, 5, 1])[1]
-        with col_img:
-            if os.path.exists("Captura de pantalla 2026-03-29 163125 (1).png"):
-                st.image("Captura de pantalla 2026-03-29 163125 (1).png", use_container_width=True)
-            else:
-                st.info("📍 El diagrama del sistema se mostrará aquí.")
-
     # ======================== MARCO TEÓRICO ========================
     col_teoria1, col_teoria2, col_teoria3 = st.columns(3)
 
@@ -302,6 +293,15 @@ def mostrar_simulador(nombre):
             - **ITAE bajo** → El sistema se estabiliza rápidamente sin errores prolongados
             """)
 
+      # ======================== DIAGRAMA DEL PROCESO ========================
+    with st.expander("Diagrama del Proceso", expanded=True):
+        col_img = st.columns([1, 5, 1])[1]
+        with col_img:
+            if os.path.exists("Captura de pantalla 2026-03-29 163125 (1).png"):
+                st.image("Captura de pantalla 2026-03-29 163125 (1).png", use_container_width=True)
+            else:
+                st.info("📍 El diagrama del sistema se mostrará aquí.")
+                
     # ======================== BARRA LATERAL ========================
     st.sidebar.header("⚙️ Configuración del Sistema")
     
