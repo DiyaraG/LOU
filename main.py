@@ -95,7 +95,7 @@ if 'page' not in st.session_state:
 
 def mostrar_inicio():
     url_logo_ucv = "https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_Universidad_Central_de_Venezuela.svg.png"
-    url_logo_quimica = "https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_ingeneriaquimica.png"
+    url_logo_quimica = "https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_ingenieriaquimica.png"
 
     st.markdown(f'''
         <div class="title-container">
