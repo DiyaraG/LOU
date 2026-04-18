@@ -236,8 +236,8 @@ def mostrar_simulador(nombre):
     with st.expander("Diagrama del Proceso", expanded=True):
         col_img = st.columns([1, 5, 1])[1]
         with col_img:
-            if os.path.exists("Captura de pantalla 2026-03-29 163125.png"):
-                st.image("Captura de pantalla 2026-03-29 163125.png", use_container_width=True)
+            if os.path.exists("Captura de pantalla 2026-03-29 163125 (1).png"):
+                st.image("Captura de pantalla 2026-03-29 163125 (1).png", use_container_width=True)
             else:
                 st.info("📍 El diagrama del sistema se mostrará aquí.")
 
