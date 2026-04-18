@@ -305,28 +305,6 @@ def mostrar_simulador(nombre):
     # ======================== BARRA LATERAL ========================
     st.sidebar.header("⚙️ Configuración del Sistema")
     
-    # ======================== BIBLIOTECA TÉCNICA EN BARRA LATERAL ========================
-    st.sidebar.markdown("---")
-    st.sidebar.subheader("📚 Biblioteca Técnica")
-    
-    with st.sidebar.container(border=True):
-        nombre_pdf = "Guia_Practica_UCV.pdf"
-        if os.path.exists(nombre_pdf):
-            with open(nombre_pdf, "rb") as f:
-                st.sidebar.download_button(
-                    label="📥 Descargar Guía de Práctica (PDF)",
-                    data=f,
-                    file_name="Guia_Practica_EIQ_UCV.pdf",
-                    mime="application/pdf",
-                    use_container_width=True
-                )
-            st.sidebar.caption("📖 Guía completa de la práctica de laboratorio")
-        else:
-            st.sidebar.warning("⚠️ Archivo 'Guia_Practica_UCV.pdf' no encontrado en el directorio")
-            st.sidebar.caption("💡 Coloca el PDF en la misma carpeta que el script")
-    
-    st.sidebar.markdown("---")
-    
     with st.sidebar.container(border=True):
         op_tipo = st.sidebar.selectbox("Operación Principal", ["Llenado", "Vaciado"])
         geom_tanque = st.sidebar.selectbox("Geometría del Equipo", ["Cilíndrico", "Cónico", "Esférico"])
@@ -388,6 +366,28 @@ def mostrar_simulador(nombre):
 
     if 'ejecutando' not in st.session_state:
         st.session_state.ejecutando = False
+
+        # ======================== BIBLIOTECA TÉCNICA EN BARRA LATERAL ========================
+    st.sidebar.markdown("---")
+    st.sidebar.subheader("📚 Biblioteca Técnica")
+    
+    with st.sidebar.container(border=True):
+        nombre_pdf = "Guia_Practica_UCV.pdf"
+        if os.path.exists(nombre_pdf):
+            with open(nombre_pdf, "rb") as f:
+                st.sidebar.download_button(
+                    label="📥 Descargar Guía de Práctica (PDF)",
+                    data=f,
+                    file_name="Guia_Practica_EIQ_UCV.pdf",
+                    mime="application/pdf",
+                    use_container_width=True
+                )
+            st.sidebar.caption("📖 Guía completa de la práctica de laboratorio")
+        else:
+            st.sidebar.warning("⚠️ Archivo 'Guia_Practica_UCV.pdf' no encontrado en el directorio")
+            st.sidebar.caption("💡 Coloca el PDF en la misma carpeta que el script")
+    
+    st.sidebar.markdown("---")
 
     # ======================== INICIALIZACIÓN ========================
     if iniciar_sim:
