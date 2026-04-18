@@ -1,17 +1,19 @@
-
-
 import streamlit as st
 
 # 1. Configuración de la página
 st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🛠")
 
-# 2. Estilos CSS: Minimalismo Tecnológico (Blanco y Gris)
+# 2. Estilos CSS: Minimalismo Tecnológico con Animación de Ola
 st.markdown(
     """
     <style>
-    /* Fondo corregido y adaptado al nuevo estilo */
+    @keyframes wave {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+    }
+
     .stApp {
-        background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(240, 242, 245, 0.95)), 
+        background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(240, 242, 245, 0.85)), 
                           url("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg");
         background-size: cover;
         background-position: center;
@@ -19,80 +21,81 @@ st.markdown(
         color: #2D3748;
     }
 
-    /* Título con resplandor blanco limpio */
-    .main-title {
-        font-size: 40px;
-        font-weight: 800;
+    /* Cuadro del Título con Animación de Luz */
+    .title-container {
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(200, 210, 230, 0.5);
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 20px;
         text-align: center;
-        color: #1A202C;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-        padding: 20px;
-        letter-spacing: 2px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(5px);
     }
 
-    /* Subtítulo gris industrial */
+    .animated-title {
+        font-size: 48px;
+        font-weight: 800;
+        margin: 0;
+        /* Efecto de Ola de Color */
+        background: linear-gradient(90deg, #1A202C 0%, #4A5568 25%, #3182CE 50%, #4A5568 75%, #1A202C 100%);
+        background-size: 200% auto;
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: wave 8s linear infinite;
+        letter-spacing: 3px;
+    }
+
     .sub-title {
-        font-size: 18px;
+        font-size: 16px;
         text-align: center;
         color: #718096;
-        margin-bottom: 40px;
+        margin-top: 10px;
+        letter-spacing: 5px;
         font-family: 'Segoe UI', sans-serif;
     }
 
-    /* ELIMINAR EL ROJO y personalizar pestañas */
+    /* Estilo de Pestañas Limpias */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 10px;
-        background-color: rgba(255, 255, 255, 0.5);
-        border-radius: 15px;
-        padding: 5px;
+        justify-content: center;
+        background-color: transparent;
     }
 
     .stTabs [data-baseweb="tab"] {
-        height: 45px;
-        border-radius: 10px;
-        color: #4A5568;
-        border: none;
+        font-weight: 600;
+        color: #A0AEC0;
+        transition: 0.4s;
     }
 
-    /* Pestaña seleccionada: quitamos el borde rojo de Streamlit */
     .stTabs [aria-selected="true"] {
-        background-color: #FFFFFF !important;
-        color: #2D3748 !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        border: 1px solid #E2E8F0 !important;
+        color: #2B6CB0 !important;
+        background-color: white !important;
+        border-radius: 10px 10px 0 0;
+        box-shadow: 0 -4px 10px rgba(0,0,0,0.03);
     }
 
-    /* Quitar la línea roja de Streamlit debajo de la pestaña */
     .stTabs [data-baseweb="tab-highlight"] {
-        background-color: transparent !important;
+        background-color: #3182CE !important;
     }
 
-    /* Botones de Práctica: Estilo Cristal/Blanco */
+    /* Botones con efecto Hover suave */
     .stButton>button {
         width: 100%;
-        border-radius: 12px;
-        height: 3.8em;
-        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 10px;
+        height: 4em;
+        background-color: rgba(255, 255, 255, 0.8);
         color: #2D3748;
         border: 1px solid #E2E8F0;
-        transition: all 0.3s ease;
-        font-weight: 600;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        transition: all 0.4s ease;
+        font-size: 16px;
     }
     
     .stButton>button:hover {
         background-color: #FFFFFF;
-        border: 1px solid #CBD5E0;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        transform: translateY(-3px);
-        color: #000;
-    }
-
-    /* Mensajes de información en gris azulado */
-    .stAlert {
-        background-color: rgba(255, 255, 255, 0.8);
-        border: 1px solid #E2E8F0;
-        color: #4A5568;
+        border: 1px solid #3182CE;
+        box-shadow: 0 10px 20px rgba(49, 130, 206, 0.1);
+        transform: translateY(-2px);
     }
     </style>
     """,
@@ -104,13 +107,18 @@ if 'page' not in st.session_state:
     st.session_state.page = 'Inicio'
 
 def mostrar_inicio():
-    st.markdown('<div class="main-title">LABORATORIO DE OPERACIONES UNITARIAS</div>', unsafe_allow_html=True)
-    st.markdown('<div class="sub-title">CENTRO DE SIMULACIÓN VIRTUAL | UCV</div>', unsafe_allow_html=True)
+    # Título Animado
+    st.markdown('''
+        <div class="title-container">
+            <h1 class="animated-title">LABORATORIO DE OPERACIONES UNITARIAS</h1>
+            <div class="sub-title">CENTRO DE SIMULACIÓN VIRTUAL | UCV</div>
+        </div>
+    ''', unsafe_allow_html=True)
     
     tab1, tab2 = st.tabs(["LOU I", "LOU II"])
 
     with tab1:
-        st.write("###") # Espaciado
+        st.write("##")
         cols1 = st.columns(2)
         practicas1 = [
             "Calibración de un Medidor de Flujo",
@@ -126,7 +134,7 @@ def mostrar_inicio():
                     st.rerun()
 
     with tab2:
-        st.write("###") # Espaciado
+        st.write("##")
         cols2 = st.columns(2)
         practicas2 = [
             "Hidrodinámica de Columnas Empacadas",
@@ -142,11 +150,11 @@ def mostrar_inicio():
                     st.rerun()
 
 def mostrar_simulador(nombre):
-    if st.button("⬅ Regresar al Panel Principal", key="back"):
+    if st.button("⬅ Regresar al Panel Principal"):
         st.session_state.page = 'Inicio'
         st.rerun()
     
-    st.markdown(f'<div class="main-title">{nombre.upper()}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="title-container"><h1 class="animated-title">{nombre.upper()}</h1></div>', unsafe_allow_html=True)
     st.info("Módulo de modelado matemático cargando...")
     st.image("Lou fondo.jpeg", use_container_width=True)
 
