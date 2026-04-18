@@ -1,7 +1,7 @@
 import streamlit as st
 
 # 1. Configuración de la página
-st.set_page_config(page_title="LOU Virtual - UCV", layout="wide", page_icon="🧪")
+st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🛠")
 
 # 2. Estilos CSS: Minimalismo Tecnológico con Animación y LOGOS
 st.markdown(
