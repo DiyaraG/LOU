@@ -232,96 +232,75 @@ def mostrar_simulador(nombre):
         st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg", use_container_width=True)
         return
 
-        def mostrar_simulador(nombre):
-        col_back, _ = st.columns([1, 5])
-        with col_back:
-            if st.button("⬅ Menú Principal"):
-                st.session_state.page = 'Inicio'
-                st.rerun()
-        
-        st.markdown(f'''
-            <div class="title-container" style="justify-content: center; padding: 30px;">
-                <div class="text-center-container">
-                    <h1 class="animated-title" style="font-size: 38px;">{nombre.upper()}</h1>
-                    <div class="sub-title" style="letter-spacing: 2px;">SIMULADOR DE PROCESOS QUÍMICOS</div>
-                </div>
-            </div>
-        ''', unsafe_allow_html=True)
-    
-        if nombre != "Balance en Estado No Estacionario":
-            st.info(f"Iniciando entorno de cálculo para: {nombre}")
-            st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg", use_container_width=True)
-            return
-    
-        # ======================== DIAGRAMA DEL PROCESO ========================
-        with st.expander("Diagrama del Proceso", expanded=True):
-            col_img = st.columns([1, 5, 1])[1]
-            with col_img:
-                if os.path.exists("Captura de pantalla 2026-03-29 163125.png"):
-                    st.image("Captura de pantalla 2026-03-29 163125.png", use_container_width=True)
-                else:
-                    st.info("📍 El diagrama del sistema se mostrará aquí.")
-    
-        # ======================== MARCO TEÓRICO ========================
-        col_teoria1, col_teoria2, col_teoria3 = st.columns(3)
-    
-        with col_teoria1:
-            with st.expander("📚 Fundamento teórico: Ecuaciones de Conservación y Descarga", expanded=False):
-                st.markdown(r"""
-                La dinámica del sistema se describe mediante el **Balance Global de Masa** para un volumen de control con densidad constante ($\rho$):
-                
-                $$ \frac{dV}{dt} = Q_{in} - Q_{out} \pm Q_{p} $$
-                
-                Considerando que el volumen es función del nivel ($V = \int A(h)dh$), aplicamos la regla de la cadena para obtener la ecuación general de vaciado/llenado válida para **cualquier área transversal $A(h)$**:
-                
-                $$ A(h) \frac{dh}{dt} = Q_{in} - (C_d \cdot a \cdot \sqrt{2gh}) \pm Q_{p} $$
-                
-                **Donde:**
-                - **$A(h)$**: Área de la sección transversal en función de la altura (m²)
-                - **$Q_{in}$**: Flujo de entrada controlado (m³/s)
-                - **$Q_{out}$**: Flujo de salida basado en la **Ley de Torricelli** (m³/s)
-                - **$C_d$**: Coeficiente de descarga (adimensional)
-                - **$a$**: Área del orificio de salida (m²)
-                - **$Q_{p}$**: Flujo de perturbación o falla (m³/s)
-                """)
-    
-        with col_teoria2:
-            with st.expander("🎯 Teoría: Estrategia de control PID Robusto", expanded=False):
-                st.markdown(r"""
-                El "cerebro" de la simulación es un controlador **Proporcional-Integral-Derivativo (PID)** con **Anti-Windup**, cuya acción de control $u(t)$ busca minimizar el error ($e = SP - h$):
-                
-                $$ u(t) = K_p e(t) + K_i \int_{0}^{t} e(\tau) d\tau + K_d \frac{de(t)}{dt} $$
-                
-                **Mejoras implementadas para robustez:**
-                - **Anti-Windup:** Evita que la integral se sature cuando la válvula está al límite
-                - **Sintonización Ziegler-Nichols adaptada:** Parámetros optimizados para rechazo de perturbaciones
-                - **Límites en derivativo:** Reduce el ruido en la señal de control
-                
-                **Funciones de los parámetros sintonizables:**
-                - **$K_p$ (Proporcional):** Proporciona una respuesta inmediata al error actual
-                - **$K_i$ (Integral):** Elimina el error residual (offset) acumulando desviaciones pasadas; es vital para el rechazo de perturbaciones ($Q_p$)
-                - **$K_d$ (Derivativo):** Anticipa el comportamiento futuro del error para evitar sobrepicos y estabilizar la respuesta
-                
-                En este simulador, las ecuaciones se resuelven numéricamente mediante el **Método de Euler** con un paso de tiempo $\Delta t = 1.0$ s.
-                """)
-    
-        with col_teoria3:
-            with st.expander("📊 Criterios de Desempeño (IAE/ITAE)", expanded=False):
-                st.markdown(r"""
-                Para evaluar la eficiencia del control, se utilizan métricas integrales del error $e(t) = SP - PV$:
-                
-                **1. IAE (Integral del Error Absoluto):**
-                $$IAE = \int_{0}^{t} |e(t)| dt$$
-                Mide el rendimiento acumulado. Es ideal para evaluar la respuesta general del sistema.
-                
-                **2. ITAE (Integral del Tiempo por el Error Absoluto):**
-                $$ITAE = \int_{0}^{t} t \cdot |e(t)| dt$$
-                **Penaliza errores que duran mucho tiempo.** Es el criterio más estricto en tesis de control porque asegura que el sistema se estabilice rápido.
-                
-                **Interpretación práctica:**
-                - **IAE bajo** → Respuesta rápida sin errores grandes
-                - **ITAE bajo** → El sistema se estabiliza rápidamente sin errores prolongados
-                """)
+    # ======================== DIAGRAMA DEL PROCESO ========================
+    with st.expander("Diagrama del Proceso", expanded=True):
+        col_img = st.columns([1, 5, 1])[1]
+        with col_img:
+            if os.path.exists("Captura de pantalla 2026-03-29 163125.png"):
+                st.image("Captura de pantalla 2026-03-29 163125.png", use_container_width=True)
+            else:
+                st.info("📍 El diagrama del sistema se mostrará aquí.")
+
+    # ======================== MARCO TEÓRICO ========================
+    col_teoria1, col_teoria2, col_teoria3 = st.columns(3)
+
+    with col_teoria1:
+        with st.expander("📚 Fundamento teórico: Ecuaciones de Conservación y Descarga", expanded=False):
+            st.markdown(r"""
+            La dinámica del sistema se describe mediante el **Balance Global de Masa** para un volumen de control con densidad constante ($\rho$):
+            
+            $$ \frac{dV}{dt} = Q_{in} - Q_{out} \pm Q_{p} $$
+            
+            Considerando que el volumen es función del nivel ($V = \int A(h)dh$), aplicamos la regla de la cadena para obtener la ecuación general de vaciado/llenado válida para **cualquier área transversal $A(h)$**:
+            
+            $$ A(h) \frac{dh}{dt} = Q_{in} - (C_d \cdot a \cdot \sqrt{2gh}) \pm Q_{p} $$
+            
+            **Donde:**
+            - **$A(h)$**: Área de la sección transversal en función de la altura (m²)
+            - **$Q_{in}$**: Flujo de entrada controlado (m³/s)
+            - **$Q_{out}$**: Flujo de salida basado en la **Ley de Torricelli** (m³/s)
+            - **$C_d$**: Coeficiente de descarga (adimensional)
+            - **$a$**: Área del orificio de salida (m²)
+            - **$Q_{p}$**: Flujo de perturbación o falla (m³/s)
+            """)
+
+    with col_teoria2:
+        with st.expander("🎯 Teoría: Estrategia de control PID Robusto", expanded=False):
+            st.markdown(r"""
+            El "cerebro" de la simulación es un controlador **Proporcional-Integral-Derivativo (PID)** con **Anti-Windup**, cuya acción de control $u(t)$ busca minimizar el error ($e = SP - h$):
+            
+            $$ u(t) = K_p e(t) + K_i \int_{0}^{t} e(\tau) d\tau + K_d \frac{de(t)}{dt} $$
+            
+            **Mejoras implementadas para robustez:**
+            - **Anti-Windup:** Evita que la integral se sature cuando la válvula está al límite
+            - **Sintonización Ziegler-Nichols adaptada:** Parámetros optimizados para rechazo de perturbaciones
+            - **Límites en derivativo:** Reduce el ruido en la señal de control
+            
+            **Funciones de los parámetros sintonizables:**
+            - **$K_p$ (Proporcional):** Proporciona una respuesta inmediata al error actual
+            - **$K_i$ (Integral):** Elimina el error residual (offset) acumulando desviaciones pasadas; es vital para el rechazo de perturbaciones ($Q_p$)
+            - **$K_d$ (Derivativo):** Anticipa el comportamiento futuro del error para evitar sobrepicos y estabilizar la respuesta
+            
+            En este simulador, las ecuaciones se resuelven numéricamente mediante el **Método de Euler** con un paso de tiempo $\Delta t = 1.0$ s.
+            """)
+
+    with col_teoria3:
+        with st.expander("📊 Criterios de Desempeño (IAE/ITAE)", expanded=False):
+            st.markdown(r"""
+            Para evaluar la eficiencia del control, se utilizan métricas integrales del error $e(t) = SP - PV$:
+            
+            **1. IAE (Integral del Error Absoluto):**
+            $$IAE = \int_{0}^{t} |e(t)| dt$$
+            Mide el rendimiento acumulado. Es ideal para evaluar la respuesta general del sistema.
+            
+            **2. ITAE (Integral del Tiempo por el Error Absoluto):**
+            $$ITAE = \int_{0}^{t} t \cdot |e(t)| dt$$
+            **Penaliza errores que duran mucho tiempo.** Es el criterio más estricto en tesis de control porque asegura que el sistema se estabilice rápido.
+            
+            **Interpretación práctica:**
+            - **IAE bajo** → Respuesta rápida sin errores grandes
+            - **ITAE bajo** → El sistema se estabiliza rápidamente sin errores prolongados
+            """)
 
     # ======================== BARRA LATERAL ========================
     st.sidebar.header("⚙️ Configuración del Sistema")
@@ -391,66 +370,6 @@ def mostrar_simulador(nombre):
     
     with st.sidebar.expander("📊 Cargar Datos Experimentales"):
         st.caption("⚠️ Ingresa el nivel en **centímetros (cm)**")
-        df_exp_default = pd.DataFrame({
-            "Tiempo (s)": [0, 60, 120, 180, 240, 300],
-            "Nivel Medido (cm)": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-        })
-        datos_usr = st.data_editor(df_exp_default, num_rows="dynamic")
-        mostrar_ref = st.checkbox("Mostrar referencia en gráfica", value=True)
-    
-    st.sidebar.markdown("---")
-    col_btn1, col_btn2 = st.sidebar.columns(2)
-    with col_btn1:
-        iniciar_sim = st.button("▶️ Iniciar Simulación Robusta", use_container_width=True, type="primary")
-    with col_btn2:
-        if st.button("🔄 Reset", use_container_width=True, type="secondary"):
-            st.session_state.ejecutando = False
-            st.rerun()
-
-    # ======================== BARRA LATERAL ========================
-    st.sidebar.header("⚙️ Configuración del Sistema")
-    with st.sidebar.container(border=True):
-        op_tipo = st.sidebar.selectbox("Operación Principal", ["Llenado", "Vaciado"])
-        geom_tanque = st.sidebar.selectbox("Geometría del Equipo", ["Cilíndrico", "Cónico", "Esférico"])
-    
-    with st.sidebar.expander("Especificaciones del Tanque", expanded=True):
-        r_max = st.number_input("Radio de Diseño (R) [m]", value=1.0, min_value=0.1, step=0.1)
-        h_sug = 3.0 if geom_tanque != "Esférico" else r_max * 2
-        h_total = st.number_input("Altura de Diseño (H) [m]", value=float(h_sug), min_value=0.1, step=0.5)
-        sp_nivel = st.slider("Consigna de Nivel (Setpoint) [m]", 0.1, float(h_total), float(h_total/2))
-    
-    with st.sidebar.expander("Dimensiones de Salida", expanded=True):
-        d_pulgadas = st.number_input("Diámetro del Orificio (pulgadas)", value=1.0, min_value=0.1, step=0.1)
-        d_metros = d_pulgadas * 0.0254
-        area_orificio = np.pi * (d_metros / 2)**2
-        st.caption(f"Área calculada: {area_orificio:.6f} m²")
-    
-    with st.sidebar.expander("🛡️ Escenario de Perturbación ($Q_p$)"):
-        p_activa = st.toggle("Simular Falla/Fuga Externas", value=True)
-        if p_activa:
-            p_magnitud = st.number_input("Magnitud Qp [m³/s]", value=0.045, format="%.4f")
-            p_tiempo = st.slider("Inicio de perturbación [s]", 0, 500, 80)
-            modo_estres = st.toggle("🔥 Activar Modo Estrés", help="La perturbación cambiará según el nivel")
-        else:
-            p_magnitud = 0.0
-            p_tiempo = 0
-            modo_estres = False
-    
-    with st.sidebar.expander("Parámetros del Controlador PID Robusto"):
-        kp_sug, ki_sug, kd_sug = calcular_pid_adaptativo(geom_tanque, r_max, h_total)
-        modo_auto = st.checkbox("🎯 Modo Robusto (Auto-sintonía optimizada)", value=True)
-        if modo_auto:
-            st.success("💡 Usando sintonización robusta")
-            kp_val = st.number_input("Kp (robusto)", value=kp_sug, key="kp_asist")
-            ki_val = st.number_input("Ki (robusto)", value=ki_sug, format="%.3f", key="ki_asist")
-            kd_val = st.number_input("Kd (robusto)", value=kd_sug, format="%.3f", key="kd_asist")
-        else:
-            kp_val = st.number_input("Kp", value=15.0, step=1.0, key="kp_man")
-            ki_val = st.number_input("Ki", value=3.0, step=0.5, format="%.3f", key="ki_man")
-            kd_val = st.number_input("Kd", value=1.5, step=0.2, format="%.3f", key="kd_man")
-        tiempo_ensayo = st.slider("Tiempo de simulación [s]", 60, 600, 300)
-    
-    with st.sidebar.expander("📊 Cargar Datos Experimentales"):
         df_exp_default = pd.DataFrame({
             "Tiempo (s)": [0, 60, 120, 180, 240, 300],
             "Nivel Medido (cm)": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
