@@ -525,4 +525,4 @@ def mostrar_simulador(nombre):
 if st.session_state.page == 'Inicio':
     mostrar_inicio()
 else:
-    mostrar_simulador(st.session_state.page))
+    mostrar_simulador(st.session_state.page)
