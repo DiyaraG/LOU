@@ -1,7 +1,7 @@
 import streamlit as st
 
 # 1. Configuración de la página (Mantenemos wide para mejor visualización)
-st.set_page_config(page_title="LOU Virtual - UCV", layout="wide", page_icon="🔬")
+st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🛠")
 
 # 2. Aplicación de Estilos CSS Avanzados (Futurista / LED / Corrección de Fondo)
 st.markdown(
@@ -137,10 +137,10 @@ if 'page' not in st.session_state:
 
 # --- FUNCIÓN: PANTALLA DE INICIO (MENÚ PRINCIPAL FUTURISTA) ---
 def mostrar_inicio():
-    st.markdown('<div class="main-title">OPERACIONES UNITARIAS</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">LABORATORIO DE OPERACIONES UNITARIAS</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-title">:: LOU VIRTUAL :: ESCUELA DE INGENIERÍA QUÍMICA :: UCV ::</div>', unsafe_allow_html=True)
     
-    tab1, tab2 = st.tabs(["[ LOU 1 ]", "[ LOU 2 ]"])
+    tab1, tab2 = st.tabs([" LOU 1 ", " LOU 2 "])
 
     with tab1:
         st.markdown('<div class="section-header">Módulo de Mecánica de Fluidos y Transferencia de Calor</div>', unsafe_allow_html=True)
