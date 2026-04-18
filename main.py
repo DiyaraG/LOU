@@ -1,131 +1,99 @@
+
+
 import streamlit as st
 
-# 1. Configuración de la página (Mantenemos wide para mejor visualización)
+# 1. Configuración de la página
 st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🛠")
 
-# 2. Aplicación de Estilos CSS Avanzados (Futurista / LED / Corrección de Fondo)
+# 2. Estilos CSS: Minimalismo Tecnológico (Blanco y Gris)
 st.markdown(
     """
     <style>
-    /* Fondo corregido: Adaptado al ancho, centrado y con efecto Parallax */
+    /* Fondo corregido y adaptado al nuevo estilo */
     .stApp {
-        background-image: linear-gradient(rgba(10, 15, 30, 0.9), rgba(10, 15, 30, 0.95)), 
+        background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(240, 242, 245, 0.95)), 
                           url("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg");
-        background-size: contain; /* Corrección: Se adapta al ancho sin recortar */
-        background-repeat: no-repeat;
-        background-position: center top; /* Centrado horizontalmente, empieza arriba */
-        background-attachment: fixed; /* Efecto Parallax suave */
-        background-color: #050a14; /* Fondo oscuro profundo */
-        color: #e0e6ed;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: #2D3748;
     }
 
-    /* Título principal con efecto de brillo neón sutil */
+    /* Título con resplandor blanco limpio */
     .main-title {
-        font-size: 45px;
-        font-weight: bold;
+        font-size: 40px;
+        font-weight: 800;
         text-align: center;
-        margin-top: 20px;
-        padding: 15px;
-        color: #fff;
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00d2ff, 0 0 20px #00d2ff, 0 0 30px #00d2ff;
-        border-bottom: 2px solid rgba(0, 210, 255, 0.3);
-        margin-bottom: 10px;
+        color: #1A202C;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        letter-spacing: 2px;
     }
 
-    /* Subtítulos con color Cyan Tech */
+    /* Subtítulo gris industrial */
     .sub-title {
-        font-size: 22px;
+        font-size: 18px;
         text-align: center;
-        color: #00d2ff; /* Cian futurista */
+        color: #718096;
         margin-bottom: 40px;
-        font-family: 'Courier New', Courier, monospace; /* Toque de código */
+        font-family: 'Segoe UI', sans-serif;
     }
 
-    /* Personalización de Pestañas (Tabs) con estilo LED */
+    /* ELIMINAR EL ROJO y personalizar pestañas */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 15px;
-        background-color: rgba(0, 30, 60, 0.5);
-        padding: 10px;
-        border-radius: 10px;
-        border: 1px solid rgba(0, 210, 255, 0.2);
+        gap: 10px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 15px;
+        padding: 5px;
     }
 
     .stTabs [data-baseweb="tab"] {
-        height: 50px;
-        background-color: transparent;
-        border-radius: 5px;
-        color: #a0aec0;
-        transition: 0.3s;
-        border: 1px solid transparent;
+        height: 45px;
+        border-radius: 10px;
+        color: #4A5568;
+        border: none;
     }
 
-    .stTabs [data-baseweb="tab"]:hover {
-        color: #fff;
-        border: 1px solid rgba(0, 210, 255, 0.5);
-        box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
-    }
-
+    /* Pestaña seleccionada: quitamos el borde rojo de Streamlit */
     .stTabs [aria-selected="true"] {
-        background-color: rgba(0, 210, 255, 0.1) !important;
-        color: #00d2ff !important;
-        font-weight: bold;
-        border: 1px solid #00d2ff !important;
-        box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+        background-color: #FFFFFF !important;
+        color: #2D3748 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        border: 1px solid #E2E8F0 !important;
     }
 
-    /* Títulos de sección dentro de las pestañas */
-    .section-header {
-        color: #e0e6ed;
-        font-size: 24px;
-        margin-top: 20px;
-        margin-bottom: 15px;
-        border-left: 4px solid #00d2ff;
-        padding-left: 10px;
+    /* Quitar la línea roja de Streamlit debajo de la pestaña */
+    .stTabs [data-baseweb="tab-highlight"] {
+        background-color: transparent !important;
     }
 
-    /* Personalización de Botones de Práctica: Efecto LED interactivo */
+    /* Botones de Práctica: Estilo Cristal/Blanco */
     .stButton>button {
         width: 100%;
-        border-radius: 5px;
-        height: 3.5em;
-        background-color: rgba(0, 15, 30, 0.7);
-        color: #e0e6ed;
-        border: 1px solid rgba(0, 210, 255, 0.3);
+        border-radius: 12px;
+        height: 3.8em;
+        background-color: rgba(255, 255, 255, 0.7);
+        color: #2D3748;
+        border: 1px solid #E2E8F0;
         transition: all 0.3s ease;
-        font-size: 16px;
-        text-align: left;
-        padding-left: 15px;
+        font-weight: 600;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
     }
     
     .stButton>button:hover {
-        background-color: rgba(0, 210, 255, 0.15);
-        color: #fff;
-        border: 1px solid #00d2ff;
-        box-shadow: 0 0 15px rgba(0, 210, 255, 0.6); /* Brillo LED al pasar el mouse */
-        transform: translateY(-2px); /* Pequeña animación de levante */
+        background-color: #FFFFFF;
+        border: 1px solid #CBD5E0;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        transform: translateY(-3px);
+        color: #000;
     }
 
-    /* Estilo para los Info Boxes y alertas */
+    /* Mensajes de información en gris azulado */
     .stAlert {
-        background-color: rgba(0, 30, 60, 0.6);
-        border: 1px solid #00d2ff;
-        color: #00d2ff;
-        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px solid #E2E8F0;
+        color: #4A5568;
     }
-    
-    /* Botón de volver con estilo diferente */
-    .stButton>button[key^="back_"] {
-        background-color: rgba(255, 60, 60, 0.1);
-        border: 1px solid rgba(255, 60, 60, 0.5);
-        color: #ffcccc;
-    }
-    
-    .stButton>button[key^="back_"]:hover {
-        background-color: rgba(255, 60, 60, 0.3);
-        border: 1px solid #ff4d4d;
-        box-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
-    }
-
     </style>
     """,
     unsafe_allow_html=True
@@ -135,70 +103,54 @@ st.markdown(
 if 'page' not in st.session_state:
     st.session_state.page = 'Inicio'
 
-# --- FUNCIÓN: PANTALLA DE INICIO (MENÚ PRINCIPAL FUTURISTA) ---
 def mostrar_inicio():
     st.markdown('<div class="main-title">LABORATORIO DE OPERACIONES UNITARIAS</div>', unsafe_allow_html=True)
-    st.markdown('<div class="sub-title">:: LOU VIRTUAL :: ESCUELA DE INGENIERÍA QUÍMICA :: UCV ::</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-title">CENTRO DE SIMULACIÓN VIRTUAL | UCV</div>', unsafe_allow_html=True)
     
-    tab1, tab2 = st.tabs([" LOU 1 ", " LOU 2 "])
+    tab1, tab2 = st.tabs(["LOU I", "LOU II"])
 
     with tab1:
-        st.markdown('<div class="section-header">Módulo de Mecánica de Fluidos y Transferencia de Calor</div>', unsafe_allow_html=True)
+        st.write("###") # Espaciado
         cols1 = st.columns(2)
         practicas1 = [
-            "Manual de la Práctica 1. Calibración de un Medidor de Flujo.",
-            "Manual de la Práctica 2. Determinación de las Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías.",
-            "Manual de la Práctica 3. Determinación de Curvas Características de Bombas Centrífugas.",
-            "Manual de la Práctica 4. Balance en Estado No Estacionario. (2)",
-            "Manual de la Práctica 5. Lechos Fluidizados. Estudio de sus Principales Características."
+            "Calibración de un Medidor de Flujo",
+            "Pérdidas de Presión por Fricción",
+            "Bombas Centrífugas",
+            "Balance en Estado No Estacionario",
+            "Lechos Fluidizados"
         ]
-        # Limpiamos el nombre para el botón
-        nombres_limpios1 = [p.split('. ', 1)[1] if '. ' in p else p for p in practicas1]
-        
-        for i, (nombre_completo, nombre_boton) in enumerate(zip(practicas1, nombres_limpios1)):
+        for i, p in enumerate(practicas1):
             with cols1[i % 2]:
-                # Usamos nombre_completo como ID interna y nombre_boton como texto
-                if st.button(nombre_boton, key=f"btn_l1_{i}"):
-                    st.session_state.page = nombre_completo
+                if st.button(p, key=f"btn_l1_{i}"):
+                    st.session_state.page = p
                     st.rerun()
 
     with tab2:
-        st.markdown('<div class="section-header">Módulo de Transferencia de Masa y Separaciones</div>', unsafe_allow_html=True)
+        st.write("###") # Espaciado
         cols2 = st.columns(2)
         practicas2 = [
-            "Manual de la Práctica 1. Hidrodinámica de Columnas Empacadas.",
-            "Manual de la Práctica 3. Estudio de las Características de la Filtración a Presión Constante de una Suspensión.",
-            "Manual de la Práctica 4. Estudio de la Destilación Diferencial.",
-            "Manual de la Práctica 5. Destilación Continua de una Mezcla Binaria en una Columna de Separación por Etapas.",
-            "Manual de la Práctica 6. Rectificación de una Mezcla Binaria en una Torre Rellena."
+            "Hidrodinámica de Columnas Empacadas",
+            "Filtración a Presión Constante",
+            "Destilación Diferencial",
+            "Destilación Continua",
+            "Rectificación en Torre Rellena"
         ]
-        # Limpiamos el nombre para el botón
-        nombres_limpios2 = [p.split('. ', 1)[1] if '. ' in p else p for p in practicas2]
-
-        for i, (nombre_completo, nombre_boton) in enumerate(zip(practicas2, nombres_limpios2)):
+        for i, p in enumerate(practicas2):
             with cols2[i % 2]:
-                if st.button(nombre_boton, key=f"btn_l2_{i}"):
-                    st.session_state.page = nombre_completo
+                if st.button(p, key=f"btn_l2_{i}"):
+                    st.session_state.page = p
                     st.rerun()
 
-# --- FUNCIÓN: VISTA DE CADA PRÁCTICA (SIMULADOR EN DESARROLLO) ---
-def mostrar_simulador(nombre_completo_practica):
-    col_back, col_spacer = st.columns([1, 4])
-    with col_back:
-        if st.button("⬅ Volver", key="back_btn"):
-            st.session_state.page = 'Inicio'
-            st.rerun()
+def mostrar_simulador(nombre):
+    if st.button("⬅ Regresar al Panel Principal", key="back"):
+        st.session_state.page = 'Inicio'
+        st.rerun()
     
-    # Extraemos solo el nombre de la práctica para el título
-    nombre_titulo = nombre_completo_practica.split('. ', 1)[1] if '. ' in nombre_completo_practica else nombre_completo_practica
-    
-    st.markdown(f'<div class="main-title">{nombre_titulo.upper()}</div>', unsafe_allow_html=True)
-    
-    st.info("SISTEMA EN DESARROLLO :: Visualización del equipo real activada :: Modelo matemático no cargado.")
-    
-    st.image("Lou fondo.jpeg", caption=f"Referencia visual: {nombre_titulo}", use_container_width=True)
+    st.markdown(f'<div class="main-title">{nombre.upper()}</div>', unsafe_allow_html=True)
+    st.info("Módulo de modelado matemático cargando...")
+    st.image("Lou fondo.jpeg", use_container_width=True)
 
-# 4. Renderizado de la página
+# 4. Render
 if st.session_state.page == 'Inicio':
     mostrar_inicio()
 else:
