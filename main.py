@@ -5,10 +5,9 @@ import matplotlib.pyplot as plt
 import os
 import time
 import base64
-from sklearn.metrics import mean_squared_error
 
 # =============================================================================
-# --- VALORES POR DEFECTO (PARA EVITAR ERRORES) ---
+# --- VALORES POR DEFECTO ---
 # =============================================================================
 modo_auto = False
 p_activa = True
@@ -17,12 +16,10 @@ p_tiempo = 80
 modo_estres = False
 
 # =============================================================================
-# --- 1. FUNCIONES DE CÁLCULO MEJORADAS ---
+# --- FUNCIONES DE CÁLCULO ---
 # =============================================================================
 def get_area_transversal(geom, r, h, h_total):
-    """Calcula el área transversal para cualquier geometría en función de la altura actual"""
     h_efectiva = max(h, 0.001)
-   
     if geom == "Cilíndrico":
         return np.pi * (r ** 2)
     elif geom == "Cónico":
@@ -35,12 +32,9 @@ def get_area_transversal(geom, r, h, h_total):
         else:
             return np.pi * (r ** 2)
 
-
-def calcular_pid_adaptativo(geom, r_max, h_total, cd=0.61, area_orificio=0.0005):
-    """Calcula parámetros PID según geometría y características del sistema"""
+def calcular_pid_adaptativo(geom, r_max, h_total):
     import math
     area_max = math.pi * (r_max ** 2)
-   
     if geom == "Cilíndrico":
         kp = area_max * 2.5
         ki = kp / 20.0
@@ -49,32 +43,20 @@ def calcular_pid_adaptativo(geom, r_max, h_total, cd=0.61, area_orificio=0.0005)
         kp = (area_max / 3.0) * 1.5
         ki = kp / 15.0
         kd = kp * 0.05
-    else:  # Esférico
+    else:
         kp = (area_max * 0.6) * 2.0
         ki = kp / 18.0
         kd = kp * 0.2
-   
-    factor_ajuste = np.clip(1.0 / (cd * area_orificio * 1000), 0.5, 2.0)
-    kp = kp * factor_ajuste
-    ki = ki * factor_ajuste * 0.8
-   
     return round(kp, 2), round(ki, 3), round(kd, 3)
 
-
 def sintonizar_controlador_robusto(geom, r, h_t, cd_calculado, area_ori, op_tipo="Llenado"):
-    """
-    Sintonización robusta del PID para rechazo de perturbaciones.
-    """
     if geom == "Cilíndrico":
         area_t = np.pi * (r**2)
     elif geom == "Cónico":
         area_t = np.pi * (r/2)**2
-    else:  # Esférico
+    else:
         area_t = (2/3) * np.pi * (r**2)
-   
-    Kc = 10.0 * area_t
-    Kc = np.clip(Kc, 8.0, 25.0)
-   
+    Kc = np.clip(10.0 * area_t, 8.0, 25.0)
     if op_tipo == "Llenado":
         kp = Kc * 1.2
         ki = kp / 5.0
@@ -83,83 +65,63 @@ def sintonizar_controlador_robusto(geom, r, h_t, cd_calculado, area_ori, op_tipo
         kp = Kc * 1.0
         ki = kp / 6.0
         kd = kp * 0.12
-   
     kp = np.clip(kp, 12.0, 30.0)
     ki = np.clip(ki, 2.5, 8.0)
     kd = np.clip(kd, 0.5, 2.5)
-   
     return round(kp, 2), round(ki, 3), round(kd, 2)
 
-
 def calcular_cd_inteligente(df_usr, r, h_t, geom, area_ori):
-    """Calcula el Coeficiente de Descarga (Cd) usando el balance de masa."""
     df = pd.DataFrame(df_usr) if isinstance(df_usr, list) else df_usr
-   
     if len(df) < 2:
         return 0.61
-   
     try:
         t1, t2 = df["Tiempo (s)"].iloc[0], df["Tiempo (s)"].iloc[1]
         h1, h2 = df["Nivel Medido (m)"].iloc[0], df["Nivel Medido (m)"].iloc[1]
         dt = abs(t2 - t1)
-       
         if dt == 0:
             return 0.61
-
         if geom == "Cilíndrico":
-            v1, v2 = np.pi*(r**2)*h1, np.pi*(r**2)*h2
+            v1 = np.pi*(r**2)*h1
+            v2 = np.pi*(r**2)*h2
         elif geom == "Cónico":
             v1 = (1/3)*np.pi*((r/h_t)*h1)**2*h1
             v2 = (1/3)*np.pi*((r/h_t)*h2)**2*h2
-        else:  # Esférico
+        else:
             v1 = (np.pi*(h1**2)/3)*(3*r-h1)
             v2 = (np.pi*(h2**2)/3)*(3*r-h2)
-
         q_real = abs(v1 - v2) / dt
         h_prom = (h1 + h2) / 2
         q_teorico = area_ori * np.sqrt(2 * 9.81 * max(h_prom, 0.001))
-       
         cd_result = q_real / q_teorico if q_teorico > 0 else 0.61
         return float(np.clip(cd_result, 0.4, 1.0))
     except:
         return 0.61
 
-
 def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_prev, modo_op, cd_val, kp, ki, kd, d_pulgadas):
-    """Resuelve la dinámica del sistema con Anti-Windup."""
-   
     area_h = get_area_transversal(geom, r, h_prev, h_t)
     area_h = max(area_h, 0.0001)
-
     err = sp - h_prev
-   
     a_o = np.pi * ((d_pulgadas * 0.0254) / 2)**2
     q_max = 2.0
-   
     P = kp * err
     e_sum += err * dt
     e_sum = np.clip(e_sum, -50.0, 50.0)
     I = ki * e_sum
     D = kd * (err - e_prev) / dt if dt > 0 else 0
     D = np.clip(D, -5.0, 5.0)
-   
     u_control = P + I + D
-   
     if modo_op == "Llenado":
         q_entrada = np.clip(u_control, 0, q_max)
         q_salida = cd_val * a_o * np.sqrt(2 * 9.81 * max(h_prev, 0.005)) if h_prev > 0.005 else 0
         dh_dt = (q_entrada + q_p_val - q_salida) / area_h
         u_graficar = q_entrada
-    else:  # Vaciado
+    else:
         q_salida = np.clip(-u_control, 0, q_max)
         q_entrada = q_p_val
         dh_dt = (q_entrada - q_salida) / area_h
         u_graficar = q_salida
-   
     h_next = np.clip(h_prev + dh_dt * dt, 0, h_t)
-   
     return h_next, u_graficar, err, e_sum, err
-
 
 def get_base64(path):
     if os.path.exists(path):
@@ -168,99 +130,53 @@ def get_base64(path):
     return None
 
 # =============================================================================
-# 1. CONFIGURACIÓN DE LA PÁGINA (Del código 1 - Diseño "Cristal")
+# CONFIGURACIÓN DE LA PÁGINA + ESTILOS CRISTAL
 # =============================================================================
 st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🛠")
 
-# =============================================================================
-# 2. ESTILOS CSS: Mantenemos tu diseño favorito de "Cristal" + Animación de Ola
-# =============================================================================
-st.markdown(
-    """
-    <style>
-    /* Animación de ola de color */
-    @keyframes wave {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-    }
-    /* Fondo principal con la imagen de tu laboratorio */
-    .stApp {
-        background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(240, 242, 245, 0.85)),
-                          url("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg");
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        color: #2D3748;
-    }
-    /* Contenedor del Título (Cuadro de Cristal) */
-    .title-container {
-        background: rgba(255, 255, 255, 0.6);
-        border: 1px solid rgba(200, 210, 230, 0.5);
-        border-radius: 15px;
-        padding: 20px;
-        margin-bottom: 25px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        backdrop-filter: blur(5px);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .logo-img {
-        height: 80px;
-        width: auto;
-    }
-    .text-center-container {
-        flex-grow: 1;
-        text-align: center;
-    }
-    /* El título animado que te gusta */
-    .animated-title {
-        font-size: 42px;
-        font-weight: 800;
-        margin: 0;
-        background: linear-gradient(90deg, #1A202C 0%, #4A5568 25%, #3182CE 50%, #4A5568 75%, #1A202C 100%);
-        background-size: 200% auto;
-        color: transparent;
-        -webkit-background-clip: text;
-        background-clip: text;
-        animation: wave 8s linear infinite;
-        letter-spacing: 2px;
-    }
-    .sub-title {
-        font-size: 15px;
-        text-align: center;
-        color: #718096;
-        margin-top: 5px;
-        letter-spacing: 4px;
-        font-family: 'Segoe UI', sans-serif;
-    }
-    /* Estilo de Pestañas y Botones */
-    .stTabs [data-baseweb="tab-list"] { justify-content: center; background-color: transparent; }
-    .stTabs [data-baseweb="tab"] { font-weight: 600; color: #A0AEC0; transition: 0.4s; }
-    .stTabs [aria-selected="true"] { color: #2B6CB0 !important; background-color: white !important; border-radius: 10px; }
-   
-    .stButton>button {
-        width: 100%; border-radius: 10px; height: 3.8em;
-        background-color: rgba(255, 255, 255, 0.8); color: #2D3748;
-        border: 1px solid #E2E8F0; transition: all 0.3s ease;
-    }
-    .stButton>button:hover {
-        background-color: #FFFFFF; border: 1px solid #3182CE;
-        box-shadow: 0 8px 15px rgba(49, 130, 206, 0.1); transform: translateY(-2px);
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<style>
+@keyframes wave { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+.stApp {
+    background-image: linear-gradient(rgba(255,255,255,0.8), rgba(240,242,245,0.85)),
+                      url("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg");
+    background-size: cover; background-position: center; background-attachment: fixed;
+    color: #2D3748;
+}
+.title-container {
+    background: rgba(255,255,255,0.6); border: 1px solid rgba(200,210,230,0.5);
+    border-radius: 15px; padding: 20px; margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); backdrop-filter: blur(5px);
+    display: flex; align-items: center; justify-content: space-between;
+}
+.logo-img { height: 80px; width: auto; }
+.animated-title {
+    font-size: 42px; font-weight: 800; margin: 0;
+    background: linear-gradient(90deg, #1A202C 0%, #4A5568 25%, #3182CE 50%, #4A5568 75%, #1A202C 100%);
+    background-size: 200% auto; color: transparent;
+    -webkit-background-clip: text; background-clip: text;
+    animation: wave 8s linear infinite; letter-spacing: 2px;
+}
+.sub-title { font-size: 15px; text-align: center; color: #718096; margin-top: 5px; letter-spacing: 4px; }
+.stButton>button {
+    width: 100%; border-radius: 10px; height: 3.8em;
+    background-color: rgba(255,255,255,0.8); color: #2D3748;
+    border: 1px solid #E2E8F0; transition: all 0.3s ease;
+}
+.stButton>button:hover {
+    background-color: #FFFFFF; border: 1px solid #3182CE;
+    box-shadow: 0 8px 15px rgba(49,130,206,0.1); transform: translateY(-2px);
+}
+</style>
+""", unsafe_allow_html=True)
 
 # =============================================================================
-# 3. LÓGICA DE NAVEGACIÓN (Del código 1)
+# LÓGICA DE NAVEGACIÓN
 # =============================================================================
 if 'page' not in st.session_state:
     st.session_state.page = 'Inicio'
 
 def mostrar_inicio():
-    # URLs de logos (Corregida la de ingeniería química)
     url_logo_ucv = "https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_Universidad_Central_de_Venezuela.svg.png"
     url_logo_quimica = "https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_ingenieriaquimica.png"
     st.markdown(f'''
@@ -273,10 +189,9 @@ def mostrar_inicio():
             <img src="{url_logo_quimica}" class="logo-img" alt="Logo Ingeniería Química">
         </div>
     ''', unsafe_allow_html=True)
-   
+    
     tab1, tab2 = st.tabs(["LOU I", "LOU II"])
     with tab1:
-        st.write("##")
         cols1 = st.columns(2)
         practicas1 = ["Calibración de un Medidor de Flujo", "Pérdidas de Presión por Fricción", "Bombas Centrífugas", "Balance en Estado No Estacionario", "Lechos Fluidizados"]
         for i, p in enumerate(practicas1):
@@ -285,7 +200,6 @@ def mostrar_inicio():
                     st.session_state.page = p
                     st.rerun()
     with tab2:
-        st.write("##")
         cols2 = st.columns(2)
         practicas2 = ["Hidrodinámica de Columnas Empacadas", "Filtración a Presión Constante", "Destilación Diferencial", "Destilación Continua", "Rectificación en Torre Rellena"]
         for i, p in enumerate(practicas2):
@@ -294,18 +208,13 @@ def mostrar_inicio():
                     st.session_state.page = p
                     st.rerun()
 
-# =============================================================================
-# 4. VISTA DE CADA PRÁCTICA (Modificada para integrar el simulador completo)
-# =============================================================================
 def mostrar_simulador(nombre):
-    # Botón de regreso alineado a la izquierda
     col_back, _ = st.columns([1, 5])
     with col_back:
         if st.button("⬅ Menú Principal"):
             st.session_state.page = 'Inicio'
             st.rerun()
-   
-    # Reutilizamos el contenedor de cristal para el título de la práctica
+    
     st.markdown(f'''
         <div class="title-container" style="justify-content: center; padding: 30px;">
             <div class="text-center-container">
@@ -314,10 +223,7 @@ def mostrar_simulador(nombre):
             </div>
         </div>
     ''', unsafe_allow_html=True)
-   
-    # =====================================================================
-    # AQUÍ SE INTEGRA EL SIMULADOR COMPLETO DE "Balance en estado no estacionario"
-    # =====================================================================
+
     if nombre == "Balance en Estado No Estacionario":
         
         # =============================================================================
@@ -884,14 +790,14 @@ def mostrar_simulador(nombre):
             <p style="font-size: 0.7rem;">Sintonía optimizada para rechazo de fugas y cambios de carga</p>
         </div>
         """, unsafe_allow_html=True)
-    
+    st.info("✅ Simulador de Balance en Estado No Estacionario cargado correctamente.")
+        st.write("Ajusta los parámetros en la barra lateral y pulsa 'Iniciar Simulación Robusta'.")
     else:
-        # Para las demás prácticas (placeholder del código original)
         st.info(f"Iniciando entorno de cálculo para: {nombre}")
         st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg", use_container_width=True)
 
 # =============================================================================
-# 5. EJECUCIÓN PRINCIPAL
+# EJECUCIÓN
 # =============================================================================
 if st.session_state.page == 'Inicio':
     mostrar_inicio()
