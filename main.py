@@ -1,19 +1,19 @@
 import streamlit as st
 
-# 1. Configuración de la página
-st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🔧")
+# 1. Configuración de la página (Corregido con tus iconos)
+st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🛠")
 
-# 2. Estilos CSS: Minimalismo Tecnológico con Animación y LOGOS
+# 2. Estilos CSS: Mantenemos tu diseño favorito de "Cristal" y Animación de Ola
 st.markdown(
     """
     <style>
-    /* Definición de la animación de ola de color */
+    /* Animación de ola de color */
     @keyframes wave {
         0% { background-position: -200% 0; }
         100% { background-position: 200% 0; }
     }
 
-    /* Fondo principal */
+    /* Fondo principal con la imagen de tu laboratorio */
     .stApp {
         background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(240, 242, 245, 0.85)), 
                           url("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg");
@@ -32,28 +32,26 @@ st.markdown(
         margin-bottom: 25px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         backdrop-filter: blur(5px);
-        display: flex; /* Para alinear logos y texto */
+        display: flex; 
         align-items: center;
         justify-content: space-between;
     }
 
-    /* Estilo para las imágenes de los logos */
     .logo-img {
-        height: 80px; /* Ajusta la altura según necesites */
+        height: 80px; 
         width: auto;
     }
 
-    /* Estilo del texto del título (con animación) */
     .text-center-container {
         flex-grow: 1;
         text-align: center;
     }
 
+    /* El título animado que te gusta */
     .animated-title {
-        font-size: 42px; /* Ligeramente más pequeño para que quepan logos */
+        font-size: 42px;
         font-weight: 800;
         margin: 0;
-        /* Efecto de Ola de Color Grises/Azules */
         background: linear-gradient(90deg, #1A202C 0%, #4A5568 25%, #3182CE 50%, #4A5568 75%, #1A202C 100%);
         background-size: 200% auto;
         color: transparent;
@@ -63,7 +61,6 @@ st.markdown(
         letter-spacing: 2px;
     }
 
-    /* Subtítulo */
     .sub-title {
         font-size: 15px;
         text-align: center;
@@ -73,12 +70,11 @@ st.markdown(
         font-family: 'Segoe UI', sans-serif;
     }
 
-    /* Estilo de Pestañas y Botones (Mantenemos el anterior) */
+    /* Estilo de Pestañas y Botones */
     .stTabs [data-baseweb="tab-list"] { justify-content: center; background-color: transparent; }
     .stTabs [data-baseweb="tab"] { font-weight: 600; color: #A0AEC0; transition: 0.4s; }
     .stTabs [aria-selected="true"] { color: #2B6CB0 !important; background-color: white !important; border-radius: 10px; }
-    .stTabs [data-baseweb="tab-highlight"] { background-color: #3182CE !important; }
-
+    
     .stButton>button {
         width: 100%; border-radius: 10px; height: 3.8em;
         background-color: rgba(255, 255, 255, 0.8); color: #2D3748;
@@ -98,8 +94,7 @@ if 'page' not in st.session_state:
     st.session_state.page = 'Inicio'
 
 def mostrar_inicio():
-    # Estructura HTML con Logos y Título Animado
-    # Importante: Usamos la URL RAW de tus archivos en GitHub
+    # URLs de logos (Corregida la de ingeniería química)
     url_logo_ucv = "https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_Universidad_Central_de_Venezuela.svg.png"
     url_logo_quimica = "https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_ingenieriaquimica.png"
 
@@ -114,7 +109,6 @@ def mostrar_inicio():
         </div>
     ''', unsafe_allow_html=True)
     
-    # Resto de la interfaz (Tabs y Botones)
     tab1, tab2 = st.tabs(["LOU I", "LOU II"])
 
     with tab1:
@@ -137,18 +131,31 @@ def mostrar_inicio():
                     st.session_state.page = p
                     st.rerun()
 
+# 4. Vista de cada práctica (Arreglada para que el fondo y letras no cambien)
 def mostrar_simulador(nombre):
-    # Botón Volver con estilo (Key diferente para CSS si quieres)
-    if st.button("⬅ Regresar al Panel Principal"):
-        st.session_state.page = 'Inicio'
-        st.rerun()
+    # Botón de regreso alineado a la izquierda
+    col_back, _ = st.columns([1, 5])
+    with col_back:
+        if st.button("⬅ Menú Principal"):
+            st.session_state.page = 'Inicio'
+            st.rerun()
     
-    # Mostramos el título de la práctica sin logos para no saturar
-    st.markdown(f'<div class="title-container"><h1 class="animated-title" style="font-size:36px; -webkit-background-clip: padding-box;">{nombre.upper()}</h1></div>', unsafe_allow_html=True)
-    st.info("Módulo de modelado matemático cargando...")
-    st.image("Lou fondo.jpeg", use_container_width=True)
+    # Reutilizamos el contenedor de cristal para el título de la práctica
+    st.markdown(f'''
+        <div class="title-container" style="justify-content: center; padding: 30px;">
+            <div class="text-center-container">
+                <h1 class="animated-title" style="font-size: 38px;">{nombre.upper()}</h1>
+                <div class="sub-title" style="letter-spacing: 2px;">SIMULADOR DE PROCESOS QUÍMICOS</div>
+            </div>
+        </div>
+    ''', unsafe_allow_html=True)
+    
+    st.info(f"Iniciando entorno de cálculo para: {nombre}")
+    
+    # Aquí irá tu lógica de ingeniería química (gráficas, tablas, etc.)
+    st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg", use_container_width=True)
 
-# 4. Render
+# 5. Ejecución
 if st.session_state.page == 'Inicio':
     mostrar_inicio()
 else:
