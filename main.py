@@ -190,43 +190,6 @@ def mostrar_inicio():
         </div>
     ''', unsafe_allow_html=True)
 
-    # ========== CSS PARA CENTRAR BOTONES Y CAMBIARLOS A AZUL ==========
-    st.markdown("""
-        <style>
-        /* Centrar el contenedor de los botones dentro de cada pestaña */
-        .stTabContent > div > div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        /* Ajustar las columnas para que los botones queden centrados horizontalmente */
-        .stColumns {
-            justify-content: center !important;
-            gap: 1rem;
-        }
-        /* Cambiar el color de fondo de los botones a azul */
-        .stButton button {
-            background-color: #007bff !important;   /* Azul primario */
-            color: white !important;
-            border: none !important;
-            border-radius: 0.5rem;
-            padding: 0.5rem 1rem;
-            font-weight: bold;
-            width: 100%;           /* Para que ocupen todo el ancho de la columna */
-        }
-        /* Cambiar color al pasar el mouse (hover) */
-        .stButton button:hover {
-            background-color: #0056b3 !important;
-            color: white !important;
-        }
-        /* Opcional: si quieres quitar el borde rojo del foco (focus) */
-        .stButton button:focus {
-            box-shadow: none !important;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-    # ================================================================
- 
     
     tab1, tab2 = st.tabs(["LOU I", "LOU II"])
     with tab1:
