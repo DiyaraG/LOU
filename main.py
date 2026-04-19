@@ -724,7 +724,7 @@ def mostrar_simulador(nombre):
                 st.markdown("## Calibración de Medidor de Flujo\n\nEcuación: $Q = V/t$")
         with col2:
             with st.expander("📊 Diagrama", expanded=True):
-                st.image("1 CALIBRACIÓN DE UN MEDIDOR DE FLUJO.jng")
+                st.image("1 CALIBRACIÓN DE UN MEDIDOR DE FLUJO.png")
     
     elif nombre == "Pérdidas de Presión por Fricción":
         st.info("Práctica: Pérdidas de Presión por Fricción - En desarrollo")
