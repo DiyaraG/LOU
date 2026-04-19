@@ -710,8 +710,8 @@ def mostrar_simulador(nombre):
     # ==== PRACTICA 1 Calibración de un Medidor de Flujo =====
     
     elif nombre == "Calibración de un Medidor de Flujo":
-        with st.expander("📚 Biblioteca Virtual - Descargar Práctica", expanded=True):
-            pdf_path = "Manual de la Práctica 1. Calibración de un Medidor de Flujo.pdf"
+        with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
+            pdf_path = "Manual de la Práctica 1. Calibración de un Medidor de Flujo..pdf"
             if os.path.exists(pdf_path):
                 with open(pdf_path, "rb") as f:
                     st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Manual_Practica1_Calibracion.pdf", mime="application/pdf")
@@ -723,9 +723,9 @@ def mostrar_simulador(nombre):
         with col1:
             with st.expander("📖 Marco Teórico", expanded=True):
                 st.markdown(r"""
-                ## Marco Teórico - Calibración de Medidores de Flujo
+                ## Calibración de Medidores de Flujo
                 
-                Este marco teórico presenta los conceptos fundamentales para la **calibración de medidores de flujo**, específicamente enfocándose en los tubos de Venturi y Pitot para fluidos compresibles como el aire.
+                Se presentan los conceptos fundamentales para la **calibración de medidores de flujo**, específicamente enfocándose en los tubos de Venturi y Pitot para fluidos compresibles como el aire.
                 
                 ### 1. Medidores de Flujo y Principio de Bernoulli
                 Los medidores de flujo son dispositivos diseñados para cuantificar el caudal de un fluido que circula por una tubería. Su funcionamiento se fundamenta en el **balance de energía de Bernoulli**, que relaciona la presión, la velocidad y la altura del fluido en distintos puntos del sistema.
