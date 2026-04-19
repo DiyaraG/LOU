@@ -706,9 +706,12 @@ def mostrar_simulador(nombre):
                 st.warning(f"⚠️ Error residual de {err_f:.3f} m. Aumente Ki para mejorar.")
                 
     # ======================== CASOS ESPECÍFICOS ========================
-    elif nombre == "Calibración de un Medidor de Flujo":
+
+    # ==== PRACTICA 1 Calibración de un Medidor de Flujo =====
+    
+    elif nombre == "Practica N°1. Calibración de un Medidor de Flujo":
         with st.expander("📚 Biblioteca Virtual - Descargar Práctica", expanded=True):
-            pdf_path = "guias/calibracion_medidor_flujo.pdf"
+            pdf_path = "Manual de la Práctica 1. Calibración de un Medidor de Flujo.pdf"
             if os.path.exists(pdf_path):
                 with open(pdf_path, "rb") as f:
                     st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Calibracion.pdf", mime="application/pdf")
