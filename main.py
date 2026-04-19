@@ -763,7 +763,7 @@ def mostrar_simulador(nombre):
         
         with col2:
             with st.expander("📊 Diagrama del Proceso", expanded=True):
-                st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg", use_container_width=True)
+                st.image("1 CALIBRACIÓN DE UN MEDIDOR DE FLUJO.png", use_container_width=True)
     
     elif nombre == "Pérdidas de Presión por Fricción":
         st.info("Práctica: Pérdidas de Presión por Fricción - En desarrollo")
