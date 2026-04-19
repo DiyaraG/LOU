@@ -192,6 +192,7 @@ def mostrar_inicio():
 
     
     tab1, tab2 = st.tabs(["LOU I", "LOU II"])
+    
     with tab1:
         cols1 = st.columns(2)
         practicas1 = ["Calibración de un Medidor de Flujo", "Pérdidas de Presión por Fricción", "Bombas Centrífugas", "Balance en Estado No Estacionario", "Lechos Fluidizados"]
