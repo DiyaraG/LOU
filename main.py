@@ -191,9 +191,11 @@ def mostrar_inicio():
     ''', unsafe_allow_html=True)
 
     
+# Resto de la interfaz (Tabs y Botones)
     tab1, tab2 = st.tabs(["LOU I", "LOU II"])
-    
+
     with tab1:
+        st.write("##")
         cols1 = st.columns(2)
         practicas1 = ["Calibración de un Medidor de Flujo", "Pérdidas de Presión por Fricción", "Bombas Centrífugas", "Balance en Estado No Estacionario", "Lechos Fluidizados"]
         for i, p in enumerate(practicas1):
@@ -201,7 +203,9 @@ def mostrar_inicio():
                 if st.button(p, key=f"btn_l1_{i}"):
                     st.session_state.page = p
                     st.rerun()
+
     with tab2:
+        st.write("##")
         cols2 = st.columns(2)
         practicas2 = ["Hidrodinámica de Columnas Empacadas", "Filtración a Presión Constante", "Destilación Diferencial", "Destilación Continua", "Rectificación en Torre Rellena"]
         for i, p in enumerate(practicas2):
