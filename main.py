@@ -163,12 +163,26 @@ st.markdown("""
     background-color: rgba(255,255,255,0.8); color: #2D3748;
     border: 1px solid #E2E8F0; transition: all 0.3s ease;
 }
-.stButton>button:hover {
-    background-color: #FFFFFF; border: 1px solid #3182CE;
-    box-shadow: 0 8px 15px rgba(49,130,206,0.1); transform: translateY(-2px);
-}
-</style>
-""", unsafe_allow_html=True)
+
+/* Estilo de Pestañas y Botones */
+    .stTabs [data-baseweb="tab-list"] { justify-content: center; background-color: transparent; }
+    .stTabs [data-baseweb="tab"] { font-weight: 600; color: #A0AEC0; transition: 0.4s; }
+    .stTabs [aria-selected="true"] { color: #2B6CB0 !important; background-color: white !important; border-radius: 10px; }
+    .stTabs [data-baseweb="tab-highlight"] { background-color: #3182CE !important; }
+
+    .stButton>button {
+        width: 100%; border-radius: 10px; height: 3.8em;
+        background-color: rgba(255, 255, 255, 0.8); color: #2D3748;
+        border: 1px solid #E2E8F0; transition: all 0.3s ease;
+    }
+    .stButton>button:hover {
+        background-color: #FFFFFF; border: 1px solid #3182CE;
+        box-shadow: 0 8px 15px rgba(49, 130, 206, 0.1); transform: translateY(-2px);
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # =============================================================================
 # LÓGICA DE NAVEGACIÓN
