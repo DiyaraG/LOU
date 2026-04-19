@@ -705,12 +705,43 @@ def mostrar_simulador(nombre):
         else:
             st.warning(f"⚠️ Error residual de {err_f:.3f} m. Aumente Ki para mejorar.")
 
-    # Footer
+    # ======================== CASOS ESPECÍFICOS ========================
+    elif nombre == "Calibración de un Medidor de Flujo":
+        with st.expander("📚 Biblioteca Virtual - Descargar Práctica", expanded=True):
+            pdf_path = "guias/calibracion_medidor_flujo.pdf"
+            if os.path.exists(pdf_path):
+                with open(pdf_path, "rb") as f:
+                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Calibracion.pdf", mime="application/pdf")
+            else:
+                st.warning("⚠️ PDF no encontrado")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            with st.expander("📖 Marco Teórico", expanded=True):
+                st.markdown("## Calibración de Medidor de Flujo\n\nEcuación: $Q = V/t$")
+        with col2:
+            with st.expander("📊 Diagrama", expanded=True):
+                st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg")
+    
+    elif nombre == "Pérdidas de Presión por Fricción":
+        st.info("Práctica: Pérdidas de Presión por Fricción - En desarrollo")
+    
+    elif nombre == "Bombas Centrífugas":
+        st.info("Práctica: Bombas Centrífugas - En desarrollo")
+    
+    elif nombre == "Lechos Fluidizados":
+        st.info("Práctica: Lechos Fluidizados - En desarrollo")
+    
+    elif nombre in ["Hidrodinámica de Columnas Empacadas", "Filtración a Presión Constante", 
+                    "Destilación Diferencial", "Destilación Continua", "Rectificación en Torre Rellena"]:
+        st.info(f"Práctica: {nombre} - En desarrollo")
+
+    # ======================== FOOTER ========================
     st.markdown("""
     <hr style="margin: 2rem 0 1rem 0; border-color: #1a5276;">
     <div style="text-align: center; color: #5d6d7e; font-size: 0.8rem;">
         <p>Universidad Central de Venezuela - Escuela de Ingeniería Química</p>
-        <p>Simulador de Control PID Robusto para Tanques | Anti-Perturbaciones | © 2025</p>
+        <p>Laboratorio de Operaciones Unitarias | Centro de Simulación Virtual | © 2025</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -722,257 +753,3 @@ if st.session_state.page == 'Inicio':
 else:
     mostrar_simulador(st.session_state.page)
 
-
-# Caso 2: Calibración de un Medidor de Flujo
-    elif nombre == "Calibración de un Medidor de Flujo":
-        # Biblioteca virtual
-        with st.expander("📚 Biblioteca Virtual - Descargar Práctica", expanded=True):
-            pdf_path = "guias/calibracion_medidor_flujo.pdf"
-            if os.path.exists(pdf_path):
-                with open(pdf_path, "rb") as f:
-                    st.download_button(
-                        label="📥 Descargar Guía de Práctica (PDF)",
-                        data=f,
-                        file_name="Calibracion_Medidor_Flujo.pdf",
-                        mime="application/pdf",
-                        use_container_width=True
-                    )
-            else:
-                st.warning("⚠️ Archivo PDF no encontrado. Coloca el PDF en la carpeta 'guias/'")
-        
-        # Columnas: teoría | diagrama
-        col_teoria, col_diagrama = st.columns([1, 1])
-        
-        with col_teoria:
-            with st.expander("📖 Marco Teórico", expanded=True):
-                st.markdown(r"""
-                ## Calibración de un Medidor de Flujo
-                
-                La calibración de un medidor de flujo consiste en establecer la relación entre la señal de salida del instrumento y el caudal real que circula por la tubería.
-                
-                ### Principios fundamentales:
-                - **Método volumétrico**: Medición del tiempo para llenar un volumen conocido
-                - **Método gravimétrico**: Medición de la masa acumulada en un tiempo determinado
-                - **Curva de calibración**: Relación entre la variable medida y el caudal real
-                
-                ### Ecuación general:
-                $$ Q = \frac{V}{t} $$
-                
-                Donde:
-                - $Q$ = Caudal (m³/s)
-                - $V$ = Volumen (m³)
-                - $t$ = Tiempo (s)
-                
-                ### Procedimiento:
-                1. Establecer un caudal constante
-                2. Medir el tiempo para llenar un volumen conocido
-                3. Calcular el caudal real
-                4. Comparar con la lectura del instrumento
-                5. Construir la curva de calibración
-                """)
-        
-        with col_diagrama:
-            with st.expander("📊 Diagrama del Proceso", expanded=True):
-                # Intenta cargar una imagen específica para esta práctica
-                if os.path.exists("diagramas/calibracion_flujo.png"):
-                    st.image("diagramas/calibracion_flujo.png", use_container_width=True)
-                else:
-                    # Imagen por defecto
-                    st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg", use_container_width=True)
-                    st.info("📍 Diagrama específico para Calibración de Medidor de Flujo")
-        
-        # Información adicional
-        with st.expander("🔧 Equipos necesarios", expanded=False):
-            st.markdown("""
-            - **Banco de pruebas hidráulico**
-            - **Medidor de flujo a calibrar** (rotámetro, placa de orificio, etc.)
-            - **Tanque volumétrico** con escala graduada
-            - **Cronómetro**
-            - **Válvulas de control de caudal**
-            - **Tuberías y conexiones**
-            """)
-    
-    # Caso 3: Pérdidas de Presión por Fricción
-    elif nombre == "Pérdidas de Presión por Fricción":
-        with st.expander("📚 Biblioteca Virtual - Descargar Práctica", expanded=True):
-            pdf_path = "guias/perdidas_friccion.pdf"
-            if os.path.exists(pdf_path):
-                with open(pdf_path, "rb") as f:
-                    st.download_button(
-                        label="📥 Descargar Guía de Práctica (PDF)",
-                        data=f,
-                        file_name="Perdidas_Friccion.pdf",
-                        mime="application/pdf",
-                        use_container_width=True
-                    )
-            else:
-                st.warning("⚠️ Archivo PDF no encontrado")
-        
-        col_teoria, col_diagrama = st.columns([1, 1])
-        
-        with col_teoria:
-            with st.expander("📖 Marco Teórico", expanded=True):
-                st.markdown(r"""
-                ## Pérdidas de Presión por Fricción
-                
-                Las pérdidas de presión por fricción ocurren debido a la viscosidad del fluido y la rugosidad de la tubería.
-                
-                ### Ecuación de Darcy-Weisbach:
-                $$ h_f = f \cdot \frac{L}{D} \cdot \frac{V^2}{2g} $$
-                
-                ### Ecuación de Hagen-Poiseuille (flujo laminar):
-                $$ h_f = \frac{32 \mu L V}{\rho g D^2} $$
-                
-                ### Factor de fricción de Fanning:
-                - **Flujo laminar** (Re < 2100): $f = \frac{16}{Re}$
-                - **Flujo turbulento** (Re > 4000): Ecuación de Colebrook
-                
-                ### Número de Reynolds:
-                $$ Re = \frac{\rho V D}{\mu} $$
-                """)
-        
-        with col_diagrama:
-            with st.expander("📊 Diagrama del Proceso", expanded=True):
-                st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg", use_container_width=True)
-    
-    # Caso 4: Bombas Centrífugas
-    elif nombre == "Bombas Centrífugas":
-        with st.expander("📚 Biblioteca Virtual - Descargar Práctica", expanded=True):
-            pdf_path = "guias/bombas_centrifugas.pdf"
-            if os.path.exists(pdf_path):
-                with open(pdf_path, "rb") as f:
-                    st.download_button(
-                        label="📥 Descargar Guía de Práctica (PDF)",
-                        data=f,
-                        file_name="Bombas_Centrifugas.pdf",
-                        mime="application/pdf",
-                        use_container_width=True
-                    )
-            else:
-                st.warning("⚠️ Archivo PDF no encontrado")
-        
-        col_teoria, col_diagrama = st.columns([1, 1])
-        
-        with col_teoria:
-            with st.expander("📖 Marco Teórico", expanded=True):
-                st.markdown(r"""
-                ## Bombas Centrífugas
-                
-                Las bombas centrífugas convierten energía mecánica en energía hidráulica mediante fuerza centrífuga.
-                
-                ### Ecuación de Euler:
-                $$ H = \frac{u_2 V_{u2} - u_1 V_{u1}}{g} $$
-                
-                ### Curva característica:
-                $$ H = H_0 - k Q^2 $$
-                
-                ### Potencia hidráulica:
-                $$ P_h = \rho \cdot g \cdot Q \cdot H $$
-                
-                ### Eficiencia:
-                $$ \eta = \frac{P_h}{P_{eje}} $$
-                
-                ### Puntos clave:
-                - **Cebado**: La bomba debe estar llena de líquido
-                - **NPSH**: Altura neta positiva de succión
-                - **Curvas características**: H vs Q, η vs Q, Potencia vs Q
-                """)
-        
-        with col_diagrama:
-            with st.expander("📊 Diagrama del Proceso", expanded=True):
-                st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg", use_container_width=True)
-    
-    # Caso 5: Lechos Fluidizados
-    elif nombre == "Lechos Fluidizados":
-        with st.expander("📚 Biblioteca Virtual - Descargar Práctica", expanded=True):
-            pdf_path = "guias/lechos_fluidizados.pdf"
-            if os.path.exists(pdf_path):
-                with open(pdf_path, "rb") as f:
-                    st.download_button(
-                        label="📥 Descargar Guía de Práctica (PDF)",
-                        data=f,
-                        file_name="Lechos_Fluidizados.pdf",
-                        mime="application/pdf",
-                        use_container_width=True
-                    )
-            else:
-                st.warning("⚠️ Archivo PDF no encontrado")
-        
-        col_teoria, col_diagrama = st.columns([1, 1])
-        
-        with col_teoria:
-            with st.expander("📖 Marco Teórico", expanded=True):
-                st.markdown(r"""
-                ## Lechos Fluidizados
-                
-                La fluidización ocurre cuando un fluido (líquido o gas) pasa a través de un lecho de partículas sólidas con suficiente velocidad para suspenderlas.
-                
-                ### Velocidad mínima de fluidización:
-                $$ u_{mf} = \frac{\mu}{\rho d_p} \left[ \sqrt{33.7^2 + 0.0408 \frac{d_p^3 \rho (\rho_s - \rho) g}{\mu^2}} - 33.7 \right] $$
-                
-                ### Caída de presión:
-                $$ \Delta P = H_{mf} (1 - \varepsilon_{mf})(\rho_s - \rho)g $$
-                
-                ### Tipos de fluidización:
-                - **Particulada**: Expansión uniforme (líquidos)
-                - **Agregativa**: Formación de burbujas (gases)
-                
-                ### Regímenes de fluidización:
-                1. Lecho fijo (u < u_mf)
-                2. Fluidización incipiente (u = u_mf)
-                3. Fluidización agregativa (u > u_mf)
-                4. Transporte neumático (u muy alta)
-                """)
-        
-        with col_diagrama:
-            with st.expander("📊 Diagrama del Proceso", expanded=True):
-                st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg", use_container_width=True)
-    
-    # Caso 6: Para LOU II (puedes agregar más)
-    elif nombre in ["Hidrodinámica de Columnas Empacadas", "Filtración a Presión Constante", 
-                    "Destilación Diferencial", "Destilación Continua", "Rectificación en Torre Rellena"]:
-        with st.expander("📚 Biblioteca Virtual - Descargar Práctica", expanded=True):
-            pdf_path = f"guias/{nombre}.pdf"
-            if os.path.exists(pdf_path):
-                with open(pdf_path, "rb") as f:
-                    st.download_button(
-                        label="📥 Descargar Guía de Práctica (PDF)",
-                        data=f,
-                        file_name=f"{nombre}.pdf",
-                        mime="application/pdf",
-                        use_container_width=True
-                    )
-            else:
-                st.warning(f"⚠️ Archivo PDF no encontrado para: {nombre}")
-        
-        col_teoria, col_diagrama = st.columns([1, 1])
-        
-        with col_teoria:
-            with st.expander("📖 Marco Teórico", expanded=True):
-                st.markdown(f"""
-                ## {nombre}
-                
-                ### Contenido teórico en desarrollo
-                
-                Esta práctica se encuentra en fase de implementación.
-                
-                Por favor, consulta la guía descargable para más información.
-                """)
-        
-        with col_diagrama:
-            with st.expander("📊 Diagrama del Proceso", expanded=True):
-                st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg", use_container_width=True)
-    
-    # Caso por defecto
-    else:
-        st.info(f"📝 Entorno de aprendizaje para: {nombre}")
-        st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg", use_container_width=True)
-    
-    # Footer común para todos
-    st.markdown("""
-    <hr style="margin: 2rem 0 1rem 0; border-color: #1a5276;">
-    <div style="text-align: center; color: #5d6d7e; font-size: 0.8rem;">
-        <p>Universidad Central de Venezuela - Escuela de Ingeniería Química</p>
-        <p>Laboratorio de Operaciones Unitarias | Centro de Simulación Virtual | © 2025</p>
-    </div>
-    """, unsafe_allow_html=True)
