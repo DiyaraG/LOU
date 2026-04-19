@@ -259,62 +259,62 @@ def mostrar_simulador(nombre):
         with col_teoria1:
             with st.expander("📚 Fundamento teórico: Ecuaciones de Conservación y Descarga", expanded=False):
                 st.markdown(r"""
-            La dinámica del sistema se describe mediante el **Balance Global de Masa** para un volumen de control con densidad constante ($\rho$):
-            
-            $$ \frac{dV}{dt} = Q_{in} - Q_{out} \pm Q_{p} $$
-            
-            Considerando que el volumen es función del nivel ($V = \int A(h)dh$), aplicamos la regla de la cadena para obtener la ecuación general de vaciado/llenado válida para **cualquier área transversal $A(h)$**:
-            
-            $$ A(h) \frac{dh}{dt} = Q_{in} - (C_d \cdot a \cdot \sqrt{2gh}) \pm Q_{p} $$
-            
-            **Donde:**
-            - **$A(h)$**: Área de la sección transversal en función de la altura (m²)
-            - **$Q_{in}$**: Flujo de entrada controlado (m³/s)
-            - **$Q_{out}$**: Flujo de salida basado en la **Ley de Torricelli** (m³/s)
-            - **$C_d$**: Coeficiente de descarga (adimensional)
-            - **$a$**: Área del orificio de salida (m²)
-            - **$Q_{p}$**: Flujo de perturbación o falla (m³/s)
-            """)
+                La dinámica del sistema se describe mediante el **Balance Global de Masa** para un volumen de control con densidad constante ($\rho$):
+                
+                $$ \frac{dV}{dt} = Q_{in} - Q_{out} \pm Q_{p} $$
+                
+                Considerando que el volumen es función del nivel ($V = \int A(h)dh$), aplicamos la regla de la cadena para obtener la ecuación general de vaciado/llenado válida para **cualquier área transversal $A(h)$**:
+                
+                $$ A(h) \frac{dh}{dt} = Q_{in} - (C_d \cdot a \cdot \sqrt{2gh}) \pm Q_{p} $$
+                
+                **Donde:**
+                - **$A(h)$**: Área de la sección transversal en función de la altura (m²)
+                - **$Q_{in}$**: Flujo de entrada controlado (m³/s)
+                - **$Q_{out}$**: Flujo de salida basado en la **Ley de Torricelli** (m³/s)
+                - **$C_d$**: Coeficiente de descarga (adimensional)
+                - **$a$**: Área del orificio de salida (m²)
+                - **$Q_{p}$**: Flujo de perturbación o falla (m³/s)
+                """)
 
         with col_teoria2:
             with st.expander("🎯 Teoría: Estrategia de control PID Robusto", expanded=False):
-            st.markdown(r"""
-            El "cerebro" de la simulación es un controlador **Proporcional-Integral-Derivativo (PID)** con **Anti-Windup**, cuya acción de control $u(t)$ busca minimizar el error ($e = SP - h$):
-            
-            $$ u(t) = K_p e(t) + K_i \int_{0}^{t} e(\tau) d\tau + K_d \frac{de(t)}{dt} $$
-            
-            **Mejoras implementadas para robustez:**
-            - **Anti-Windup:** Evita que la integral se sature cuando la válvula está al límite
-            - **Sintonización Ziegler-Nichols adaptada:** Parámetros optimizados para rechazo de perturbaciones
-            - **Límites en derivativo:** Reduce el ruido en la señal de control
-            
-            **Funciones de los parámetros sintonizables:**
-            - **$K_p$ (Proporcional):** Proporciona una respuesta inmediata al error actual
-            - **$K_i$ (Integral):** Elimina el error residual (offset) acumulando desviaciones pasadas; es vital para el rechazo de perturbaciones ($Q_p$)
-            - **$K_d$ (Derivativo):** Anticipa el comportamiento futuro del error para evitar sobrepicos y estabilizar la respuesta
-            
-            En este simulador, las ecuaciones se resuelven numéricamente mediante el **Método de Euler** con un paso de tiempo $\Delta t = 1.0$ s.
-            """)
+                st.markdown(r"""
+                El "cerebro" de la simulación es un controlador **Proporcional-Integral-Derivativo (PID)** con **Anti-Windup**, cuya acción de control $u(t)$ busca minimizar el error ($e = SP - h$):
+                
+                $$ u(t) = K_p e(t) + K_i \int_{0}^{t} e(\tau) d\tau + K_d \frac{de(t)}{dt} $$
+                
+                **Mejoras implementadas para robustez:**
+                - **Anti-Windup:** Evita que la integral se sature cuando la válvula está al límite
+                - **Sintonización Ziegler-Nichols adaptada:** Parámetros optimizados para rechazo de perturbaciones
+                - **Límites en derivativo:** Reduce el ruido en la señal de control
+                
+                **Funciones de los parámetros sintonizables:**
+                - **$K_p$ (Proporcional):** Proporciona una respuesta inmediata al error actual
+                - **$K_i$ (Integral):** Elimina el error residual (offset) acumulando desviaciones pasadas; es vital para el rechazo de perturbaciones ($Q_p$)
+                - **$K_d$ (Derivativo):** Anticipa el comportamiento futuro del error para evitar sobrepicos y estabilizar la respuesta
+                
+                En este simulador, las ecuaciones se resuelven numéricamente mediante el **Método de Euler** con un paso de tiempo $\Delta t = 1.0$ s.
+                """)
 
         with col_teoria3:
             with st.expander("📊 Criterios de Desempeño (IAE/ITAE)", expanded=False):
-            st.markdown(r"""
-            Para evaluar la eficiencia del control, se utilizan métricas integrales del error $e(t) = SP - PV$:
-            
-            **1. IAE (Integral del Error Absoluto):**
-            $$IAE = \int_{0}^{t} |e(t)| dt$$
-            Mide el rendimiento acumulado. Es ideal para evaluar la respuesta general del sistema.
-            
-            **2. ITAE (Integral del Tiempo por el Error Absoluto):**
-            $$ITAE = \int_{0}^{t} t \cdot |e(t)| dt$$
-            **Penaliza errores que duran mucho tiempo.** Es el criterio más estricto en tesis de control porque asegura que el sistema se estabilice rápido.
-            
-            **Interpretación práctica:**
-            - **IAE bajo** → Respuesta rápida sin errores grandes
-            - **ITAE bajo** → El sistema se estabiliza rápidamente sin errores prolongados
-            """)
+                st.markdown(r"""
+                Para evaluar la eficiencia del control, se utilizan métricas integrales del error $e(t) = SP - PV$:
+                
+                **1. IAE (Integral del Error Absoluto):**
+                $$IAE = \int_{0}^{t} |e(t)| dt$$
+                Mide el rendimiento acumulado. Es ideal para evaluar la respuesta general del sistema.
+                
+                **2. ITAE (Integral del Tiempo por el Error Absoluto):**
+                $$ITAE = \int_{0}^{t} t \cdot |e(t)| dt$$
+                **Penaliza errores que duran mucho tiempo.** Es el criterio más estricto en tesis de control porque asegura que el sistema se estabilice rápido.
+                
+                **Interpretación práctica:**
+                - **IAE bajo** → Respuesta rápida sin errores grandes
+                - **ITAE bajo** → El sistema se estabiliza rápidamente sin errores prolongados
+                """)
 
-          # ======================== DIAGRAMA DEL PROCESO ========================
+        # ======================== DIAGRAMA DEL PROCESO ========================
         with st.expander("Diagrama del Proceso", expanded=True):
             col_img = st.columns([1, 5, 1])[1]
             with col_img:
@@ -388,7 +388,7 @@ def mostrar_simulador(nombre):
         if 'ejecutando' not in st.session_state:
             st.session_state.ejecutando = False
     
-            # ======================== BIBLIOTECA TÉCNICA EN BARRA LATERAL ========================
+        # ======================== BIBLIOTECA TÉCNICA EN BARRA LATERAL ========================
         st.sidebar.markdown("---")
         st.sidebar.subheader("📚 Biblioteca Técnica")
         
@@ -704,37 +704,37 @@ def mostrar_simulador(nombre):
                 st.success(f"✅ Control excelente - Error final < 5%")
             else:
                 st.warning(f"⚠️ Error residual de {err_f:.3f} m. Aumente Ki para mejorar.")
+                
+    # ======================== CASOS ESPECÍFICOS ========================
+    elif nombre == "Calibración de un Medidor de Flujo":
+        with st.expander("📚 Biblioteca Virtual - Descargar Práctica", expanded=True):
+            pdf_path = "guias/calibracion_medidor_flujo.pdf"
+            if os.path.exists(pdf_path):
+                with open(pdf_path, "rb") as f:
+                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Calibracion.pdf", mime="application/pdf")
+            else:
+                st.warning("⚠️ PDF no encontrado")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            with st.expander("📖 Marco Teórico", expanded=True):
+                st.markdown("## Calibración de Medidor de Flujo\n\nEcuación: $Q = V/t$")
+        with col2:
+            with st.expander("📊 Diagrama", expanded=True):
+                st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg")
     
-        # ======================== CASOS ESPECÍFICOS ========================
-        elif nombre == "Calibración de un Medidor de Flujo":
-            with st.expander("📚 Biblioteca Virtual - Descargar Práctica", expanded=True):
-                pdf_path = "guias/calibracion_medidor_flujo.pdf"
-                if os.path.exists(pdf_path):
-                    with open(pdf_path, "rb") as f:
-                        st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Calibracion.pdf", mime="application/pdf")
-                else:
-                    st.warning("⚠️ PDF no encontrado")
-            
-            col1, col2 = st.columns(2)
-            with col1:
-                with st.expander("📖 Marco Teórico", expanded=True):
-                    st.markdown("## Calibración de Medidor de Flujo\n\nEcuación: $Q = V/t$")
-            with col2:
-                with st.expander("📊 Diagrama", expanded=True):
-                    st.image("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg")
-        
-        elif nombre == "Pérdidas de Presión por Fricción":
-            st.info("Práctica: Pérdidas de Presión por Fricción - En desarrollo")
-        
-        elif nombre == "Bombas Centrífugas":
-            st.info("Práctica: Bombas Centrífugas - En desarrollo")
-        
-        elif nombre == "Lechos Fluidizados":
-            st.info("Práctica: Lechos Fluidizados - En desarrollo")
-        
-        elif nombre in ["Hidrodinámica de Columnas Empacadas", "Filtración a Presión Constante", 
-                        "Destilación Diferencial", "Destilación Continua", "Rectificación en Torre Rellena"]:
-            st.info(f"Práctica: {nombre} - En desarrollo")
+    elif nombre == "Pérdidas de Presión por Fricción":
+        st.info("Práctica: Pérdidas de Presión por Fricción - En desarrollo")
+    
+    elif nombre == "Bombas Centrífugas":
+        st.info("Práctica: Bombas Centrífugas - En desarrollo")
+    
+    elif nombre == "Lechos Fluidizados":
+        st.info("Práctica: Lechos Fluidizados - En desarrollo")
+    
+    elif nombre in ["Hidrodinámica de Columnas Empacadas", "Filtración a Presión Constante", 
+                    "Destilación Diferencial", "Destilación Continua", "Rectificación en Torre Rellena"]:
+        st.info(f"Práctica: {nombre} - En desarrollo")
 
     # ======================== FOOTER ========================
     st.markdown("""
