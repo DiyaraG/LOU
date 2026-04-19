@@ -708,7 +708,8 @@ def mostrar_simulador(nombre):
     # ======================== CASOS ESPECÍFICOS ========================
 
     # ==== PRACTICA 1 Calibración de un Medidor de Flujo =====
-        elif nombre == "Calibración de un Medidor de Flujo":
+
+    elif nombre == "Calibración de un Medidor de Flujo":
         with st.expander("📚 Biblioteca Virtual - Descargar Práctica", expanded=True):
             pdf_path = "guias/calibracion_medidor_flujo.pdf"
             if os.path.exists(pdf_path):
