@@ -227,9 +227,16 @@ def mostrar_inicio():
                 if st.button(p, key=f"btn_l2_{i}"):
                     st.session_state.page = p
                     st.rerun()
+# =============================================================================
+# SIMULADOR - CALIBRACION DE UN MEDIDOR DE FLUJO
+# =============================================================================
+
+
+
+
 
 # =============================================================================
-# SIMULADOR COMPLETO - VERSIÓN DEFINITIVA
+# SIMULADOR SOLO BALANCE EN ESTADO NO ESTACIONARIO
 # =============================================================================
 def mostrar_simulador(nombre):
     col_back, _ = st.columns([1, 5])
