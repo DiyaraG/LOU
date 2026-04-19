@@ -711,7 +711,7 @@ def mostrar_simulador(nombre):
 
     elif nombre == "Calibración de un Medidor de Flujo":
         with st.expander("📚 Biblioteca Virtual - Descargar Práctica", expanded=True):
-            pdf_path = "guias/calibracion_medidor_flujo.pdf"
+            pdf_path = "Manual de la Práctica 1. Calibración de un Medidor de Flujo..pdf"
             if os.path.exists(pdf_path):
                 with open(pdf_path, "rb") as f:
                     st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Calibracion.pdf", mime="application/pdf")
