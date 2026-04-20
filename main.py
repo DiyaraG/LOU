@@ -765,7 +765,7 @@ def mostrar_simulador(nombre):
             with st.expander("📊 Diagrama del Proceso", expanded=True):
                 st.image("1 CALIBRACIÓN DE UN MEDIDOR DE FLUJO.png", use_container_width=True)
 
-        # ==== PRACTICA 2 Pérdidas de Presión por Fricción =====
+    # ==================== PRACTICA 2 Pérdidas de Presión por Fricción ==============
     
     elif nombre == "Pérdidas de Presión por Fricción":
         with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
@@ -837,6 +837,8 @@ def mostrar_simulador(nombre):
         with col2:
             with st.expander("📊 Diagrama del Proceso", expanded=True):
                 st.image("2 Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías..png", use_container_width=True)
+
+    # ==================== PRACTICA 3 Bombas Centrífugas ==============
     
     elif nombre == "Bombas Centrífugas":
         st.info("Práctica: Bombas Centrífugas - En desarrollo")
