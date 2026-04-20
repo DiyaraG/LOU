@@ -292,52 +292,33 @@ def mostrar_simulador(nombre):
             font-weight: bold;
         }
         
-/* ======================== SLIDER CORREGIDO ======================== */
-/* Barra completa (fondo) */
-div[data-baseweb="slider"] > div {
-    background-color: #34495e !important;
-    height: 4px !important;
-    border-radius: 2px !important;
-}
-
-/* Parte llenada (amarilla) */
-div[data-baseweb="slider"] > div > div:first-child > div {
-    background-color: #f1c40f !important;
-    height: 4px !important;
-    border-radius: 2px !important;
-}
-
-/* Ocultar barras superpuestas */
+/* ======================== SLIDER SIMPLE Y FUNCIONAL ======================== */
+/* Línea del slider */
 div[data-baseweb="slider"] > div > div > div {
-    background: transparent !important;
+    background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
+    height: 4px !important;
+    border-radius: 2px !important;
 }
 
-/* Perilla - centrada correctamente */
+/* Perilla del slider */
 div[role="slider"] {
-    background-color: #f1c40f !important;
+    background: radial-gradient(circle at 35% 35%, #f1c40f, #e67e22) !important;
     border: 2px solid white !important;
-    width: 14px !important;
-    height: 14px !important;
+    width: 16px !important;
+    height: 16px !important;
     border-radius: 50% !important;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2) !important;
-    /* Centrar la perilla: (14px - 4px)/2 = 5px de margen negativo */
-    margin-top: -5px !important;
-    margin-left: -7px !important;
-    transition: all 0.1s ease !important;
-    cursor: grab !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
+    transition: transform 0.1s ease !important;
 }
 
-/* Hover UNIFICADO (sin duplicados) */
+/* Hover - sin cambios de posición, solo escala */
 div[role="slider"]:hover {
-    transform: scale(1.1) !important;
-    background-color: #f39c12 !important;
-    box-shadow: 0 0 12px rgba(241, 196, 15, 0.6) !important;
-    cursor: grab !important;
+    transform: scale(1.15) !important;
+    background: radial-gradient(circle at 35% 35%, #f39c12, #e67e22) !important;
 }
 
-/* Al hacer clic (arrastrando) */
+/* Active (arrastrando) */
 div[role="slider"]:active {
-    cursor: grabbing !important;
     transform: scale(0.95) !important;
 }
 
