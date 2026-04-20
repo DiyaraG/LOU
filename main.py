@@ -292,35 +292,56 @@ def mostrar_simulador(nombre):
             font-weight: bold;
         }
         
-/* Riel del slider */
-div[data-baseweb="slider"] > div > div > div {
-background: linear-gradient(90deg, #1a5276, #3498db, #1a5276) ;
-height: 6px ;
-border-radius: 3px ;
+/* ======================== SLIDER UNIFICADO ======================== */
+/* Fondo del riel (parte no recorrida) - se ve gris/azul oscuro */
+div[data-baseweb="slider"] > div {
+    background-color: #2c3e50 !important;
+    height: 6px !important;
+    border-radius: 3px !important;
 }
 
-/* Parte ya recorrida del slider (opcional) */
+/* Riel completo - fondo base */
+div[data-baseweb="slider"] > div > div {
+    background-color: #2c3e50 !important;
+    height: 6px !important;
+    border-radius: 3px !important;
+}
+
+/* Parte recorrida del slider (la que se llena al deslizar) */
 div[data-baseweb="slider"] > div > div:first-child > div {
-background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
+    background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
+    height: 6px !important;
+    border-radius: 3px !important;
 }
 
-/* Botón/perilla del slider */
+/* Eliminar cualquier otra barra superpuesta */
+div[data-baseweb="slider"] > div > div > div {
+    background: transparent !important;
+    height: 6px !important;
+}
+
+/* Perilla más pequeña */
 div[role="slider"] {
-background: radial-gradient(circle at 30% 30%, #f1c40f, #e67e22) ;
-border: 2px solid white ;
-width: 20px ;
-height: 20px ;
-border-radius: 50% ;
-box-shadow: 0 2px 10px rgba(0,0,0,0.3) ;
-cursor: grab !important;
-transition: all 0.2s ease ;
+    background: radial-gradient(circle at 35% 35%, #f1c40f, #e67e22) !important;
+    border: 2px solid white !important;
+    width: 14px !important;     /* Antes 20px */
+    height: 14px !important;    /* Antes 20px */
+    border-radius: 50% !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+    cursor: grab !important;
+    transition: all 0.2s ease !important;
+    margin-top: -4px !important;  /* Centra la perilla con la barra más delgada */
 }
 
 div[role="slider"]:active {
-cursor: grabbing ;
-transform: scale(0.95) ;
+    cursor: grabbing !important;
+    transform: scale(0.9) !important;
 }
 
+div[role="slider"]:hover {
+    transform: scale(1.1) !important;
+    box-shadow: 0 0 12px rgba(241, 196, 15, 0.6) !important;
+}
 
         
         [data-testid="stSidebar"] .stButton button {
