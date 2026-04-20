@@ -293,34 +293,34 @@ def mostrar_simulador(nombre):
         }
 
         /* ======================== SLIDER SIMPLE Y FUNCIONAL ======================== */
-/* Línea del slider */
-div[data-baseweb="slider"] > div > div > div {
-    background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
-    height: 4px !important;
-    border-radius: 2px !important;
-}
-
-/* Perilla del slider */
-div[role="slider"] {
-    background: radial-gradient(circle at 35% 35%, #f1c40f, #e67e22) !important;
-    border: 2px solid white !important;
-    width: 16px !important;
-    height: 16px !important;
-    border-radius: 50% !important;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
-    transition: transform 0.1s ease !important;
-}
-
-/* Hover - sin cambios de posición, solo escala */
-div[role="slider"]:hover {
-    transform: scale(1.15) !important;
-    background: radial-gradient(circle at 35% 35%, #f39c12, #e67e22) !important;
-}
-
-/* Active (arrastrando) */
-div[role="slider"]:active {
-    transform: scale(0.95) !important;
-}
+        /* Línea del slider */
+        div[data-baseweb="slider"] > div > div > div {
+            background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
+            height: 4px !important;
+            border-radius: 2px !important;
+        }
+        
+        /* Perilla del slider */
+        div[role="slider"] {
+            background: radial-gradient(circle at 35% 35%, #f1c40f, #e67e22) !important;
+            border: 2px solid white !important;
+            width: 16px !important;
+            height: 16px !important;
+            border-radius: 50% !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
+            transition: transform 0.1s ease !important;
+        }
+        
+        /* Hover - sin cambios de posición, solo escala */
+        div[role="slider"]:hover {
+            transform: scale(1.15) !important;
+            background: radial-gradient(circle at 35% 35%, #f39c12, #e67e22) !important;
+        }
+        
+        /* Active (arrastrando) */
+        div[role="slider"]:active {
+            transform: scale(0.95) !important;
+        }
    
         [data-testid="stSidebar"] .stButton button {
             background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
