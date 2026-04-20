@@ -179,6 +179,43 @@ st.markdown("""
         background-color: #FFFFFF; border: 1px solid #3182CE;
         box-shadow: 0 8px 15px rgba(49, 130, 206, 0.1); transform: translateY(-2px);
     }
+
+/* ======================== TÍTULO PRINCIPAL (INICIO) ESTILO CLARO ======================== */
+/* Contenedor del título en la pantalla de inicio */
+.title-container {
+    background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f2 100%) !important;
+    border: 2px solid #f1c40f !important;
+    border-radius: 20px !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08) !important;
+    backdrop-filter: none !important;
+}
+
+/* Título animado - se mantiene el degradado original pero más suave */
+.animated-title {
+    background: linear-gradient(90deg, #1a5276 0%, #2980b9 50%, #1a5276 100%) !important;
+    background-size: 200% auto !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    animation: wave 8s linear infinite !important;
+}
+
+/* Subtítulo */
+.sub-title {
+    color: #2c3e50 !important;
+    font-weight: 500 !important;
+}
+
+/* Logos - añadir un pequeño brillo */
+.logo-img {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.02);
+}
+    
     </style>
     """,
     unsafe_allow_html=True
