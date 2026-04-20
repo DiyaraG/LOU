@@ -772,7 +772,7 @@ def mostrar_simulador(nombre):
             pdf_path = "Manual de la Práctica 2. Determinación de las Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías..pdf"
             if os.path.exists(pdf_path):
                 with open(pdf_path, "rb") as f:
-                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Manual_Practica2_Centrifuga.pdf", mime="application/pdf")
+                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Manual_Practica2_PerdidasFriccion.pdf", mime="application/pdf")
             else:
                 st.warning("⚠️ PDF no encontrado")
         
@@ -781,7 +781,7 @@ def mostrar_simulador(nombre):
         with col1:
             with st.expander("📖 Marco Teórico", expanded=True):
                 st.markdown(r"""
-                ## Bomba Centrífuga
+                ## Pérdidas de Presión por Fricción
                 
                 Se presentan los conceptos fundamentales para la **calibración de medidores de flujo**, específicamente enfocándose en los tubos de Venturi y Pitot para fluidos compresibles como el aire.
                 
@@ -821,7 +821,7 @@ def mostrar_simulador(nombre):
         
         with col2:
             with st.expander("📊 Diagrama del Proceso", expanded=True):
-                st.image("2 Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías.png", use_container_width=True)
+                st.image("2 Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías..png", use_container_width=True)
     
     elif nombre == "Bombas Centrífugas":
         st.info("Práctica: Bombas Centrífugas - En desarrollo")
