@@ -299,6 +299,10 @@ height: 6px ;
 border-radius: 3px ;
 }
 
+/* Parte ya recorrida del slider (opcional) */
+div[data-baseweb="slider"] > div > div:first-child > div {
+background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
+}
 
 /* Botón/perilla del slider */
 div[role="slider"] {
@@ -317,10 +321,7 @@ cursor: grabbing ;
 transform: scale(0.95) ;
 }
 
-div[role="slider"]:hover {
-transform: scale(1.15) ;
-box-shadow: 0 0 15px rgba(241, 196, 15, 0.6) ;
-}
+
         
         [data-testid="stSidebar"] .stButton button {
             background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
