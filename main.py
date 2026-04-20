@@ -299,10 +299,6 @@ height: 6px ;
 border-radius: 3px ;
 }
 
-/* Parte ya recorrida del slider (opcional) */
-div[data-baseweb="slider"] > div > div:first-child > div {
-background: linear-gradient(90deg, #f1c40f, #f39c12) ;
-}
 
 /* Botón/perilla del slider */
 div[role="slider"] {
