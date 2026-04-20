@@ -253,6 +253,81 @@ def mostrar_simulador(nombre):
     # Caso 1: Balance en Estado No Estacionario (simulación compleja)
     if nombre == "Balance en Estado No Estacionario":
         
+        # ======================== CSS ESPECÍFICO PARA BALANCE ========================
+        st.markdown("""
+        <style>
+        /* Barra lateral con colores azules y amarillos - SOLO PARA BALANCE */
+        [data-testid="stSidebar"] {
+            background: linear-gradient(180deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
+            border-right: 4px solid #f1c40f !important;
+        }
+        
+        [data-testid="stSidebar"] .stMarkdown, 
+        [data-testid="stSidebar"] label, 
+        [data-testid="stSidebar"] p, 
+        [data-testid="stSidebar"] span {
+            color: #f0f4f8 !important;
+            font-weight: 400 !important;
+        }
+        
+        [data-testid="stSidebar"] h1, 
+        [data-testid="stSidebar"] h2, 
+        [data-testid="stSidebar"] h3,
+        [data-testid="stSidebar"] .stMarkdown h1,
+        [data-testid="stSidebar"] .stMarkdown h2,
+        [data-testid="stSidebar"] .stMarkdown h3 {
+            color: #f1c40f !important;
+            border-bottom: 1px solid #f1c40f80;
+            padding-bottom: 5px;
+        }
+        
+        [data-testid="stSidebar"] .stExpander {
+            border: 1px solid #f1c40f40;
+            border-radius: 10px;
+            background: rgba(15, 52, 96, 0.3);
+        }
+        
+        [data-testid="stSidebar"] .stExpander summary {
+            color: #f1c40f !important;
+            font-weight: bold;
+        }
+        
+        [data-testid="stSidebar"] .stSlider div[data-baseweb="slider"] div {
+            background-color: #f1c40f !important;
+        }
+        
+        [data-testid="stSidebar"] div[role="slider"] {
+            background-color: #f1c40f !important;
+            border: 2px solid white !important;
+        }
+        
+        [data-testid="stSidebar"] .stButton button {
+            background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
+            color: #1a5276 !important;
+            font-weight: bold !important;
+            border: none !important;
+        }
+        
+        [data-testid="stSidebar"] .stButton button:hover {
+            background: linear-gradient(90deg, #f39c12, #f1c40f) !important;
+            transform: scale(1.02);
+        }
+        
+        [data-testid="stSidebar"] .stAlert {
+            background-color: rgba(241, 196, 15, 0.15) !important;
+            border-left: 4px solid #f1c40f !important;
+        }
+        
+        [data-testid="stSidebar"] hr {
+            border-color: #f1c40f40 !important;
+        }
+        
+        [data-testid="stSidebar"] .stCaption {
+            color: #f1c40f !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
         # ======================== MARCO TEÓRICO ========================
         col_teoria1, col_teoria2, col_teoria3 = st.columns(3)
 
