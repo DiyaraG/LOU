@@ -229,13 +229,14 @@ st.markdown("""
     font-weight: 500 !important;
 }
 
-/* ======================== EFECTO LED PARA PESTAÑAS - AZUL CLARO ======================== */
+/* ======================== EFECTO LED PARA PESTAÑAS - AZUL CLARO (MÁS GRANDE) ======================== */
 .stTabs [data-baseweb="tab"] {
-    font-weight: 700 !important;
-    font-size: 1.1rem !important;
-    letter-spacing: 1px !important;
+    font-weight: 800 !important;
+    font-size: 1.3rem !important;
+    letter-spacing: 1.5px !important;
     transition: all 0.3s ease !important;
     text-shadow: 0 0 5px rgba(52, 152, 219, 0.5) !important;
+    padding: 0.5rem 1.2rem !important;
 }
 
 /* Pestaña no seleccionada */
@@ -247,23 +248,25 @@ st.markdown("""
 /* Pestaña seleccionada - brillo LED azul */
 .stTabs [aria-selected="true"] {
     color: #3498db !important;
-    background: linear-gradient(135deg, rgba(52, 152, 219, 0.15), rgba(52, 152, 219, 0.05)) !important;
-    text-shadow: 0 0 15px rgba(52, 152, 219, 0.8), 0 0 5px rgba(52, 152, 219, 0.5) !important;
-    border-radius: 10px !important;
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(52, 152, 219, 0.08)) !important;
+    text-shadow: 0 0 18px rgba(52, 152, 219, 0.9), 0 0 8px rgba(52, 152, 219, 0.6) !important;
+    border-radius: 12px !important;
     animation: ledPulseBlue 1.5s ease-in-out infinite !important;
+    font-weight: 800 !important;
 }
 
-/* Línea indicadora LED azul */
+/* Línea indicadora LED azul - más gruesa */
 .stTabs [data-baseweb="tab-highlight"] {
     background-color: #3498db !important;
-    box-shadow: 0 0 12px rgba(52, 152, 219, 0.9), 0 0 5px rgba(52, 152, 219, 0.6) !important;
-    height: 3px !important;
+    box-shadow: 0 0 15px rgba(52, 152, 219, 1), 0 0 8px rgba(52, 152, 219, 0.7) !important;
+    height: 4px !important;
+    border-radius: 2px !important;
 }
 
 /* Animación LED azul */
 @keyframes ledPulseBlue {
     0% { text-shadow: 0 0 8px rgba(52, 152, 219, 0.5), 0 0 3px rgba(52, 152, 219, 0.3); }
-    50% { text-shadow: 0 0 20px rgba(52, 152, 219, 0.9), 0 0 8px rgba(52, 152, 219, 0.6); }
+    50% { text-shadow: 0 0 25px rgba(52, 152, 219, 1), 0 0 10px rgba(52, 152, 219, 0.7); }
     100% { text-shadow: 0 0 8px rgba(52, 152, 219, 0.5), 0 0 3px rgba(52, 152, 219, 0.3); }
 }
 
