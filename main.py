@@ -191,7 +191,7 @@ st.markdown("""
     backdrop-filter: none !important;
 }
 
-/* Efecto de brillo sutil que se desliza MÁS LENTO */
+/* Efecto de brillo súper sutil */
 .title-container::before {
     content: '';
     position: absolute;
@@ -201,34 +201,19 @@ st.markdown("""
     height: 100%;
     background: linear-gradient(90deg, 
         transparent, 
-        rgba(241, 196, 15, 0.08), 
-        rgba(255, 255, 255, 0.12), 
-        rgba(241, 196, 15, 0.08), 
+        rgba(241, 196, 15, 0.04), 
+        rgba(255, 255, 255, 0.06), 
+        rgba(241, 196, 15, 0.04), 
         transparent);
-    animation: shine 8s ease-in-out infinite;
+    animation: shine 12s ease-in-out infinite;
     pointer-events: none;
 }
 
 @keyframes shine {
     0% { left: -150%; }
-    25% { left: 100%; }
+    30% { left: 100%; }
     100% { left: 100%; }
 }
-
-.animated-title {
-    background: linear-gradient(90deg, #f1c40f 0%, #f9e79f 50%, #f1c40f 100%) !important;
-    background-size: 200% auto !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    color: transparent !important;
-    animation: wave 6s linear infinite !important;
-}
-
-.sub-title {
-    color: #f0f4f8 !important;
-    font-weight: 500 !important;
-}
-
 
     </style>
     """,
