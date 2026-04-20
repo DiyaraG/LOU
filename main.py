@@ -781,42 +781,57 @@ def mostrar_simulador(nombre):
         with col1:
             with st.expander("📖 Marco Teórico", expanded=True):
                 st.markdown(r"""
-                ## Pérdidas de Presión por Fricción
+                ### Pérdidas de Presión por Fricción
                 
-                Se presentan los conceptos fundamentales para la **calibración de medidores de flujo**, específicamente enfocándose en los tubos de Venturi y Pitot para fluidos compresibles como el aire.
+                Este marco teórico describe los principios fundamentales para el estudio del comportamiento de un fluido incompresible (agua) dentro de un sistema de tuberías, centrándose en las pérdidas de energía por fricción.
                 
-                ### 1. Medidores de Flujo y Principio de Bernoulli
-                Los medidores de flujo son dispositivos diseñados para cuantificar el caudal de un fluido que circula por una tubería. Su funcionamiento se fundamenta en el **balance de energía de Bernoulli**, que relaciona la presión, la velocidad y la altura del fluido en distintos puntos del sistema.
+                ### 1. Balance de Energía y Pérdidas de Presión
+                El estudio del flujo se basa en el **Balance de Energía** (Ecuación de Bernoulli), que permite analizar las transformaciones entre energía cinética, potencial y de presión. Al circular un fluido por tramos de tubería, accesorios y medidores, ocurre una **pérdida de presión estática** debido a la fricción.
                 
-                ### 2. Tubo de Venturi
-                Es un instrumento que genera una **caída de presión** controlada al reducir el área de flujo en una sección llamada "garganta". Esta diferencia de presión se utiliza para determinar el caudal de operación a través de una **constante de proporcionalidad (K)**.
+                Estas pérdidas se clasifican en:
+                *   **Pérdidas Mayores:** Ocurren en tramos rectos de tubería debido a la fricción continua con las paredes.
+                *   **Pérdidas Menores:** Se generan por cambios en la geometría del flujo en **accesorios** como codos, expansiones y contracciones.
                 
-                **Relación fundamental de calibración:**
-                $$Q = K \cdot \sqrt{\Delta h}$$
+                ### 2. Número de Reynolds ($Re$)
+                Es un parámetro adimensional que permite caracterizar el **régimen de flujo**. Según la experiencia de Reynolds, el flujo puede ser:
+                *   **Laminar:** Movimiento ordenado en capas ($Re < 2100$)
+                *   **Transitorio:** Inestabilidad entre regímenes ($2100 \leq Re \leq 4000$)
+                *   **Turbulento:** Movimiento caótico y con mezcla intensa ($Re > 4000$)
                 
-                Donde $Q$ es el caudal y $\Delta h$ es la diferencia de altura manométrica.
+                **Fórmula fundamental:**
+                $$Re = \frac{D \cdot U \cdot \rho}{\mu}$$
                 
-                ### 3. Tubo de Pitot
-                Se utiliza para medir la **velocidad puntual** ($U_0$) del fluido en coordenadas radiales específicas dentro de la tubería. Su principio se basa en la diferencia entre la **presión estática** y la **presión dinámica**.
+                Donde $D$ es el diámetro (m), $U$ la velocidad media (m/s), $\rho$ la densidad (kg/m³) y $\mu$ la viscosidad dinámica (Pa·s).
                 
-                **Fórmula de velocidad puntual:**
-                $$U_0 = C \cdot \sqrt{\frac{2 \cdot \Delta P_{tp}}{\rho}}$$
+                ### 3. Cálculo de Pérdidas por Fricción ($H_f$)
+                Las pérdidas de carga experimentales ($H_{fe}$) se determinan a partir de la diferencia de presión medida en las tomas manométricas de cada accesorio o tramo.
                 
-                Donde $C$ es el coeficiente del tubo (típicamente 0,98), $\Delta P_{tp}$ es la diferencia de presión y $\rho$ la densidad del fluido.
+                **Diferencia de presión experimental ($\Delta P$):**
+                $$\Delta P = (\rho_m - \rho) \cdot g \cdot H \cdot 0.01$$
                 
-                ### 4. Régimen de Flujo y Perfiles de Velocidad
-                El comportamiento del fluido depende del **Número de Reynolds ($Re$)**, el cual permite clasificar el régimen como **laminar o turbulento**. Esta clasificación determina la forma del **perfil de velocidad**, que describe cómo varía la velocidad desde el centro hasta las paredes de la tubería.
+                *(Basado en la relación entre altura manométrica $H$ en cm y densidad del fluido manométrico $\rho_m$)*.
                 
-                **Número de Reynolds:**
-                $$Re = \frac{D \cdot U_m \cdot \rho}{\mu}$$
+                **Pérdidas teóricas (Ecuación de Darcy-Weisbach):**
+                $$H_f = f_d \cdot \frac{L}{D} \cdot \frac{U^2}{2g}$$
                 
-                Donde $D$ es el diámetro, $U_m$ la velocidad media, $\rho$ la densidad y $\mu$ la viscosidad.
+                Donde:
+                - $f_d$ = Factor de fricción de Darcy (adimensional)
+                - $L$ = Longitud del tramo (m)
+                - $D$ = Diámetro interno (m)
+                - $U$ = Velocidad media del flujo (m/s)
+                - $g$ = Aceleración de gravedad (9.81 m/s²)
                 
-                ### 5. Calibración y Desviación
-                La calibración consiste en comparar los caudales determinados experimentalmente (mediante la integración de velocidades del Pitot) frente a los valores teóricos del Venturi. La validez del modelo se verifica mediante el **porcentaje de desviación**.
+                ### 4. Factor de Fricción ($f_d$)
+                Para flujo laminar, el factor de fricción se calcula analíticamente mediante la **Ecuación de Hagen-Poiseuille**:
+                $$f_d = \frac{64}{Re}$$
                 
-                **Caudal Teórico (aproximación):**
-                $$U_m = 0,817 \cdot U_{max}$$
+                Para flujo turbulento, se utiliza la **Ecuación de Colebrook-White**, que requiere solución iterativa:
+                $$\frac{1}{\sqrt{f_d}} = -2\log\left(\frac{\varepsilon/D}{3.7} + \frac{2.51}{Re\sqrt{f_d}}\right)$$
+                
+                Donde $\varepsilon/D$ es la rugosidad relativa de la tubería.
+                
+                ### 5. Medidores de Flujo
+                Para cuantificar el caudal, se utilizan dispositivos que generan una caída de presión medible, como el **Tubo de Venturi** y la **Placa de Orificio**. Cada uno posee un **coeficiente de descarga** característico que relaciona el caudal real con el teórico.
                 """)
         
         with col2:
