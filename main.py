@@ -291,8 +291,8 @@ def mostrar_simulador(nombre):
             color: #f1c40f !important;
             font-weight: bold;
         }
-        
-/* ======================== SLIDER SIMPLE Y FUNCIONAL ======================== */
+
+        /* ======================== SLIDER SIMPLE Y FUNCIONAL ======================== */
 /* Línea del slider */
 div[data-baseweb="slider"] > div > div > div {
     background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
@@ -321,8 +321,7 @@ div[role="slider"]:hover {
 div[role="slider"]:active {
     transform: scale(0.95) !important;
 }
-
-        
+   
         [data-testid="stSidebar"] .stButton button {
             background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
             color: #1a5276 !important;
