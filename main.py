@@ -356,9 +356,31 @@ def mostrar_simulador(nombre):
         [data-testid="stSidebar"] .stCaption {
             color: #f1c40f !important;
         }
-        </style>
-        """, unsafe_allow_html=True)
+
+        /* ======================== TÍTULO DEL SIMULADOR ======================== */
+        /* Contenedor del título */
+        .title-container {
+            background: linear-gradient(180deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
+            border: 1px solid #f1c40f !important;
+            border-radius: 15px !important;
+            backdrop-filter: none !important;
+        }
         
+        /* Título principal */
+        .animated-title {
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            background-clip: unset !important;
+            color: #f1c40f !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        /* Subtítulo */
+        .sub-title {
+            color: #f0f4f8 !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)        
         # ======================== MARCO TEÓRICO ========================
         col_teoria1, col_teoria2, col_teoria3 = st.columns(3)
 
