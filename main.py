@@ -229,42 +229,43 @@ st.markdown("""
     font-weight: 500 !important;
 }
 
-/* ======================== EFECTO LED PARA PESTAÑAS - AZUL CLARO ======================== */
+/* ======================== EFECTO LED PARA PESTAÑAS ======================== */
+/* Pestañas LOU I y LOU II - efecto LED dorado */
 .stTabs [data-baseweb="tab"] {
     font-weight: 700 !important;
     font-size: 1.1rem !important;
     letter-spacing: 1px !important;
     transition: all 0.3s ease !important;
-    text-shadow: 0 0 5px rgba(52, 152, 219, 0.5) !important;
+    text-shadow: 0 0 5px rgba(241, 196, 15, 0.5) !important;
 }
 
-/* Pestaña no seleccionada */
+/* Pestaña no seleccionada - brillo suave */
 .stTabs [data-baseweb="tab"]:not([aria-selected="true"]) {
-    color: #3498db !important;
-    text-shadow: 0 0 8px rgba(52, 152, 219, 0.4) !important;
+    color: #f1c40f !important;
+    text-shadow: 0 0 8px rgba(241, 196, 15, 0.4) !important;
 }
 
-/* Pestaña seleccionada - brillo LED azul */
+/* Pestaña seleccionada - brillo LED intenso */
 .stTabs [aria-selected="true"] {
-    color: #3498db !important;
-    background: linear-gradient(135deg, rgba(52, 152, 219, 0.15), rgba(52, 152, 219, 0.05)) !important;
-    text-shadow: 0 0 15px rgba(52, 152, 219, 0.8), 0 0 5px rgba(52, 152, 219, 0.5) !important;
+    color: #f1c40f !important;
+    background: linear-gradient(135deg, rgba(241, 196, 15, 0.15), rgba(241, 196, 15, 0.05)) !important;
+    text-shadow: 0 0 15px rgba(241, 196, 15, 0.8), 0 0 5px rgba(241, 196, 15, 0.5) !important;
     border-radius: 10px !important;
-    animation: ledPulseBlue 1.5s ease-in-out infinite !important;
+    animation: ledPulse 1.5s ease-in-out infinite !important;
 }
 
-/* Línea indicadora LED azul */
+/* Línea indicadora debajo de la pestaña activa - efecto LED */
 .stTabs [data-baseweb="tab-highlight"] {
-    background-color: #3498db !important;
-    box-shadow: 0 0 12px rgba(52, 152, 219, 0.9), 0 0 5px rgba(52, 152, 219, 0.6) !important;
+    background-color: #f1c40f !important;
+    box-shadow: 0 0 12px rgba(241, 196, 15, 0.9), 0 0 5px rgba(241, 196, 15, 0.6) !important;
     height: 3px !important;
 }
 
-/* Animación LED azul */
-@keyframes ledPulseBlue {
-    0% { text-shadow: 0 0 8px rgba(52, 152, 219, 0.5), 0 0 3px rgba(52, 152, 219, 0.3); }
-    50% { text-shadow: 0 0 20px rgba(52, 152, 219, 0.9), 0 0 8px rgba(52, 152, 219, 0.6); }
-    100% { text-shadow: 0 0 8px rgba(52, 152, 219, 0.5), 0 0 3px rgba(52, 152, 219, 0.3); }
+/* Animación de parpadeo LED suave */
+@keyframes ledPulse {
+    0% { text-shadow: 0 0 8px rgba(241, 196, 15, 0.5), 0 0 3px rgba(241, 196, 15, 0.3); }
+    50% { text-shadow: 0 0 20px rgba(241, 196, 15, 0.9), 0 0 8px rgba(241, 196, 15, 0.6); }
+    100% { text-shadow: 0 0 8px rgba(241, 196, 15, 0.5), 0 0 3px rgba(241, 196, 15, 0.3); }
 }
 
 # =============================================================================
