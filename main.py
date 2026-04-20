@@ -180,64 +180,54 @@ st.markdown("""
         box-shadow: 0 8px 15px rgba(49, 130, 206, 0.1); transform: translateY(-2px);
     }
 
-/* ======================== TÍTULO PRINCIPAL - ESTILO BALANCE CON MOVIMIENTO ======================== */
-/* Contenedor del título en la pantalla de inicio */
+/* ======================== TÍTULO PRINCIPAL - CON EFECTO BRILLO ======================== */
 .title-container {
     background: linear-gradient(135deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
-    background-size: 200% 200% !important;
     border: 2px solid #f1c40f !important;
     border-radius: 20px !important;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    position: relative;
+    overflow: hidden;
     backdrop-filter: none !important;
-    animation: gradientBG 6s ease infinite !important;
 }
 
-/* Título animado - efecto ola de colores */
+/* Efecto de brillo que se desliza */
+.title-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(241, 196, 15, 0.3), 
+        rgba(255, 255, 255, 0.5), 
+        rgba(241, 196, 15, 0.3), 
+        transparent);
+    animation: shine 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    20% { left: 100%; }
+    100% { left: 100%; }
+}
+
 .animated-title {
-    background: linear-gradient(90deg, #f1c40f 0%, #f39c12 25%, #f1c40f 50%, #f9e79f 75%, #f1c40f 100%) !important;
+    background: linear-gradient(90deg, #f1c40f 0%, #f9e79f 50%, #f1c40f 100%) !important;
     background-size: 200% auto !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     color: transparent !important;
-    animation: wave 6s linear infinite !important;
-    text-shadow: none !important;
-    font-weight: 800 !important;
+    animation: wave 4s linear infinite !important;
 }
 
-/* Subtítulo con ligero brillo */
 .sub-title {
-    color: #f1c40f !important;
+    color: #f0f4f8 !important;
     font-weight: 500 !important;
-    letter-spacing: 3px !important;
-    text-shadow: 0 0 5px rgba(241, 196, 15, 0.3);
-    animation: subtlePulse 3s ease-in-out infinite !important;
 }
-
-/* Logos con brillo dorado al pasar el mouse */
-.logo-img {
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-    transition: all 0.3s ease;
-}
-
-.logo-img:hover {
-    filter: drop-shadow(0 0 8px rgba(241, 196, 15, 0.6));
-    transform: scale(1.02);
-}
-
-/* Animación de pulso sutil para el subtítulo */
-@keyframes subtlePulse {
-    0% { opacity: 0.8; text-shadow: 0 0 0px rgba(241, 196, 15, 0); }
-    50% { opacity: 1; text-shadow: 0 0 8px rgba(241, 196, 15, 0.5); }
-    100% { opacity: 0.8; text-shadow: 0 0 0px rgba(241, 196, 15, 0); }
-}
-
-/* Gradiente animado para el fondo del contenedor */
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
     </style>
     """,
     unsafe_allow_html=True
