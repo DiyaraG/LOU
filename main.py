@@ -764,9 +764,64 @@ def mostrar_simulador(nombre):
         with col2:
             with st.expander("📊 Diagrama del Proceso", expanded=True):
                 st.image("1 CALIBRACIÓN DE UN MEDIDOR DE FLUJO.png", use_container_width=True)
+
+        # ==== PRACTICA 2 Pérdidas de Presión por Fricción =====
     
     elif nombre == "Pérdidas de Presión por Fricción":
-        st.info("Práctica: Pérdidas de Presión por Fricción - En desarrollo")
+        with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
+            pdf_path = "Manual de la Práctica 2. Determinación de las Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías..pdf"
+            if os.path.exists(pdf_path):
+                with open(pdf_path, "rb") as f:
+                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Manual_Practica2_Centrifuga.pdf", mime="application/pdf")
+            else:
+                st.warning("⚠️ PDF no encontrado")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            with st.expander("📖 Marco Teórico", expanded=True):
+                st.markdown(r"""
+                ## Bomba Centrífuga
+                
+                Se presentan los conceptos fundamentales para la **calibración de medidores de flujo**, específicamente enfocándose en los tubos de Venturi y Pitot para fluidos compresibles como el aire.
+                
+                ### 1. Medidores de Flujo y Principio de Bernoulli
+                Los medidores de flujo son dispositivos diseñados para cuantificar el caudal de un fluido que circula por una tubería. Su funcionamiento se fundamenta en el **balance de energía de Bernoulli**, que relaciona la presión, la velocidad y la altura del fluido en distintos puntos del sistema.
+                
+                ### 2. Tubo de Venturi
+                Es un instrumento que genera una **caída de presión** controlada al reducir el área de flujo en una sección llamada "garganta". Esta diferencia de presión se utiliza para determinar el caudal de operación a través de una **constante de proporcionalidad (K)**.
+                
+                **Relación fundamental de calibración:**
+                $$Q = K \cdot \sqrt{\Delta h}$$
+                
+                Donde $Q$ es el caudal y $\Delta h$ es la diferencia de altura manométrica.
+                
+                ### 3. Tubo de Pitot
+                Se utiliza para medir la **velocidad puntual** ($U_0$) del fluido en coordenadas radiales específicas dentro de la tubería. Su principio se basa en la diferencia entre la **presión estática** y la **presión dinámica**.
+                
+                **Fórmula de velocidad puntual:**
+                $$U_0 = C \cdot \sqrt{\frac{2 \cdot \Delta P_{tp}}{\rho}}$$
+                
+                Donde $C$ es el coeficiente del tubo (típicamente 0,98), $\Delta P_{tp}$ es la diferencia de presión y $\rho$ la densidad del fluido.
+                
+                ### 4. Régimen de Flujo y Perfiles de Velocidad
+                El comportamiento del fluido depende del **Número de Reynolds ($Re$)**, el cual permite clasificar el régimen como **laminar o turbulento**. Esta clasificación determina la forma del **perfil de velocidad**, que describe cómo varía la velocidad desde el centro hasta las paredes de la tubería.
+                
+                **Número de Reynolds:**
+                $$Re = \frac{D \cdot U_m \cdot \rho}{\mu}$$
+                
+                Donde $D$ es el diámetro, $U_m$ la velocidad media, $\rho$ la densidad y $\mu$ la viscosidad.
+                
+                ### 5. Calibración y Desviación
+                La calibración consiste en comparar los caudales determinados experimentalmente (mediante la integración de velocidades del Pitot) frente a los valores teóricos del Venturi. La validez del modelo se verifica mediante el **porcentaje de desviación**.
+                
+                **Caudal Teórico (aproximación):**
+                $$U_m = 0,817 \cdot U_{max}$$
+                """)
+        
+        with col2:
+            with st.expander("📊 Diagrama del Proceso", expanded=True):
+                st.image("2 Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías.png", use_container_width=True)
     
     elif nombre == "Bombas Centrífugas":
         st.info("Práctica: Bombas Centrífugas - En desarrollo")
@@ -777,6 +832,7 @@ def mostrar_simulador(nombre):
     elif nombre in ["Hidrodinámica de Columnas Empacadas", "Filtración a Presión Constante", 
                     "Destilación Diferencial", "Destilación Continua", "Rectificación en Torre Rellena"]:
         st.info(f"Práctica: {nombre} - En desarrollo")
+
 
     # ======================== FOOTER ========================
     st.markdown("""
