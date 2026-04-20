@@ -292,14 +292,39 @@ def mostrar_simulador(nombre):
             font-weight: bold;
         }
         
-        [data-testid="stSidebar"] .stSlider div[data-baseweb="slider"] div {
-            background-color: #f1c40f !important;
-        }
-        
-        [data-testid="stSidebar"] div[role="slider"] {
-            background-color: #f1c40f !important;
-            border: 2px solid white !important;
-        }
+/* Riel del slider */
+div[data-baseweb="slider"] > div > div > div {
+background: linear-gradient(90deg, #1a5276, #3498db, #1a5276) !important;
+height: 6px !important;
+border-radius: 3px !important;
+}
+
+/* Parte ya recorrida del slider (opcional) */
+div[data-baseweb="slider"] > div > div:first-child > div {
+background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
+}
+
+/* Botón/perilla del slider */
+div[role="slider"] {
+background: radial-gradient(circle at 30% 30%, #f1c40f, #e67e22) !important;
+border: 2px solid white !important;
+width: 20px !important;
+height: 20px !important;
+border-radius: 50% !important;
+box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+cursor: grab !important;
+transition: all 0.2s ease !important;
+}
+
+div[role="slider"]:active {
+cursor: grabbing !important;
+transform: scale(0.95) !important;
+}
+
+div[role="slider"]:hover {
+transform: scale(1.15) !important;
+box-shadow: 0 0 15px rgba(241, 196, 15, 0.6) !important;
+}
         
         [data-testid="stSidebar"] .stButton button {
             background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
