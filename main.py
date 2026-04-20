@@ -293,49 +293,40 @@ def mostrar_simulador(nombre):
         }
         
 /* ======================== SLIDER UNIFICADO ======================== */
-/* Fondo del riel (parte no recorrida) - se ve gris/azul oscuro */
+/* ======================== SLIDER SIMPLE Y LIMPIO ======================== */
+/* Barra completa (fondo) */
 div[data-baseweb="slider"] > div {
-    background-color: #2c3e50 !important;
-    height: 6px !important;
-    border-radius: 3px !important;
+    background-color: #34495e !important;
+    height: 4px !important;
+    border-radius: 2px !important;
 }
 
-/* Riel completo - fondo base */
-div[data-baseweb="slider"] > div > div {
-    background-color: #2c3e50 !important;
-    height: 6px !important;
-    border-radius: 3px !important;
-}
-
-/* Parte recorrida del slider (la que se llena al deslizar) */
+/* Parte llenada (amarilla) */
 div[data-baseweb="slider"] > div > div:first-child > div {
-    background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
-    height: 6px !important;
-    border-radius: 3px !important;
+    background-color: #f1c40f !important;
+    height: 4px !important;
+    border-radius: 2px !important;
 }
 
-/* Eliminar cualquier otra barra superpuesta */
+/* Ocultar barras superpuestas */
 div[data-baseweb="slider"] > div > div > div {
     background: transparent !important;
-    height: 6px !important;
 }
 
-/* Perilla más pequeña */
+/* Perilla pequeña */
 div[role="slider"] {
-    background: radial-gradient(circle at 35% 35%, #f1c40f, #e67e22) !important;
+    background-color: #f1c40f !important;
     border: 2px solid white !important;
-    width: 14px !important;     /* Antes 20px */
-    height: 14px !important;    /* Antes 20px */
+    width: 12px !important;
+    height: 12px !important;
     border-radius: 50% !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
-    cursor: grab !important;
-    transition: all 0.2s ease !important;
-    margin-top: -4px !important;  /* Centra la perilla con la barra más delgada */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2) !important;
+    margin-top: -4px !important;
 }
 
-div[role="slider"]:active {
-    cursor: grabbing !important;
-    transform: scale(0.9) !important;
+div[role="slider"]:hover {
+    transform: scale(1.15) !important;
+    background-color: #f39c12 !important;
 }
 
 div[role="slider"]:hover {
