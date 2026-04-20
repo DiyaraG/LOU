@@ -292,34 +292,44 @@ def mostrar_simulador(nombre):
             font-weight: bold;
         }
 
-        /* ======================== SLIDER SIMPLE Y FUNCIONAL ======================== */
-        /* Línea del slider */
-        div[data-baseweb="slider"] > div > div > div {
+        /* ======================== SLIDER CORREGIDO - SIN SALTOS ======================== */
+        /* Línea del slider - fondo (parte no recorrida) */
+        div[data-baseweb="slider"] > div {
+            background-color: #2c3e50 !important;
+            height: 4px !important;
+            border-radius: 2px !important;
+        }
+        
+        /* Parte llenada del slider (amarilla) */
+        div[data-baseweb="slider"] > div > div:first-child > div {
             background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
             height: 4px !important;
             border-radius: 2px !important;
         }
         
-        /* Perilla del slider */
+        /* Ocultar barras superpuestas */
+        div[data-baseweb="slider"] > div > div > div {
+            background: transparent !important;
+        }
+        
+        /* Perilla del slider - ESTABLE, sin transform en hover */
         div[role="slider"] {
-            background: radial-gradient(circle at 35% 35%, #f1c40f, #e67e22) !important;
+            background: #f1c40f !important;
             border: 2px solid white !important;
-            width: 16px !important;
-            height: 16px !important;
+            width: 14px !important;
+            height: 14px !important;
             border-radius: 50% !important;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
-            transition: transform 0.1s ease !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2) !important;
         }
         
-        /* Hover - sin cambios de posición, solo escala */
+        /* Hover - SOLO cambia el color, NO la posición ni escala */
         div[role="slider"]:hover {
-            transform: scale(1.15) !important;
-            background: radial-gradient(circle at 35% 35%, #f39c12, #e67e22) !important;
+            background: #f39c12 !important;
         }
         
-        /* Active (arrastrando) */
+        /* Active - sin cambios bruscos */
         div[role="slider"]:active {
-            transform: scale(0.95) !important;
+            background: #e67e22 !important;
         }
    
         [data-testid="stSidebar"] .stButton button {
