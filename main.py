@@ -292,8 +292,7 @@ def mostrar_simulador(nombre):
             font-weight: bold;
         }
         
-/* ======================== SLIDER UNIFICADO ======================== */
-/* ======================== SLIDER SIMPLE Y LIMPIO ======================== */
+/* ======================== SLIDER CORREGIDO ======================== */
 /* Barra completa (fondo) */
 div[data-baseweb="slider"] > div {
     background-color: #34495e !important;
@@ -313,25 +312,33 @@ div[data-baseweb="slider"] > div > div > div {
     background: transparent !important;
 }
 
-/* Perilla pequeña */
+/* Perilla - centrada correctamente */
 div[role="slider"] {
     background-color: #f1c40f !important;
     border: 2px solid white !important;
-    width: 12px !important;
-    height: 12px !important;
+    width: 14px !important;
+    height: 14px !important;
     border-radius: 50% !important;
     box-shadow: 0 1px 4px rgba(0,0,0,0.2) !important;
-    margin-top: -4px !important;
+    /* Centrar la perilla: (14px - 4px)/2 = 5px de margen negativo */
+    margin-top: -5px !important;
+    margin-left: -7px !important;
+    transition: all 0.1s ease !important;
+    cursor: grab !important;
 }
 
-div[role="slider"]:hover {
-    transform: scale(1.15) !important;
-    background-color: #f39c12 !important;
-}
-
+/* Hover UNIFICADO (sin duplicados) */
 div[role="slider"]:hover {
     transform: scale(1.1) !important;
+    background-color: #f39c12 !important;
     box-shadow: 0 0 12px rgba(241, 196, 15, 0.6) !important;
+    cursor: grab !important;
+}
+
+/* Al hacer clic (arrastrando) */
+div[role="slider"]:active {
+    cursor: grabbing !important;
+    transform: scale(0.95) !important;
 }
 
         
