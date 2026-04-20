@@ -215,6 +215,20 @@ st.markdown("""
     100% { left: 100%; }
 }
 
+.animated-title {
+    background: linear-gradient(90deg, #f1c40f 0%, #f9e79f 50%, #f1c40f 100%) !important;
+    background-size: 200% auto !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    animation: wave 6s linear infinite !important;
+}
+
+.sub-title {
+    color: #f0f4f8 !important;
+    font-weight: 500 !important;
+}
+
     </style>
     """,
     unsafe_allow_html=True
