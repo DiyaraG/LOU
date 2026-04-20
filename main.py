@@ -180,7 +180,7 @@ st.markdown("""
         box-shadow: 0 8px 15px rgba(49, 130, 206, 0.1); transform: translateY(-2px);
     }
 
-/* ======================== TÍTULO PRINCIPAL - CON EFECTO BRILLO ======================== */
+/* ======================== TÍTULO PRINCIPAL - CON EFECTO BRILLO SUTIL ======================== */
 .title-container {
     background: linear-gradient(135deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
     border: 2px solid #f1c40f !important;
@@ -191,27 +191,27 @@ st.markdown("""
     backdrop-filter: none !important;
 }
 
-/* Efecto de brillo que se desliza */
+/* Efecto de brillo sutil que se desliza MÁS LENTO */
 .title-container::before {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
-    width: 100%;
+    left: -150%;
+    width: 150%;
     height: 100%;
     background: linear-gradient(90deg, 
         transparent, 
-        rgba(241, 196, 15, 0.3), 
-        rgba(255, 255, 255, 0.5), 
-        rgba(241, 196, 15, 0.3), 
+        rgba(241, 196, 15, 0.08), 
+        rgba(255, 255, 255, 0.12), 
+        rgba(241, 196, 15, 0.08), 
         transparent);
-    animation: shine 4s ease-in-out infinite;
+    animation: shine 8s ease-in-out infinite;
     pointer-events: none;
 }
 
 @keyframes shine {
-    0% { left: -100%; }
-    20% { left: 100%; }
+    0% { left: -150%; }
+    25% { left: 100%; }
     100% { left: 100%; }
 }
 
@@ -221,13 +221,15 @@ st.markdown("""
     -webkit-background-clip: text !important;
     background-clip: text !important;
     color: transparent !important;
-    animation: wave 4s linear infinite !important;
+    animation: wave 6s linear infinite !important;
 }
 
 .sub-title {
     color: #f0f4f8 !important;
     font-weight: 500 !important;
 }
+
+
     </style>
     """,
     unsafe_allow_html=True
