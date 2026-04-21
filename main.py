@@ -1065,6 +1065,79 @@ def mostrar_simulador(nombre):
     elif nombre == "Bombas Centrífugas":
         st.info("Práctica: Bombas Centrífugas - En desarrollo")
     
+    elif nombre == "Bombas Centrífugas":
+        with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
+            pdf_path = "Manual de la Práctica 3. Determinación de Curvas Características de Bombas Centrífugas..pdf"
+            if os.path.exists(pdf_path):
+                with open(pdf_path, "rb") as f:
+                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Manual_Practica3_BombaCentrifuga.pdf", mime="application/pdf")
+            else:
+                st.warning("⚠️ PDF no encontrado")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            with st.expander("📖 Marco Teórico", expanded=True):
+                st.markdown(r"""
+                ### Bombas Centrífugas
+                
+                Este marco teórico describe los principios fundamentales para el estudio del comportamiento de un fluido incompresible (agua) dentro de un sistema de tuberías, centrándose en las pérdidas de energía por fricción.
+                
+                ### 1. Balance de Energía y Pérdidas de Presión
+                El estudio del flujo se basa en el **Balance de Energía** (Ecuación de Bernoulli), que permite analizar las transformaciones entre energía cinética, potencial y de presión. Al circular un fluido por tramos de tubería, accesorios y medidores, ocurre una **pérdida de presión estática** debido a la fricción.
+                
+                Estas pérdidas se clasifican en:
+                *   **Pérdidas Mayores:** Ocurren en tramos rectos de tubería debido a la fricción continua con las paredes.
+                *   **Pérdidas Menores:** Se generan por cambios en la geometría del flujo en **accesorios** como codos, expansiones y contracciones.
+                
+                ### 2. Número de Reynolds ($Re$)
+                Es un parámetro adimensional que permite caracterizar el **régimen de flujo**. Según la experiencia de Reynolds, el flujo puede ser:
+                *   **Laminar:** Movimiento ordenado en capas ($Re < 2100$)
+                *   **Transitorio:** Inestabilidad entre regímenes ($2100 \leq Re \leq 4000$)
+                *   **Turbulento:** Movimiento caótico y con mezcla intensa ($Re > 4000$)
+                
+                **Fórmula fundamental:**
+                $$Re = \frac{D \cdot U \cdot \rho}{\mu}$$
+                
+                Donde $D$ es el diámetro (m), $U$ la velocidad media (m/s), $\rho$ la densidad (kg/m³) y $\mu$ la viscosidad dinámica (Pa·s).
+                
+                ### 3. Cálculo de Pérdidas por Fricción ($H_f$)
+                Las pérdidas de carga experimentales ($H_{fe}$) se determinan a partir de la diferencia de presión medida en las tomas manométricas de cada accesorio o tramo.
+                
+                **Diferencia de presión experimental ($\Delta P$):**
+                $$\Delta P = (\rho_m - \rho) \cdot g \cdot H \cdot 0.01$$
+                
+                *(Basado en la relación entre altura manométrica $H$ en cm y densidad del fluido manométrico $\rho_m$)*.
+                
+                **Pérdidas teóricas (Ecuación de Darcy-Weisbach):**
+                $$H_f = f_d \cdot \frac{L}{D} \cdot \frac{U^2}{2g}$$
+                
+                Donde:
+                - $f_d$ = Factor de fricción de Darcy (adimensional)
+                - $L$ = Longitud del tramo (m)
+                - $D$ = Diámetro interno (m)
+                - $U$ = Velocidad media del flujo (m/s)
+                - $g$ = Aceleración de gravedad (9.81 m/s²)
+                
+                ### 4. Factor de Fricción ($f_d$)
+                Para flujo laminar, el factor de fricción se calcula analíticamente mediante la **Ecuación de Hagen-Poiseuille**:
+                $$f_d = \frac{64}{Re}$$
+                
+                Para flujo turbulento, se utiliza la **Ecuación de Colebrook-White**, que requiere solución iterativa:
+                $$\frac{1}{\sqrt{f_d}} = -2\log\left(\frac{\varepsilon/D}{3.7} + \frac{2.51}{Re\sqrt{f_d}}\right)$$
+                
+                Donde $\varepsilon/D$ es la rugosidad relativa de la tubería.
+                
+                ### 5. Medidores de Flujo
+                Para cuantificar el caudal, se utilizan dispositivos que generan una caída de presión medible, como el **Tubo de Venturi** y la **Placa de Orificio**. Cada uno posee un **coeficiente de descarga** característico que relaciona el caudal real con el teórico.
+                """)
+        
+        with col2:
+            with st.expander("📊 Diagrama del Proceso", expanded=True):
+                st.image("1.3 Determinación de Curvas Características de Bombas Centrífugas..png", use_container_width=True)
+
+    # ==================== PRACTICA 4 tikitikiiiiiiiiiiiiiiiiiiiiiiiiiii ==============
+    
     elif nombre == "Lechos Fluidizados":
         st.info("Práctica: Lechos Fluidizados - En desarrollo")
     
