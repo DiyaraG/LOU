@@ -1063,9 +1063,6 @@ def mostrar_simulador(nombre):
     # ==================== PRACTICA 3 Bombas Centrífugas ==============
     
     elif nombre == "Bombas Centrífugas":
-        st.info("Práctica: Bombas Centrífugas - En desarrollo")
-    
-    elif nombre == "Bombas Centrífugas":
         with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
             pdf_path = "Manual de la Práctica 3. Determinación de Curvas Características de Bombas Centrífugas..pdf"
             if os.path.exists(pdf_path):
