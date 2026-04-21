@@ -1076,57 +1076,48 @@ def mostrar_simulador(nombre):
         with col1:
             with st.expander("📖 Marco Teórico", expanded=True):
                 st.markdown(r"""
-                ### Bombas Centrífugas
+                 ### Bombas Centrífugas
                 
-                Este marco teórico describe los principios fundamentales para el estudio del comportamiento de un fluido incompresible (agua) dentro de un sistema de tuberías, centrándose en las pérdidas de energía por fricción.
+                El análisis del comportamiento de las **bombas centrífugas** es esencial para entender cómo estas máquinas hidráulicas transforman la energía mecánica en energía cinética y de presión para mover un fluido a través de un sistema.
                 
-                ### 1. Balance de Energía y Pérdidas de Presión
-                El estudio del flujo se basa en el **Balance de Energía** (Ecuación de Bernoulli), que permite analizar las transformaciones entre energía cinética, potencial y de presión. Al circular un fluido por tramos de tubería, accesorios y medidores, ocurre una **pérdida de presión estática** debido a la fricción.
+                ### 1. Curvas Características de la Bomba
+                El rendimiento de una bomba se describe mediante gráficas que relacionan variables críticas frente al **caudal ($Q$)**. Las principales relaciones son:
+                *   **Cabezal vs. Caudal ($H$ vs $Q$):** Representa la altura total de elevación que la bomba puede proporcionar.
+                *   **Potencia al freno vs. Caudal ($W$ vs $Q$):** Indica la energía consumida por el motor de la bomba.
+                *   **Eficiencia vs. Caudal ($\eta$ vs $Q$):** Determina el punto de operación óptimo donde la conversión de energía es máxima.
                 
-                Estas pérdidas se clasifican en:
-                *   **Pérdidas Mayores:** Ocurren en tramos rectos de tubería debido a la fricción continua con las paredes.
-                *   **Pérdidas Menores:** Se generan por cambios en la geometría del flujo en **accesorios** como codos, expansiones y contracciones.
+                ### 2. Cabezal Experimental ($H$)
+                El cabezal representa la energía neta transferida al fluido por unidad de peso y se calcula mediante un balance de energía entre la succión y la descarga.
                 
-                ### 2. Número de Reynolds ($Re$)
-                Es un parámetro adimensional que permite caracterizar el **régimen de flujo**. Según la experiencia de Reynolds, el flujo puede ser:
-                *   **Laminar:** Movimiento ordenado en capas ($Re < 2100$)
-                *   **Transitorio:** Inestabilidad entre regímenes ($2100 \leq Re \leq 4000$)
-                *   **Turbulento:** Movimiento caótico y con mezcla intensa ($Re > 4000$)
-                
-                **Fórmula fundamental:**
-                $$Re = \frac{D \cdot U \cdot \rho}{\mu}$$
-                
-                Donde $D$ es el diámetro (m), $U$ la velocidad media (m/s), $\rho$ la densidad (kg/m³) y $\mu$ la viscosidad dinámica (Pa·s).
-                
-                ### 3. Cálculo de Pérdidas por Fricción ($H_f$)
-                Las pérdidas de carga experimentales ($H_{fe}$) se determinan a partir de la diferencia de presión medida en las tomas manométricas de cada accesorio o tramo.
-                
-                **Diferencia de presión experimental ($\Delta P$):**
-                $$\Delta P = (\rho_m - \rho) \cdot g \cdot H \cdot 0.01$$
-                
-                *(Basado en la relación entre altura manométrica $H$ en cm y densidad del fluido manométrico $\rho_m$)*.
-                
-                **Pérdidas teóricas (Ecuación de Darcy-Weisbach):**
-                $$H_f = f_d \cdot \frac{L}{D} \cdot \frac{U^2}{2g}$$
+                **Fórmula del cabezal para bomba individual:**
+                $$H_{Bi} = \frac{P_2 - P_1}{\rho \cdot g} \cdot 6894,757 + Z + \frac{U^2}{2g} + H_{1 \to 2}$$
                 
                 Donde:
-                - $f_d$ = Factor de fricción de Darcy (adimensional)
-                - $L$ = Longitud del tramo (m)
-                - $D$ = Diámetro interno (m)
-                - $U$ = Velocidad media del flujo (m/s)
-                - $g$ = Aceleración de gravedad (9.81 m/s²)
+                - $P_2$ = Presión de descarga (psig)
+                - $P_1$ = Presión atmosférica (psia)
+                - $Z$ = Diferencia de altura geométrica (m)
+                - $U$ = Velocidad media del fluido (m/s)
+                - $H_{1 \to 2}$ = Pérdidas totales por fricción (m)
                 
-                ### 4. Factor de Fricción ($f_d$)
-                Para flujo laminar, el factor de fricción se calcula analíticamente mediante la **Ecuación de Hagen-Poiseuille**:
-                $$f_d = \frac{64}{Re}$$
+                ### 3. Eficiencia de la Bomba ($\eta$)
+                Es la relación entre la potencia hidráulica entregada al fluido y la potencia mecánica (al freno) suministrada al eje de la bomba.
                 
-                Para flujo turbulento, se utiliza la **Ecuación de Colebrook-White**, que requiere solución iterativa:
-                $$\frac{1}{\sqrt{f_d}} = -2\log\left(\frac{\varepsilon/D}{3.7} + \frac{2.51}{Re\sqrt{f_d}}\right)$$
+                **Relación fundamental:**
+                $$\eta = \frac{\rho \cdot g \cdot Q \cdot H}{W_{Bi} \cdot constante}$$
                 
-                Donde $\varepsilon/D$ es la rugosidad relativa de la tubería.
+                Donde $W_{Bi}$ es la potencia al freno calculada a partir de la intensidad de corriente o potencia eléctrica.
                 
-                ### 5. Medidores de Flujo
-                Para cuantificar el caudal, se utilizan dispositivos que generan una caída de presión medible, como el **Tubo de Venturi** y la **Placa de Orificio**. Cada uno posee un **coeficiente de descarga** característico que relaciona el caudal real con el teórico.
+                ### 4. Operación en Sistemas Compuestos
+                Cuando las necesidades de un proceso exceden la capacidad de una sola bomba, estas se pueden acoplar en diferentes configuraciones:
+                
+                *   **Bombas en Serie:** Se utilizan para incrementar el cabezal ($H$) total del sistema. El caudal es el mismo para ambas, pero los cabezales se suman:
+                $$H_S = H_1 + H_2$$
+                
+                *   **Bombas en Paralelo:** Se emplean para aumentar el caudal ($Q$) total. El cabezal se mantiene similar al de una sola bomba, pero los caudales se suman:
+                $$Q_P = Q_1 + Q_2$$
+                
+                ### 5. Fenómeno de Cavitación
+                Es un aspecto crítico de la teoría de bombas que ocurre cuando la presión en la succión cae por debajo de la presión de vapor del líquido, formando burbujas de vapor que colapsan y pueden dañar mecánicamente el impulsor. Se evita asegurando que el **NPSH** disponible sea mayor al requerido por el fabricante.
                 """)
         
         with col2:
