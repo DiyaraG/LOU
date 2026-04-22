@@ -1275,7 +1275,6 @@ def mostrar_simulador(nombre):
                 st.image("2.1 Hidrodinámica de Columnas Empacadas..png", use_container_width=True)
 
     # ==================== PRACTICA 3 Filtración a Presión Constante (falta la dos) ==============
-    # ==================== PRACTICA 5 Lechos Fluidizados ==============
     
     elif nombre == "Filtración a Presión Constante":
         with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
@@ -1350,6 +1349,74 @@ def mostrar_simulador(nombre):
             with st.expander("📊 Diagrama del Proceso", expanded=True):
                 st.image("2.2 A PRESIÓN CONSTANTE.png", use_container_width=True)
 
+    # ==================== PRACTICA 5 Destilación Diferencial ==============
+
+    elif nombre == "Filtración a Presión Constante":
+        with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
+            pdf_path = "2 Manual de la Práctica 4. Estudio de la Destilación Diferencial..pdf"
+            if os.path.exists(pdf_path):
+                with open(pdf_path, "rb") as f:
+                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="DestilaciónDiferencial.pdf", mime="application/pdf")
+            else:
+                st.warning("⚠️ PDF no encontrado")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            with st.expander("📖 Marco Teórico", expanded=True):
+                st.markdown(r"""
+                ## Destilación Diferencial
+                
+                Considerada como una sucesión de evaporaciones instantáneas infinitesimales, la **destilación diferencial** es un proceso por lotes donde la mezcla se calienta lentamente en un recipiente y los vapores se retiran y condensan inmediatamente después de su formación. Este método se utiliza principalmente para la obtención de productos costosos en cantidades reducidas o con fines analíticos en el laboratorio.
+                
+                ### 1. Equilibrio Líquido-Vapor en Sistemas Ideales
+                En mezclas de comportamiento ideal, como los hidrocarburos aromáticos, se aplica la **Ley de Raoult**. Esta establece que la presión parcial ($p_J^*$) de un componente es igual al producto de su presión de vapor puro ($P_J^o$) por su fracción molar en el líquido ($X_J$):
+                
+                $$p_J^* = P_J^o \cdot X_J$$
+                
+                La presión total del sistema es la suma de las presiones parciales:
+                $$P_T = \sum_{J=1}^{n} p_J^* = \sum_{J=1}^{n} P_J^o \cdot X_J$$
+                
+                ### 2. Volatilidad Relativa ($\alpha$)
+                Es un parámetro crítico que mide la facilidad de separación de dos componentes. Para sistemas ideales, se define como la relación entre las presiones de vapor de los componentes puros:
+                
+                $$\alpha = \frac{P_A^o}{P_B^o}$$
+                
+                Cuando $\alpha > 1$, el componente A es más volátil, lo que facilita su acumulación en la fase vapor durante la destilación. La relación entre las fases líquida y vapor en equilibrio está dada por:
+                
+                $$y_A = \frac{\alpha \cdot x_A}{1 + (\alpha - 1)x_A}$$
+                
+                ### 3. Ecuación de Rayleigh
+                Este modelo matemático describe cómo varía la composición del líquido residual en el calderín a medida que avanza la vaporización. Su forma integral relaciona los moles iniciales ($n_o$) y finales ($n$) con las fracciones molares:
+                
+                $$\ln \frac{n}{n_o} = \int_{x_o}^{x_1} \frac{dx}{y - x}$$
+                
+                Para **mezclas ideales** con volatilidad relativa constante, la relación entre dos componentes (A y B) se puede simplificar como:
+                
+                $$\ln \frac{n_A}{n_{OA}} = \alpha_{AB} \cdot \ln \frac{n_B}{n_{OB}}$$
+                
+                ### 4. Temperatura de Burbuja y Rocío
+                
+                *   **Temperatura de Burbuja ($t_b$):** Es el punto exacto donde aparece la primera burbuja de vapor al calentar el líquido. Matemáticamente:
+                $$\sum_{J=1}^{n} \frac{P_J^o(t_b) \cdot X_J}{P_T} = 1$$
+                
+                *   **Temperatura de Rocío ($t_r$):** Es el instante en que se condensa la última gota de vapor o desaparece la última gota de líquido durante la vaporización total. Matemáticamente:
+                $$\sum_{J=1}^{n} \frac{P_T \cdot Y_J}{P_J^o(t_r)} = 1$$
+                
+                A cualquier temperatura entre $t_b$ y $t_r$, existe un equilibrio único donde la composición de cada fase depende exclusivamente de la presión y la temperatura del sistema.
+                
+                ### 5. Aplicaciones de la Destilación Diferencial
+                - **Industria de bebidas:** Producción de licores y bebidas destiladas (whisky, brandy, ron)
+                - **Industria de perfumes:** Extracción de aceites esenciales y esencias naturales
+                - **Industria farmacéutica:** Purificación de compuestos termolábiles
+                - **Análisis de laboratorio:** Determinación de curvas de destilación y caracterización de mezclas
+                """)
+        
+        with col2:
+            with st.expander("📊 Diagrama del Proceso", expanded=True):
+                st.image("2.4 ESTUDIO DE LA DESTILACIÓN DIFERENCIAL.png", use_container_width=True)
+    
+    
     # ======================== FOOTER ========================
     st.markdown("""
     <hr style="margin: 2rem 0 1rem 0; border-color: #1a5276;">
