@@ -1206,7 +1206,7 @@ def mostrar_simulador(nombre):
 
     # ==================== PRACTICA 6 tikitikiiiiiiiiiiiiiiiiiiiiiiiiiii ==============
     
-    elif nombre in ["Hidrodinámica de Columnas Empacadas", "Filtración a Presión Constante", 
+    elif nombre in ["Filtración a Presión Constante", 
                     "Destilación Diferencial", "Destilación Continua", "Rectificación en Torre Rellena"]:
         st.info(f"Práctica: {nombre} - En desarrollo")
 
@@ -1275,7 +1275,7 @@ def mostrar_simulador(nombre):
             with st.expander("📊 Diagrama del Proceso", expanded=True):
                 st.image("2.1 Hidrodinámica de Columnas Empacadas..png", use_container_width=True)
 
-    # ==================== PRACTICA 2 Pérdidas de Presión por Fricción ==============
+    # ==================== PRACTICA 2 Filtración a Presión Constante ==============
 
     # ======================== FOOTER ========================
     st.markdown("""
