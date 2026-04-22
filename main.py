@@ -1206,8 +1206,7 @@ def mostrar_simulador(nombre):
 
     # ==================== PRACTICA 6 tikitikiiiiiiiiiiiiiiiiiiiiiiiiiii ==============
     
-    elif nombre in ["Filtración a Presión Constante", 
-                    "Destilación Diferencial", "Destilación Continua", "Rectificación en Torre Rellena"]:
+    elif nombre in ["Destilación Diferencial", "Destilación Continua", "Rectificación en Torre Rellena"]:
         st.info(f"Práctica: {nombre} - En desarrollo")
 
     # =================================LOU II====================================================== 
