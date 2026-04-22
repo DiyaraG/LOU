@@ -214,7 +214,7 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     color: #1a5276 !important;
 }
 
-/* ======================== TÍTULO PRINCIPAL - GOTAS DE AGUA ======================== */
+/* ======================== TÍTULO PRINCIPAL - GOTAS DE AGUA SIMPLE ======================== */
 .title-container {
     background: linear-gradient(135deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
     border: 2px solid #f1c40f !important;
@@ -224,96 +224,48 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     overflow: hidden;
 }
 
+/* Gota única más grande */
 .title-container::before {
     content: '';
     position: absolute;
-    top: 15%;
-    left: 10%;
-    width: 80px;
-    height: 80px;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
     background: radial-gradient(circle, 
-        rgba(241, 196, 15, 0.15) 0%, 
-        rgba(255, 255, 255, 0.08) 30%,
-        transparent 70%);
+        rgba(241, 196, 15, 0.3) 0%, 
+        rgba(255, 255, 255, 0.15) 20%,
+        transparent 50%);
     border-radius: 50%;
-    animation: drop1 14s ease-in-out infinite;
+    transform: translate(-50%, -50%);
+    animation: waterRipple 8s ease-in-out infinite;
     pointer-events: none;
 }
 
-.title-container::after {
-    content: '';
-    position: absolute;
-    bottom: 20%;
-    right: 15%;
-    width: 60px;
-    height: 60px;
-    background: radial-gradient(circle, 
-        rgba(241, 196, 15, 0.12) 0%, 
-        rgba(255, 255, 255, 0.06) 30%,
-        transparent 70%);
-    border-radius: 50%;
-    animation: drop2 18s ease-in-out infinite;
-    pointer-events: none;
-}
-
-@keyframes drop1 {
+@keyframes waterRipple {
     0% {
         opacity: 0;
-        transform: scale(0.8);
+        transform: translate(-50%, -50%) scale(0.3);
     }
-    10% {
-        opacity: 0.6;
-        transform: scale(1);
-    }
-    30% {
-        opacity: 0.3;
-        transform: scale(1.2);
-    }
-    50% {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-}
-
-@keyframes drop2 {
-    0% {
-        opacity: 0;
-        transform: scale(0.6);
-    }
-    15% {
-        opacity: 0.5;
-        transform: scale(1);
+    20% {
+        opacity: 0.7;
     }
     40% {
-        opacity: 0.2;
-        transform: scale(1.3);
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(1.2);
     }
     60% {
-        opacity: 0;
-        transform: scale(0.8);
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    80% {
+        opacity: 0.2;
+        transform: translate(-50%, -50%) scale(1.1);
     }
     100% {
         opacity: 0;
-        transform: scale(0.6);
+        transform: translate(-50%, -50%) scale(0.3);
     }
-}
-
-.animated-title {
-    background: linear-gradient(90deg, #f1c40f 0%, #f9e79f 50%, #f1c40f 100%) !important;
-    background-size: 200% auto !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    color: transparent !important;
-    animation: wave 6s linear infinite !important;
-}
-
-.sub-title {
-    color: #f0f4f8 !important;
-    font-weight: 500 !important;
 }
 
 /* ======================== ESTILO TARJETA PARA PESTAÑAS ======================== */
