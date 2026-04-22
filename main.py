@@ -819,13 +819,14 @@ def mostrar_simulador(nombre):
         with st.sidebar.expander("🛡️ Escenario de Perturbación ($Q_p$)"):
             p_activa = st.toggle("Simular Falla/Fuga Externas", value=True)
             if p_activa:
-                p_magnitud = st.number_input("Magnitud Qp [m³/s]", value=0.045, format="%.4f")
-                p_tiempo = st.slider("Inicio de perturbación [s]", 0, 500, 80)
-                modo_estres = st.toggle("🔥 Activar Modo Estrés", help="La perturbación cambiará según el nivel")
+                p_tipo = st.selectbox("Tipo de Perturbación", ["Entrada", "Salida (Fuga)"])
+                p_tipo = "Entrada" if p_tipo == "Entrada" else "Salida"
+                p_magnitud = st.number_input("Magnitud Qp [m³/s]", value=0.5, min_value=0.1, max_value=3.0, step=0.1, format="%.2f")
+                p_tiempo = st.slider("Inicio de perturbación [s]", 0, 500, 100)
             else:
                 p_magnitud = 0.0
                 p_tiempo = 0
-                modo_estres = False
+                p_tipo = "Entrada"
 
          with st.sidebar.expander("Parámetros del Controlador PID Robusto"):
             cd_actual = st.session_state.get('cd_calculado', 0.61)
