@@ -562,46 +562,7 @@ def mostrar_simulador(nombre):
             color: #1a5276 !important;
         }
 
-        /* ======================== ESTILO PARA EXPANDERS DEL MARCO TEÓRICO - VERSIÓN ELEGANTE ======================== */
-        div[data-testid="stExpander"] {
-            background: linear-gradient(135deg, #ffffff, #f5f9fc) !important;
-            border: 2px solid #f1c40f !important;
-            border-radius: 15px !important;
-            margin-bottom: 15px !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        div[data-testid="stExpander"]:hover {
-            box-shadow: 0 6px 18px rgba(241, 196, 15, 0.15) !important;
-            transform: translateY(-2px) !important;
-        }
-        
-        div[data-testid="stExpander"] summary {
-            background: linear-gradient(90deg, #0d3251, #1a5276) !important;
-            color: #f1c40f !important;
-            border-radius: 12px !important;
-            font-weight: 800 !important;
-            font-size: 1.1rem !important;
-            padding: 0.8rem 1.2rem !important;
-            letter-spacing: 0.5px !important;
-            border-left: 4px solid #f1c40f !important;
-        }
-        
-        div[data-testid="stExpander"] summary:hover {
-            background: linear-gradient(90deg, #1a5276, #2471a3) !important;
-            color: #ffffff !important;
-            transform: translateX(5px) !important;
-            cursor: pointer !important;
-        }
-        
-        div[data-testid="stExpander"] .stExpanderContent {
-            background-color: #fefefe !important;
-            border-radius: 0 0 12px 12px !important;
-            padding: 20px !important;
-            border-top: 3px solid #f1c40f !important;
-        }
-        
+ 
         /* ======================== TÍTULO DEL SIMULADOR ======================== */
         /* Contenedor del título */
         .title-container {
