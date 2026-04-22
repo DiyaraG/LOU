@@ -215,6 +215,7 @@ div[data-testid="column"]:first-child .stButton > button:hover {
 }
 
 /* ======================== TÍTULO PRINCIPAL - GOTAS DE AGUA SIMPLE ======================== */
+/* ======================== TÍTULO PRINCIPAL - GOTAS QUE APARECEN Y DESAPARECEN ======================== */
 .title-container {
     background: linear-gradient(135deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
     border: 2px solid #f1c40f !important;
@@ -224,47 +225,96 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     overflow: hidden;
 }
 
-/* Gota única más grande */
+/* Gota 1 - esquina superior izquierda */
 .title-container::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 200px;
-    height: 200px;
+    top: 20%;
+    left: 15%;
+    width: 80px;
+    height: 80px;
     background: radial-gradient(circle, 
-        rgba(241, 196, 15, 0.3) 0%, 
-        rgba(255, 255, 255, 0.15) 20%,
-        transparent 50%);
+        rgba(241, 196, 15, 0.35) 0%, 
+        rgba(255, 255, 255, 0.15) 25%,
+        transparent 60%);
     border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: waterRipple 8s ease-in-out infinite;
+    animation: dropAppear1 6s ease-out infinite;
     pointer-events: none;
 }
 
-@keyframes waterRipple {
+/* Gota 2 - centro derecha */
+.title-container::after {
+    content: '';
+    position: absolute;
+    bottom: 25%;
+    right: 20%;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, 
+        rgba(241, 196, 15, 0.3) 0%, 
+        rgba(255, 255, 255, 0.12) 25%,
+        transparent 60%);
+    border-radius: 50%;
+    animation: dropAppear2 8s ease-out infinite 2s;
+    pointer-events: none;
+}
+
+/* Tercera gota - usando box-shadow (no necesita div extra) */
+.title-container {
+    box-shadow: 0 0 0 0 rgba(0,0,0,0);
+}
+
+.title-container::backdrop {
+    content: '';
+}
+
+/* Agregamos una tercera gota con un span (necesitas agregarlo al HTML) */
+
+@keyframes dropAppear1 {
     0% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(0.3);
+        transform: scale(0.3);
     }
-    20% {
-        opacity: 0.7;
+    15% {
+        opacity: 0.9;
+        transform: scale(1);
     }
-    40% {
-        opacity: 0.3;
-        transform: translate(-50%, -50%) scale(1.2);
+    35% {
+        opacity: 0.5;
+        transform: scale(1.2);
     }
     60% {
-        opacity: 0.5;
-        transform: translate(-50%, -50%) scale(0.8);
-    }
-    80% {
         opacity: 0.2;
-        transform: translate(-50%, -50%) scale(1.1);
+        transform: scale(0.9);
     }
     100% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(0.3);
+        transform: scale(0.7);
+        visibility: hidden;
+    }
+}
+
+@keyframes dropAppear2 {
+    0% {
+        opacity: 0;
+        transform: scale(0.4);
+    }
+    20% {
+        opacity: 0.85;
+        transform: scale(1.05);
+    }
+    45% {
+        opacity: 0.4;
+        transform: scale(1.25);
+    }
+    70% {
+        opacity: 0.15;
+        transform: scale(0.85);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.6);
+        visibility: hidden;
     }
 }
 
