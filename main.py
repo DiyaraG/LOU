@@ -1501,8 +1501,8 @@ def mostrar_simulador(nombre):
                 st.image("2.5 Destilación Continua.png", use_container_width=True)   
 
     # ======================== PRACTICA 6 Rectificación en Torre Rellena ========================   
-
-    elif nombre == "Destilación Continua":
+ 
+    elif nombre == "Rectificación en Torre Rellena":
         with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
             pdf_path = "2 Manual de la Práctica 6. Rectificación de una Mezcla Binaria en una Torre Rellena..pdf"
             if os.path.exists(pdf_path):
