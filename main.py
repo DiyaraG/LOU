@@ -654,12 +654,12 @@ def mostrar_simulador(nombre):
             color: #f0f4f8 !important;
         }
 
-                      /* ======================== BOTONES NORMALES EN BARRA LATERAL (INICIAR/RESET) ======================== */
+    /* ======================== BOTONES NORMALES EN BARRA LATERAL (INICIAR/RESET) ======================== */
         [data-testid="stSidebar"] .stButton button {
             background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
-            color: #0d3251 !important;  /* Azul oscuro para máximo contraste */
+            color: #000000 !important;  /* Azul oscuro para máximo contraste */
             font-weight: 800 !important; /* Texto más grueso */
-            border: 2px solid #0d3251 !important; /* Borde azul */
+            border: 2px solid #000000 !important; /* Borde azul */
             border-radius: 25px !important;
             font-size: 1rem !important;
             padding: 0.5rem 1rem !important;
@@ -680,7 +680,9 @@ def mostrar_simulador(nombre):
 
         
         </style>
-        """, unsafe_allow_html=True)        
+        """, unsafe_allow_html=True)       
+
+        
         # ======================== MARCO TEÓRICO ========================
         col_teoria1, col_teoria2, col_teoria3 = st.columns(3)
 
@@ -783,9 +785,9 @@ def mostrar_simulador(nombre):
         
         with st.sidebar.expander("Parámetros del Controlador PID Robusto"):
             kp_sug, ki_sug, kd_sug = calcular_pid_adaptativo(geom_tanque, r_max, h_total)
-            modo_auto = st.checkbox("🎯 Modo Robusto (Auto-sintonía optimizada)", value=True)
+            modo_auto = st.checkbox("Modo Robusto (Auto-sintonía optimizada)", value=True)
             if modo_auto:
-                st.success("💡 Usando sintonización robusta")
+                st.success("Usando sintonización robusta")
                 kp_val = st.number_input("Kp (robusto)", value=kp_sug, key="kp_asist")
                 ki_val = st.number_input("Ki (robusto)", value=ki_sug, format="%.3f", key="ki_asist")
                 kd_val = st.number_input("Kd (robusto)", value=kd_sug, format="%.3f", key="kd_asist")
@@ -795,7 +797,7 @@ def mostrar_simulador(nombre):
                 kd_val = st.number_input("Kd", value=1.5, step=0.2, format="%.3f", key="kd_man")
             tiempo_ensayo = st.slider("Tiempo de simulación [s]", 60, 600, 300)
         
-        with st.sidebar.expander("📊 Cargar Datos Experimentales"):
+        with st.sidebar.expander("Cargar Datos Experimentales"):
             st.caption("⚠️ Ingresa el nivel en **centímetros (cm)**")
             df_exp_default = pd.DataFrame({
                 "Tiempo (s)": [0, 60, 120, 180, 240, 300],
@@ -818,7 +820,7 @@ def mostrar_simulador(nombre):
     
         # ======================== BIBLIOTECA TÉCNICA EN BARRA LATERAL ========================
         st.sidebar.markdown("---")
-        st.sidebar.subheader("📚 Biblioteca Técnica")
+        st.sidebar.subheader("Biblioteca Técnica")
         
         with st.sidebar.container(border=True):
             nombre_pdf = "Guia_Practica_UCV.pdf"
