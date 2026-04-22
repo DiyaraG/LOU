@@ -214,7 +214,7 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     color: #1a5276 !important;
 }
 
-/* ======================== TÍTULO PRINCIPAL - BRILLO RESPIRANTE ======================== */
+/* ======================== TÍTULO PRINCIPAL - GOTAS DE AGUA ======================== */
 .title-container {
     background: linear-gradient(135deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
     border: 2px solid #f1c40f !important;
@@ -224,42 +224,81 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     overflow: hidden;
 }
 
-/* Brillo ambiental suave que respira */
 .title-container::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(ellipse at 30% 40%, 
-        rgba(241, 196, 15, 0.08) 0%, 
-        rgba(255, 255, 255, 0.04) 25%,
-        transparent 60%);
-    animation: breathe 10s ease-in-out infinite;
+    top: 15%;
+    left: 10%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, 
+        rgba(241, 196, 15, 0.15) 0%, 
+        rgba(255, 255, 255, 0.08) 30%,
+        transparent 70%);
+    border-radius: 50%;
+    animation: drop1 14s ease-in-out infinite;
     pointer-events: none;
 }
 
-@keyframes breathe {
+.title-container::after {
+    content: '';
+    position: absolute;
+    bottom: 20%;
+    right: 15%;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, 
+        rgba(241, 196, 15, 0.12) 0%, 
+        rgba(255, 255, 255, 0.06) 30%,
+        transparent 70%);
+    border-radius: 50%;
+    animation: drop2 18s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes drop1 {
     0% {
-        opacity: 0.1;
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    10% {
+        opacity: 0.6;
         transform: scale(1);
     }
-    25% {
-        opacity: 0.4;
-        transform: scale(1.05);
+    30% {
+        opacity: 0.3;
+        transform: scale(1.2);
     }
     50% {
-        opacity: 0.15;
-        transform: scale(1);
-    }
-    75% {
-        opacity: 0.3;
-        transform: scale(1.03);
+        opacity: 0;
+        transform: scale(0.9);
     }
     100% {
-        opacity: 0.1;
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+@keyframes drop2 {
+    0% {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+    15% {
+        opacity: 0.5;
         transform: scale(1);
+    }
+    40% {
+        opacity: 0.2;
+        transform: scale(1.3);
+    }
+    60% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.6);
     }
 }
 
