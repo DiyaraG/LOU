@@ -418,12 +418,13 @@ def mostrar_simulador(nombre):
             color: #f1c40f !important;
             font-weight: bold;
         }
-
-                /* Forzar visibilidad del encabezado del expander */
+        
+        /* Forzar visibilidad del encabezado del expander en barra lateral */
         [data-testid="stSidebar"] .streamlit-expanderHeader {
             background-color: #1a5276 !important;
             color: #f1c40f !important;
             border-left: 4px solid #f1c40f !important;
+            border-radius: 10px !important;
         }
         
         [data-testid="stSidebar"] .streamlit-expanderHeader span {
@@ -437,7 +438,36 @@ def mostrar_simulador(nombre):
         [data-testid="stSidebar"] .streamlit-expanderHeader:hover span {
             color: #ffffff !important;
         }
-
+        
+        /* Forzar visibilidad del contenido del expander */
+        [data-testid="stSidebar"] .streamlit-expanderContent {
+            background-color: #f5f9fc !important;
+            border: 1px solid #1a5276 !important;
+            border-top: none !important;
+            border-radius: 0 0 10px 10px !important;
+        }
+        
+        /* Forzar visibilidad de los textos dentro del expander */
+        [data-testid="stSidebar"] .streamlit-expanderContent .stMarkdown,
+        [data-testid="stSidebar"] .streamlit-expanderContent label,
+        [data-testid="stSidebar"] .streamlit-expanderContent p,
+        [data-testid="stSidebar"] .streamlit-expanderContent span {
+            color: #1a5276 !important;
+        }
+        
+        /* Botón de descarga PDF */
+        [data-testid="stSidebar"] .stDownloadButton button {
+            background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
+            color: #1a5276 !important;
+            font-weight: bold !important;
+            border: none !important;
+            border-radius: 25px !important;
+        }
+        
+        [data-testid="stSidebar"] .stDownloadButton button:hover {
+            background: linear-gradient(90deg, #f39c12, #f1c40f) !important;
+            transform: scale(1.02);
+        }
         /* ======================== SLIDER CORREGIDO - SIN SALTOS ======================== */
         /* Línea del slider - fondo (parte no recorrida) */
         div[data-baseweb="slider"] > div {
