@@ -214,7 +214,7 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     color: #1a5276 !important;
 }
 
-/* ======================== TÍTULO PRINCIPAL - EFECTO BRILLO TIPO AGUA ======================== */
+/* ======================== TÍTULO PRINCIPAL - BRILLO RESPIRANTE ======================== */
 .title-container {
     background: linear-gradient(135deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
     border: 2px solid #f1c40f !important;
@@ -222,68 +222,45 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
     position: relative;
     overflow: hidden;
-    backdrop-filter: none !important;
 }
 
-/* Efecto de brillo tipo agua - se mueve continuamente */
+/* Brillo ambiental suave que respira */
 .title-container::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, 
-        rgba(241, 196, 15, 0.12) 0%, 
-        transparent 30%,
-        rgba(255, 255, 255, 0.06) 50%,
-        transparent 70%,
-        rgba(241, 196, 15, 0.08) 100%);
-    animation: waterShimmer 8s ease-in-out infinite;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at 30% 40%, 
+        rgba(241, 196, 15, 0.08) 0%, 
+        rgba(255, 255, 255, 0.04) 25%,
+        transparent 60%);
+    animation: breathe 10s ease-in-out infinite;
     pointer-events: none;
 }
 
-@keyframes waterShimmer {
+@keyframes breathe {
     0% {
-        transform: translate(-10%, -10%) rotate(0deg);
-        opacity: 0.3;
+        opacity: 0.1;
+        transform: scale(1);
     }
     25% {
-        transform: translate(10%, -5%) rotate(5deg);
-        opacity: 0.6;
+        opacity: 0.4;
+        transform: scale(1.05);
     }
     50% {
-        transform: translate(5%, 15%) rotate(10deg);
-        opacity: 0.4;
+        opacity: 0.15;
+        transform: scale(1);
     }
     75% {
-        transform: translate(-15%, 5%) rotate(5deg);
-        opacity: 0.7;
+        opacity: 0.3;
+        transform: scale(1.03);
     }
     100% {
-        transform: translate(-10%, -10%) rotate(0deg);
-        opacity: 0.3;
+        opacity: 0.1;
+        transform: scale(1);
     }
-}
-
-.animated-title {
-    background: linear-gradient(90deg, #f1c40f 0%, #f9e79f 50%, #f1c40f 100%) !important;
-    background-size: 200% auto !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    color: transparent !important;
-    animation: wave 6s linear infinite !important;
-}
-
-.sub-title {
-    color: #f0f4f8 !important;
-    font-weight: 500 !important;
-}
-
-@keyframes shine {
-    0% { left: -150%; }
-    30% { left: 100%; }
-    100% { left: 100%; }
 }
 
 .animated-title {
