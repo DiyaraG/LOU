@@ -13,7 +13,6 @@ modo_auto = False
 p_activa = True
 p_magnitud = 0.045
 p_tiempo = 80
-modo_estres = False
 
 # =============================================================================
 # FUNCIONES DE CÁLCULO
