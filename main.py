@@ -976,13 +976,9 @@ def mostrar_simulador(nombre):
     
             for i, t_act in enumerate(vector_t):
                 status_placeholder.markdown("**💧 CONTROL ROBUSTO ACTIVADO - PROCESANDO...**")
-                
+
                 if p_activa and t_act >= p_tiempo:
-                    if modo_estres:
-                        factor = 1.5 if valor_presente < sp_nivel else 0.5
-                        q_p_inst = p_magnitud * factor
-                    else:
-                        q_p_inst = p_magnitud
+                    q_p_inst = p_magnitud
                 else:
                     q_p_inst = 0.0
                 
