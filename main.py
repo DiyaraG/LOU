@@ -569,18 +569,6 @@ def mostrar_simulador(nombre):
         div[role="slider"]:active {
             background: #e67e22 !important;
         }
-   
-        [data-testid="stSidebar"] .stButton button {
-            background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
-            color: #1a5276 !important;
-            font-weight: bold !important;
-            border: none !important;
-        }
-        
-        [data-testid="stSidebar"] .stButton button:hover {
-            background: linear-gradient(90deg, #f39c12, #f1c40f) !important;
-            transform: scale(1.02);
-        }
         
         [data-testid="stSidebar"] .stAlert {
             background-color: rgba(241, 196, 15, 0.15) !important;
