@@ -214,7 +214,7 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     color: #1a5276 !important;
 }
 
-/* ======================== TÍTULO PRINCIPAL - CON EFECTO BRILLO SUTIL ======================== */
+/* ======================== TÍTULO PRINCIPAL - EFECTO BRILLO TIPO AGUA ======================== */
 .title-container {
     background: linear-gradient(135deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
     border: 2px solid #f1c40f !important;
@@ -225,22 +225,59 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     backdrop-filter: none !important;
 }
 
-/* Efecto de brillo súper sutil */
+/* Efecto de brillo tipo agua - se mueve continuamente */
 .title-container::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -150%;
-    width: 150%;
-    height: 100%;
-    background: linear-gradient(90deg, 
-        transparent, 
-        rgba(241, 196, 15, 0.04), 
-        rgba(255, 255, 255, 0.06), 
-        rgba(241, 196, 15, 0.04), 
-        transparent);
-    animation: shine 12s ease-in-out infinite;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, 
+        rgba(241, 196, 15, 0.12) 0%, 
+        transparent 30%,
+        rgba(255, 255, 255, 0.06) 50%,
+        transparent 70%,
+        rgba(241, 196, 15, 0.08) 100%);
+    animation: waterShimmer 8s ease-in-out infinite;
     pointer-events: none;
+}
+
+@keyframes waterShimmer {
+    0% {
+        transform: translate(-10%, -10%) rotate(0deg);
+        opacity: 0.3;
+    }
+    25% {
+        transform: translate(10%, -5%) rotate(5deg);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translate(5%, 15%) rotate(10deg);
+        opacity: 0.4;
+    }
+    75% {
+        transform: translate(-15%, 5%) rotate(5deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(-10%, -10%) rotate(0deg);
+        opacity: 0.3;
+    }
+}
+
+.animated-title {
+    background: linear-gradient(90deg, #f1c40f 0%, #f9e79f 50%, #f1c40f 100%) !important;
+    background-size: 200% auto !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    animation: wave 6s linear infinite !important;
+}
+
+.sub-title {
+    color: #f0f4f8 !important;
+    font-weight: 500 !important;
 }
 
 @keyframes shine {
