@@ -408,16 +408,6 @@ def mostrar_simulador(nombre):
             padding-bottom: 5px;
         }
         
-        [data-testid="stSidebar"] .stExpander {
-            border: 1px solid #f1c40f40;
-            border-radius: 10px;
-            background: rgba(15, 52, 96, 0.3);
-        }
-        
-        [data-testid="stSidebar"] .stExpander summary {
-            color: #f1c40f !important;
-            font-weight: bold;
-        }
         
         /* Forzar visibilidad del encabezado del expander en barra lateral */
         [data-testid="stSidebar"] .streamlit-expanderHeader {
