@@ -1204,11 +1204,6 @@ def mostrar_simulador(nombre):
             with st.expander("📊 Diagrama del Proceso", expanded=True):
                 st.image("1.5 LECHOS FLUIDIZADOS.png", use_container_width=True)
 
-    # ==================== PRACTICA 6 tikitikiiiiiiiiiiiiiiiiiiiiiiiiiii ==============
-    
-    elif nombre in ["Destilación Diferencial", "Destilación Continua", "Rectificación en Torre Rellena"]:
-        st.info(f"Práctica: {nombre} - En desarrollo")
-
     # =================================LOU II====================================================== 
 
     # ================ PRACTICA 1 Hidrodinámica de Columnas Empacadas ==============================
@@ -1416,6 +1411,188 @@ def mostrar_simulador(nombre):
             with st.expander("📊 Diagrama del Proceso", expanded=True):
                 st.image("2.4 ESTUDIO DE LA DESTILACIÓN DIFERENCIAL.png", use_container_width=True)
     
+    # ==================== PRACTICA 5 Destilación Continua   ==============
+
+ 
+    elif nombre == "Destilación Continua":
+        with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
+            pdf_path = "2 Manual de la Práctica 5. Destilación Continua de una Mezcla Binaria en una Columna de Separación por Etapas..pdf"
+            if os.path.exists(pdf_path):
+                with open(pdf_path, "rb") as f:
+                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="DestilaciónContinua.pdf", mime="application/pdf")
+            else:
+                st.warning("⚠️ PDF no encontrado")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            with st.expander("📖 Marco Teórico", expanded=True):
+                st.markdown(r"""
+                ## Destilación Continua
+                
+                **La rectificación continua, o fraccionamiento, constituye** una operación unitaria de destilación a contracorriente en varias etapas que permite separar los componentes de una solución líquida aprovechando sus diferencias de volatilidad. En este proceso, una fase vapor y una líquida entran en contacto íntimo: el vapor que asciende por la columna se enriquece con el componente más volátil (destilado), mientras que el líquido que desciende se concentra en el componente menos volátil (residuo).
+                
+                ### 1. Métodos de Cálculo de Etapas
+                Para determinar el número de platos o etapas teóricas necesarias para una separación específica, se utilizan principalmente dos métodos:
+                
+                *   **Método de McCabe-Thiele:** Es un modelo simplificado basado en balances de materia que asume un **derrame molar constante** en las secciones de la columna.
+                
+                    **Línea de operación (Enriquecimiento):**
+                    $$y_{n+1} = \frac{R}{R+1}x_n + \frac{x_D}{R+1}$$
+                    
+                    **Línea de operación (Agotamiento):**
+                    $$y_{m+1} = \frac{L_m}{V_{m+1}}x_m - \frac{W x_W}{V_{m+1}}$$
+                
+                    Donde:
+                    - $R = L_0/D$ = Relación de reflujo
+                    - $x_D$ = Fracción molar en el destilado
+                    - $x_W$ = Fracción molar en el residuo
+                    - $L_m$ = Flujo de líquido en la sección de agotamiento (mol/s)
+                    - $V_{m+1}$ = Flujo de vapor en la sección de agotamiento (mol/s)
+                    - $W$ = Flujo de residuo (mol/s)
+                
+                *   **Método de Ponchón-Savarit:** Se considera un enfoque más riguroso al integrar simultáneamente balances de materia y energía a través de diagramas de **entalpía-composición**. Este método no requiere suponer flujos molares constantes y considera la operación como adiabática.
+                
+                ### 2. Volatilidad Relativa ($\alpha$)
+                Es el parámetro fundamental que mide la facilidad de separación de la mezcla. Indica cuánto más volátil es un componente respecto al otro a una presión dada.
+                
+                **Fórmula de volatilidad:**
+                $$\alpha_{AB} = \frac{Y_A(1 - X_A)}{X_A(1 - Y_A)}$$
+                
+                Donde:
+                - $X_A$ = Fracción molar del componente A en el líquido
+                - $Y_A$ = Fracción molar del componente A en el vapor
+                
+                Para mezclas ideales con volatilidad relativa constante, la curva de equilibrio está dada por:
+                $$y = \frac{\alpha x}{1 + (\alpha - 1)x}$$
+                
+                ### 3. Condiciones Límite: Reflujo Total
+                Cuando la columna opera sin alimentación ni extracción de productos, se alcanza el **reflujo total**, lo que permite obtener la separación deseada con el **número mínimo de etapas ($N_m$)**. Para este cálculo se puede emplear la **Ecuación de Fenske**:
+                
+                **Relación de Fenske:**
+                $$N_m = \frac{\log \left[ \frac{X_D(1 - X_W)}{X_W(1 - X_D)} \right]}{\log \alpha_{prom}} - 1$$
+                
+                Donde:
+                - $X_D$ = Fracción molar del componente más volátil en el destilado
+                - $X_W$ = Fracción molar del componente más volátil en el residuo
+                - $\alpha_{prom}$ = Volatilidad relativa promedio geométrica entre la cima y el fondo
+                
+                ### 4. Relación de Reflujo Mínima ($R_m$)
+                Corresponde al valor de reflujo que requiere un **número infinito de etapas** para lograr la separación deseada. Gráficamente, se determina trazando la línea de operación que intersecta la curva de equilibrio en el punto de alimentación.
+                
+                $$R_m = \frac{x_D - y_F}{y_F - x_F}$$
+                
+                Donde $x_F$ y $y_F$ son las coordenadas del punto de intersección entre la línea de alimentación y la curva de equilibrio.
+                
+                ### 5. Eficiencia de la Columna
+                La eficiencia permite comparar el desempeño del equipo real frente al modelo ideal.
+                
+                *   **Eficiencia Global ($E_g$):** Relaciona los platos teóricos ($N_{PT}$) calculados gráficamente con los platos reales ($N_R$) instalados en la torre.
+                $$E_g = \frac{N_{PT}}{N_R} \cdot 100$$
+                
+                *   **Eficiencia de Platos (Eficiencia de Murphree):** Mide la eficiencia de un plato individual:
+                $$E_{MV} = \frac{Y_n - Y_{n+1}}{Y_n^* - Y_{n+1}}$$
+                
+                Donde $Y_n^*$ es la composición del vapor que estaría en equilibrio con el líquido que sale del plato.
+                """)
+        
+        with col2:
+            with st.expander("📊 Diagrama del Proceso", expanded=True):
+                st.image("2.5 Destilación Continua.png", use_container_width=True)   
+
+    # ======================== PRACTICA 6 Rectificación en Torre Rellena ========================   
+
+    elif nombre == "Destilación Continua":
+        with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
+            pdf_path = "2 Manual de la Práctica 6. Rectificación de una Mezcla Binaria en una Torre Rellena..pdf"
+            if os.path.exists(pdf_path):
+                with open(pdf_path, "rb") as f:
+                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Rectificacion.pdf", mime="application/pdf")
+            else:
+                st.warning("⚠️ PDF no encontrado")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            with st.expander("📖 Marco Teórico", expanded=True):
+                st.markdown(r"""
+                ## Rectificación de una Mezcla Binaria en una Torre Rellena.
+                
+                Centrada en maximizar el área de contacto interfacial, la **rectificación en torres empacadas** constituye una operación de transferencia de masa donde una fase vapor y una líquida coexisten a la misma presión y temperatura para separar componentes por sus diferencias de volatilidad. En estos equipos, el líquido desciende en cascada mientras el vapor asciende, permitiendo que los componentes más ligeros se concentren en el tope y los más pesados en el fondo de la columna.
+                
+                ### 1. Parámetros de Diseño: HETP
+                A diferencia de las columnas de platos, el rendimiento de una torre rellena se mide mediante la **Altura Equivalente a un Plato Teórico (HETP)**. Este valor representa la altura de empaque necesaria para lograr un cambio en la composición equivalente a un contacto teórico de equilibrio.
+                
+                **Relación de dimensionamiento:**
+                $$Z = HETP \cdot N$$
+                
+                Donde:
+                - $Z$ = Altura total de relleno (m)
+                - $HETP$ = Altura equivalente a un plato teórico (m)
+                - $N$ = Número de etapas teóricas
+                
+                ### 2. Método de McCabe-Thiele y Relación de Reflujo
+                Para determinar las etapas de separación, este método gráfico utiliza el balance de materia bajo la suposición de **derrame molar constante**. La eficiencia del proceso está fuertemente ligada a la **relación de reflujo ($R$)**, definida como la razón molar entre el líquido que retorna a la torre ($L$) y el destilado ($D$).
+                
+                **Línea de operación de rectificación (Enriquecimiento):**
+                $$y_n = \frac{R}{R+1}x_{n+1} + \frac{x_D}{R+1}$$
+                
+                **Línea de operación de agotamiento:**
+                $$y_{m+1} = \frac{L_m}{V_{m+1}}x_m - \frac{W x_W}{V_{m+1}}$$
+                
+                **Línea de alimentación (q-line):**
+                $$y = \frac{q}{q-1}x - \frac{x_F}{q-1}$$
+                
+                Donde:
+                - $R = L_0/D$ = Relación de reflujo
+                - $x_D$ = Composición del destilado (fracción molar)
+                - $x_W$ = Composición del residuo (fracción molar)
+                - $x_F$ = Composición de la alimentación (fracción molar)
+                - $q$ = Calidad de la alimentación (fracción de líquido en la alimentación)
+                
+                ### 3. Reflujo Total y Ecuación de Fenske
+                Cuando la columna opera sin introducir alimentación ni retirar producto, se alcanza la condición de **reflujo total**, lo que resulta en el número mínimo de etapas necesarias para una separación dada. Si la volatilidad relativa ($\alpha$) es constante, se emplea la **Ecuación de Fenske** para el cálculo analítico.
+                
+                **Fórmula de Fenske:**
+                $$N_{min} = \frac{\log \left[ \frac{x_D (1-x_w)}{x_w (1-x_D)} \right]}{\log \alpha_{prom}}$$
+                
+                Donde:
+                - $x_D$ = Composición del componente más volátil en el destilado
+                - $x_w$ = Composición del componente más volátil en el residuo
+                - $\alpha_{prom}$ = Volatilidad relativa promedio geométrica
+                
+                ### 4. Relación de Reflujo Mínima ($R_{min}$)
+                Corresponde al valor de reflujo que requiere un número infinito de etapas para lograr la separación deseada.
+                
+                $$R_{min} = \frac{x_D - y_F}{y_F - x_F}$$
+                
+                Donde $(x_F, y_F)$ son las coordenadas del punto de intersección entre la línea de alimentación y la curva de equilibrio.
+                
+                ### 5. Rectificación Discontinua (Batch): Ecuación de Rayleigh
+                En operaciones por carga (batch), la composición del líquido en el calderín cambia continuamente a medida que se retira el componente más volátil. La **Ecuación de Rayleigh** permite relacionar los moles cargados inicialmente ($F$) con los moles residuales ($W$) tras la operación.
+                
+                **Modelo de Rayleigh:**
+                $$\ln \frac{F}{W} = \int_{x_w}^{x_F} \frac{dx}{x_D - x}$$
+                
+                Este cálculo suele resolverse mediante integración gráfica o numérica utilizando datos de equilibrio líquido-vapor.
+                
+                ### 6. Eficiencia de la Columna
+                **Eficiencia Global ($E_g$):**
+                $$E_g = \frac{N_{PT}}{N_R} \cdot 100$$
+                
+                Donde:
+                - $N_{PT}$ = Número de platos teóricos
+                - $N_R$ = Número de platos reales
+                
+                **Eficiencia de Murphree (para plato individual):**
+                $$E_{MV} = \frac{Y_n - Y_{n+1}}{Y_n^* - Y_{n+1}}$$
+                
+                Donde $Y_n^*$ es la composición del vapor en equilibrio con el líquido que sale del plato.
+                """)
+        
+        with col2:
+            with st.expander("📊 Diagrama del Proceso", expanded=True):
+                st.image("2.6 Rectificación de una Mezcla Binaria en una Torre Rellena..png", use_container_width=True)       
     
     # ======================== FOOTER ========================
     st.markdown("""
