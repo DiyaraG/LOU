@@ -507,29 +507,6 @@ def mostrar_simulador(nombre):
             transform: scale(1.02);
         }
 
-              /* ======================== BOTONES NORMALES EN BARRA LATERAL (INICIAR/RESET) ======================== */
-        [data-testid="stSidebar"] .stButton button {
-            background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
-            color: #0d3251 !important;  /* Azul oscuro para máximo contraste */
-            font-weight: 800 !important; /* Texto más grueso */
-            border: 2px solid #0d3251 !important; /* Borde azul */
-            border-radius: 25px !important;
-            font-size: 1rem !important;
-            padding: 0.5rem 1rem !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        [data-testid="stSidebar"] .stButton button:hover {
-            background: linear-gradient(90deg, #f39c12, #e67e22) !important;
-            color: #ffffff !important; /* Texto blanco al pasar el mouse */
-            border: 2px solid #f1c40f !important;
-            transform: scale(1.02) !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
-        }
-        
-        [data-testid="stSidebar"] .stButton button:active {
-            transform: scale(0.98) !important;
-        }
  /* ======================== SLIDER CORREGIDO - SIN SALTOS ======================== */
         /* Línea del slider - fondo (parte no recorrida) */
         div[data-baseweb="slider"] > div {
@@ -676,6 +653,32 @@ def mostrar_simulador(nombre):
         .sub-title {
             color: #f0f4f8 !important;
         }
+
+                      /* ======================== BOTONES NORMALES EN BARRA LATERAL (INICIAR/RESET) ======================== */
+        [data-testid="stSidebar"] .stButton button {
+            background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
+            color: #0d3251 !important;  /* Azul oscuro para máximo contraste */
+            font-weight: 800 !important; /* Texto más grueso */
+            border: 2px solid #0d3251 !important; /* Borde azul */
+            border-radius: 25px !important;
+            font-size: 1rem !important;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        [data-testid="stSidebar"] .stButton button:hover {
+            background: linear-gradient(90deg, #f39c12, #e67e22) !important;
+            color: #ffffff !important; /* Texto blanco al pasar el mouse */
+            border: 2px solid #f1c40f !important;
+            transform: scale(1.02) !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+        }
+        
+        [data-testid="stSidebar"] .stButton button:active {
+            transform: scale(0.98) !important;
+        }
+
+        
         </style>
         """, unsafe_allow_html=True)        
         # ======================== MARCO TEÓRICO ========================
