@@ -1275,8 +1275,9 @@ def mostrar_simulador(nombre):
                 st.image("2.1 Hidrodinámica de Columnas Empacadas..png", use_container_width=True)
 
     # ==================== PRACTICA 3 Filtración a Presión Constante (falta la dos) ==============
-
-     elif nombre == "Filtración a Presión Constante":
+    # ==================== PRACTICA 5 Lechos Fluidizados ==============
+    
+    elif nombre == "Filtración a Presión Constante":
         with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
             pdf_path = "2 Manual de la Práctica 3. Estudio de las Características de la Filtración a Presión Constante de una Suspensión..pdf"
             if os.path.exists(pdf_path):
