@@ -266,19 +266,16 @@ div[data-testid="column"]:first-child .stButton > button:hover {
 /* ======================== ESTILO PARA PESTAÑAS LOU I Y LOU II ======================== */
 .stTabs [data-baseweb="tab"] {
     font-weight: 800 !important;
-    font-size: 1.5rem !important;  /* Más grande */
+    font-size: 1.6rem !important;  /* Más grande */
     letter-spacing: 2px !important;
     transition: all 0.3s ease !important;
     padding: 0.6rem 1.5rem !important;
-    background: rgba(255,255,255,0.7) !important;  /* Fondo blanco translúcido */
-    border-radius: 12px !important;
-    margin: 0 5px !important;
 }
 
 /* Pestaña no seleccionada */
 .stTabs [data-baseweb="tab"]:not([aria-selected="true"]) {
-    color: #1a5276 !important;  /* Azul oscuro - más visible */
-    background: rgba(255,255,255,0.5) !important;
+    color: #1a5276 !important;  /* Azul oscuro - contraste fuerte */
+    text-shadow: none !important;
 }
 
 /* Pestaña seleccionada */
@@ -287,6 +284,11 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     background: #1a5276 !important;  /* Fondo azul oscuro */
     text-shadow: 0 0 8px rgba(241, 196, 15, 0.5) !important;
     border-radius: 12px !important;
+}
+
+/* Línea indicadora - la puedes quitar o mantener */
+.stTabs [data-baseweb="tab-highlight"] {
+    display: none !important;  /* Opcional: oculta la línea azul */
 }
 
 /* Línea indicadora LED azul - más gruesa */
