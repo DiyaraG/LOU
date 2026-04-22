@@ -50,24 +50,32 @@ def calcular_pid_adaptativo(geom, r_max, h_total):
     return round(kp, 2), round(ki, 3), round(kd, 3)
 
 def sintonizar_controlador_robusto(geom, r, h_t, cd_calculado, area_ori, op_tipo="Llenado"):
+    """Sintonización robusta del PID CORREGIDA con ganancias más altas"""
     if geom == "Cilíndrico":
         area_t = np.pi * (r**2)
     elif geom == "Cónico":
         area_t = np.pi * (r/2)**2
-    else:
+    else:  # Esférico
         area_t = (2/3) * np.pi * (r**2)
-    Kc = np.clip(10.0 * area_t, 8.0, 25.0)
+    
+    # Ganancias base MÁS ALTAS
     if op_tipo == "Llenado":
-        kp = Kc * 1.2
-        ki = kp / 5.0
-        kd = kp * 0.15
-    else:
-        kp = Kc * 1.0
-        ki = kp / 6.0
-        kd = kp * 0.12
-    kp = np.clip(kp, 12.0, 30.0)
-    ki = np.clip(ki, 2.5, 8.0)
-    kd = np.clip(kd, 0.5, 2.5)
+        kp = 25.0 * (area_t / 3.0)
+        ki = 5.0 * (area_t / 3.0)
+        kd = 2.0 * (area_t / 3.0)
+    else:  # Vaciado
+        kp = 20.0 * (area_t / 3.0)
+        ki = 4.0 * (area_t / 3.0)
+        kd = 1.5 * (area_t / 3.0)
+    
+    factor_cd = np.clip(cd_calculado / 0.61, 0.8, 1.3)
+    kp = kp * factor_cd
+    ki = ki * factor_cd
+    
+    kp = np.clip(kp, 15.0, 50.0)
+    ki = np.clip(ki, 3.0, 10.0)
+    kd = np.clip(kd, 1.0, 3.0)
+    
     return round(kp, 2), round(ki, 3), round(kd, 2)
 
 def calcular_cd_inteligente(df_usr, r, h_t, geom, area_ori):
