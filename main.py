@@ -523,6 +523,45 @@ def mostrar_simulador(nombre):
             color: #f1c40f !important;
         }
 
+                /* ======================== FORZAR VISIBILIDAD DE EXPANDERS EN BARRA LATERAL ======================== */
+        /* Esto es lo que realmente controla los expanders */
+        [data-testid="stSidebar"] .stExpander {
+            border: 1px solid #f1c40f !important;
+            border-radius: 10px !important;
+            background-color: #1a5276 !important;
+            margin-bottom: 10px !important;
+        }
+        
+        /* El encabezado del expander - LO MÁS IMPORTANTE */
+        [data-testid="stSidebar"] .stExpander summary {
+            background-color: #1a5276 !important;
+            color: #f1c40f !important;
+            border-radius: 10px !important;
+            padding: 0.75rem !important;
+            font-weight: bold !important;
+            font-size: 1rem !important;
+        }
+        
+        [data-testid="stSidebar"] .stExpander summary:hover {
+            background-color: #2471a3 !important;
+            color: #ffffff !important;
+        }
+        
+        /* El contenido del expander */
+        [data-testid="stSidebar"] .stExpander .stExpanderContent {
+            background-color: #f5f9fc !important;
+            border-radius: 0 0 10px 10px !important;
+            padding: 15px !important;
+        }
+        
+        /* Texto dentro del contenido */
+        [data-testid="stSidebar"] .stExpander .stExpanderContent .stMarkdown,
+        [data-testid="stSidebar"] .stExpander .stExpanderContent label,
+        [data-testid="stSidebar"] .stExpander .stExpanderContent p,
+        [data-testid="stSidebar"] .stExpander .stExpanderContent span {
+            color: #1a5276 !important;
+        }
+
         /* ======================== TÍTULO DEL SIMULADOR ======================== */
         /* Contenedor del título */
         .title-container {
