@@ -1202,7 +1202,7 @@ def mostrar_simulador(nombre):
         
         with col2:
             with st.expander("📊 Diagrama del Proceso", expanded=True):
-                st.image("1.5 LECHOS FLUIDIZADOS..png", use_container_width=True)
+                st.image("1.5 LECHOS FLUIDIZADOS.png", use_container_width=True)
 
     # ==================== PRACTICA 6 tikitikiiiiiiiiiiiiiiiiiiiiiiiiiii ==============
     
