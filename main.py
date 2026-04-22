@@ -270,6 +270,39 @@ st.markdown("""
     100% { text-shadow: 0 0 8px rgba(52, 152, 219, 0.5), 0 0 3px rgba(52, 152, 219, 0.3); }
 }
 
+/* ======================== ESTILO PARA EXPANDERS (VISIBLE SIEMPRE) ======================== */
+/* Encabezado del expander - SIEMPRE VISIBLE */
+.streamlit-expanderHeader {
+    background-color: #1a5276 !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+    color: #f1c40f !important;
+    border-left: 4px solid #f1c40f !important;
+    transition: all 0.2s ease !important;
+    padding: 0.75rem 1rem !important;
+}
+
+.streamlit-expanderHeader span {
+    color: #f1c40f !important;
+}
+
+.streamlit-expanderHeader:hover {
+    background-color: #2471a3 !important;
+    transform: translateX(3px);
+}
+
+.streamlit-expanderHeader:hover span {
+    color: #ffffff !important;
+}
+
+.streamlit-expanderContent {
+    background-color: #f5f9fc !important;
+    border-radius: 0 0 10px 10px !important;
+    border: 1px solid #1a5276 !important;
+    border-top: none !important;
+    padding: 15px !important;
+}
+
 # =============================================================================
 # Cirrre del style
 # =============================================================================
