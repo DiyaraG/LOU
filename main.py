@@ -1346,7 +1346,7 @@ def mostrar_simulador(nombre):
 
     # ==================== PRACTICA 5 Destilación Diferencial ==============
 
-    elif nombre == "Filtración a Presión Constante":
+    elif nombre == "Destilación Diferencial":
         with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
             pdf_path = "2 Manual de la Práctica 4. Estudio de la Destilación Diferencial..pdf"
             if os.path.exists(pdf_path):
