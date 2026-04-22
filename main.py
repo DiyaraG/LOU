@@ -563,8 +563,8 @@ def mostrar_simulador(nombre):
         }
 
         /* ======================== ESTILO PARA EXPANDERS DEL MARCO TEÓRICO (SOLO ÁREA PRINCIPAL) ======================== */
-        /* Excluye la barra lateral usando :not() */
-        .main > div:not([data-testid="stSidebar"]) div[data-testid="stExpander"] {
+        /* Esto afecta SOLO a los expanders dentro de las columnas del marco teórico */
+        .stColumn div[data-testid="stExpander"] {
             background: linear-gradient(135deg, #e8f4f8, #d4e9f2) !important;
             border: 2px solid #1a5276 !important;
             border-radius: 12px !important;
@@ -572,8 +572,8 @@ def mostrar_simulador(nombre):
             box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
         }
         
-        /* Encabezado - solo área principal */
-        .main > div:not([data-testid="stSidebar"]) div[data-testid="stExpander"] summary {
+        /* Encabezado - dentro de las columnas */
+        .stColumn div[data-testid="stExpander"] summary {
             background: linear-gradient(90deg, #1a5276, #2471a3) !important;
             color: #f1c40f !important;
             border-radius: 10px !important;
@@ -583,29 +583,29 @@ def mostrar_simulador(nombre):
             transition: all 0.3s ease !important;
         }
         
-        /* Hover - solo área principal */
-        .main > div:not([data-testid="stSidebar"]) div[data-testid="stExpander"] summary:hover {
+        /* Hover */
+        .stColumn div[data-testid="stExpander"] summary:hover {
             background: linear-gradient(90deg, #2471a3, #2e86c1) !important;
             color: #ffffff !important;
             transform: translateX(5px) !important;
         }
         
-        /* Contenido - solo área principal */
-        .main > div:not([data-testid="stSidebar"]) div[data-testid="stExpander"] .stExpanderContent {
+        /* Contenido */
+        .stColumn div[data-testid="stExpander"] .stExpanderContent {
             background-color: #ffffff !important;
             border-radius: 0 0 10px 10px !important;
             padding: 15px !important;
             border-top: 2px solid #f1c40f !important;
         }
         
-        /* Texto - solo área principal */
-        .main > div:not([data-testid="stSidebar"]) div[data-testid="stExpander"] .stExpanderContent p,
-        .main > div:not([data-testid="stSidebar"]) div[data-testid="stExpander"] .stExpanderContent li {
+        /* Texto dentro del contenido */
+        .stColumn div[data-testid="stExpander"] .stExpanderContent p,
+        .stColumn div[data-testid="stExpander"] .stExpanderContent li {
             color: #1a5276 !important;
             font-size: 0.95rem !important;
             line-height: 1.5 !important;
         }
- 
+
         /* ======================== TÍTULO DEL SIMULADOR ======================== */
         /* Contenedor del título */
         .title-container {
