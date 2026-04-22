@@ -214,7 +214,7 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     color: #1a5276 !important;
 }
 
-/* ======================== TÍTULO PRINCIPAL - EFECTO BRILLO DIAGONAL ======================== */
+/* ======================== TÍTULO PRINCIPAL - CON EFECTO BRILLO SUTIL ======================== */
 .title-container {
     background: linear-gradient(135deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
     border: 2px solid #f1c40f !important;
@@ -225,52 +225,29 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     backdrop-filter: none !important;
 }
 
-/* Efecto de brillo - desde esquina inferior izquierda hacia superior derecha */
+/* Efecto de brillo súper sutil */
 .title-container::before {
     content: '';
     position: absolute;
-    bottom: -150%;
+    top: 0;
     left: -150%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(135deg, 
-        transparent 0%,
-        transparent 40%,
-        rgba(241, 196, 15, 0.08) 45%,
-        rgba(255, 255, 255, 0.1) 50%,
-        rgba(241, 196, 15, 0.08) 55%,
-        transparent 60%,
-        transparent 100%);
-    animation: shineDiagonal 10s ease-in-out infinite;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(241, 196, 15, 0.04), 
+        rgba(255, 255, 255, 0.06), 
+        rgba(241, 196, 15, 0.04), 
+        transparent);
+    animation: shine 12s ease-in-out infinite;
     pointer-events: none;
 }
 
-@keyframes shineDiagonal {
-    0% {
-        transform: translate(0%, 0%) rotate(0deg);
-        opacity: 0;
-    }
-    15% {
-        opacity: 0.8;
-    }
-    30% {
-        opacity: 0.3;
-    }
-    45% {
-        opacity: 0.6;
-    }
-    60% {
-        opacity: 0.1;
-    }
-    75% {
-        opacity: 0.5;
-    }
-    100% {
-        transform: translate(30%, 30%) rotate(10deg);
-        opacity: 0;
-    }
+@keyframes shine {
+    0% { left: -150%; }
+    30% { left: 100%; }
+    100% { left: 100%; }
 }
-
 
 .animated-title {
     background: linear-gradient(90deg, #f1c40f 0%, #f9e79f 50%, #f1c40f 100%) !important;
