@@ -896,17 +896,17 @@ def mostrar_simulador(nombre):
                     st.session_state['kp_ejecucion'] = kp_val
                     st.session_state['ki_ejecucion'] = ki_val
                     st.session_state['kd_ejecucion'] = kd_val
-                    st.session_state['cd_final'] = 0.61
+                    st.session_state['cd_final'] = cd_para_usar
                 else:
                     st.session_state['kp_ejecucion'] = kp_val
                     st.session_state['ki_ejecucion'] = ki_val
                     st.session_state['kd_ejecucion'] = kd_val
-                    st.session_state['cd_final'] = 0.61
+                    st.session_state['cd_final'] = cd_para_usar
             except:
                 st.session_state['kp_ejecucion'] = 18.0
                 st.session_state['ki_ejecucion'] = 3.5
                 st.session_state['kd_ejecucion'] = 1.5
-                st.session_state['cd_final'] = 0.61
+                st.session_state['cd_final'] = cd_para_usar
     
         # ======================== SIMULACIÓN PRINCIPAL ========================
         if not st.session_state.ejecutando:
