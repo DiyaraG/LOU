@@ -897,6 +897,7 @@ def mostrar_simulador(nombre):
         # ======================== INICIALIZACIÓN ========================
         if iniciar_sim:
             st.session_state.ejecutando = True
+            cd_para_usar = st.session_state.get('cd_calculado', 0.61)
             try:
                 if modo_auto:
                     st.session_state['kp_ejecucion'] = kp_val
