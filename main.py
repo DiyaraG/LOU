@@ -562,50 +562,46 @@ def mostrar_simulador(nombre):
             color: #1a5276 !important;
         }
 
-                /* ======================== ESTILO PARA EXPANDERS DEL MARCO TEÓRICO ======================== */
-        /* Expanders en el área principal (no en la barra lateral) */
+        /* ======================== ESTILO PARA EXPANDERS DEL MARCO TEÓRICO - VERSIÓN ELEGANTE ======================== */
         div[data-testid="stExpander"] {
-            background: linear-gradient(135deg, #e8f4f8, #d4e9f2) !important;
-            border: 2px solid #1a5276 !important;
-            border-radius: 12px !important;
+            background: linear-gradient(135deg, #ffffff, #f5f9fc) !important;
+            border: 2px solid #f1c40f !important;
+            border-radius: 15px !important;
             margin-bottom: 15px !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
-        }
-        
-        /* Encabezado del expander */
-        div[data-testid="stExpander"] summary {
-            background: linear-gradient(90deg, #1a5276, #2471a3) !important;
-            color: #f1c40f !important;
-            border-radius: 10px !important;
-            font-weight: 700 !important;
-            font-size: 1.1rem !important;
-            padding: 0.8rem 1rem !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
             transition: all 0.3s ease !important;
         }
         
-        /* Hover sobre el encabezado */
+        div[data-testid="stExpander"]:hover {
+            box-shadow: 0 6px 18px rgba(241, 196, 15, 0.15) !important;
+            transform: translateY(-2px) !important;
+        }
+        
+        div[data-testid="stExpander"] summary {
+            background: linear-gradient(90deg, #0d3251, #1a5276) !important;
+            color: #f1c40f !important;
+            border-radius: 12px !important;
+            font-weight: 800 !important;
+            font-size: 1.1rem !important;
+            padding: 0.8rem 1.2rem !important;
+            letter-spacing: 0.5px !important;
+            border-left: 4px solid #f1c40f !important;
+        }
+        
         div[data-testid="stExpander"] summary:hover {
-            background: linear-gradient(90deg, #2471a3, #2e86c1) !important;
+            background: linear-gradient(90deg, #1a5276, #2471a3) !important;
             color: #ffffff !important;
             transform: translateX(5px) !important;
+            cursor: pointer !important;
         }
         
-        /* Contenido del expander */
         div[data-testid="stExpander"] .stExpanderContent {
-            background-color: #ffffff !important;
-            border-radius: 0 0 10px 10px !important;
-            padding: 15px !important;
-            border-top: 2px solid #f1c40f !important;
+            background-color: #fefefe !important;
+            border-radius: 0 0 12px 12px !important;
+            padding: 20px !important;
+            border-top: 3px solid #f1c40f !important;
         }
         
-        /* Texto dentro del contenido */
-        div[data-testid="stExpander"] .stExpanderContent p,
-        div[data-testid="stExpander"] .stExpanderContent li {
-            color: #1a5276 !important;
-            font-size: 0.95rem !important;
-            line-height: 1.5 !important;
-        }
-
         /* ======================== TÍTULO DEL SIMULADOR ======================== */
         /* Contenedor del título */
         .title-container {
