@@ -170,15 +170,49 @@ st.markdown("""
     .stTabs [aria-selected="true"] { color: #2B6CB0 !important; background-color: white !important; border-radius: 10px; }
     .stTabs [data-baseweb="tab-highlight"] { background-color: #3182CE !important; }
 
-    .stButton>button {
-        width: 100%; border-radius: 10px; height: 3.8em;
-        background-color: rgba(255, 255, 255, 0.8); color: #2D3748;
-        border: 1px solid #E2E8F0; transition: all 0.3s ease;
-    }
-    .stButton>button:hover {
-        background-color: #FFFFFF; border: 1px solid #3182CE;
-        box-shadow: 0 8px 15px rgba(49, 130, 206, 0.1); transform: translateY(-2px);
-    }
+/* ======================== ESTILO PARA BOTONES DE PRÁCTICAS Y MENÚ PRINCIPAL ======================== */
+/* Botones de las prácticas en la pantalla de inicio */
+.stButton > button {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e0 !important;
+    border-radius: 12px !important;
+    color: #1a5276 !important;
+    font-weight: 600 !important;
+    padding: 0.8rem 1rem !important;
+    height: auto !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+}
+
+/* Hover - elevación y borde dorado */
+.stButton > button:hover {
+    border: 1px solid #f1c40f !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1) !important;
+    transform: translateY(-3px) !important;
+    background: #ffffff !important;
+    color: #1a5276 !important;
+}
+
+/* Botón Menú Principal (el de volver atrás) */
+div[data-testid="column"]:first-child .stButton > button {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e0 !important;
+    border-radius: 12px !important;
+    color: #1a5276 !important;
+    font-weight: 600 !important;
+    padding: 0.5rem 1rem !important;
+    height: auto !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+}
+
+div[data-testid="column"]:first-child .stButton > button:hover {
+    border: 1px solid #f1c40f !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1) !important;
+    transform: translateY(-3px) !important;
+    background: #ffffff !important;
+    color: #1a5276 !important;
+}
 
 /* ======================== TÍTULO PRINCIPAL - CON EFECTO BRILLO SUTIL ======================== */
 .title-container {
