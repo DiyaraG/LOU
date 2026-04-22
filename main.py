@@ -638,7 +638,7 @@ def mostrar_simulador(nombre):
         col_teoria1, col_teoria2, col_teoria3 = st.columns(3)
 
         with col_teoria1:
-            with st.expander("📚 Fundamento teórico: Ecuaciones de Conservación y Descarga", expanded=False):
+            with st.expander("Fundamento teórico: Ecuaciones de Conservación y Descarga", expanded=False):
                 st.markdown(r"""
                 La dinámica del sistema se describe mediante el **Balance Global de Masa** para un volumen de control con densidad constante ($\rho$):
                 
@@ -658,7 +658,7 @@ def mostrar_simulador(nombre):
                 """)
 
         with col_teoria2:
-            with st.expander("🎯 Teoría: Estrategia de control PID Robusto", expanded=False):
+            with st.expander("Teoría: Estrategia de control PID Robusto", expanded=False):
                 st.markdown(r"""
                 El "cerebro" de la simulación es un controlador **Proporcional-Integral-Derivativo (PID)** con **Anti-Windup**, cuya acción de control $u(t)$ busca minimizar el error ($e = SP - h$):
                 
@@ -678,7 +678,7 @@ def mostrar_simulador(nombre):
                 """)
 
         with col_teoria3:
-            with st.expander("📊 Criterios de Desempeño (IAE/ITAE)", expanded=False):
+            with st.expander("Criterios de Desempeño (IAE/ITAE)", expanded=False):
                 st.markdown(r"""
                 Para evaluar la eficiencia del control, se utilizan métricas integrales del error $e(t) = SP - PV$:
                 
