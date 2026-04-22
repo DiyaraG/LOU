@@ -1210,6 +1210,72 @@ def mostrar_simulador(nombre):
                     "Destilación Diferencial", "Destilación Continua", "Rectificación en Torre Rellena"]:
         st.info(f"Práctica: {nombre} - En desarrollo")
 
+    # =================================LOU II====================================================== 
+
+    # ================ PRACTICA 1 Hidrodinámica de Columnas Empacadas ==============================
+    
+    elif nombre == "Hidrodinámica de Columnas Empacadas":
+        with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
+            pdf_path = "2 Manual de la Práctica 1. Hidrodinámica de Columnas Empacadas..pdf"
+            if os.path.exists(pdf_path):
+                with open(pdf_path, "rb") as f:
+                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="ColumnasEmpacadas.pdf", mime="application/pdf")
+            else:
+                st.warning("⚠️ PDF no encontrado")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            with st.expander("📖 Marco Teórico", expanded=True):
+                st.markdown(r"""
+                ## Hidrodinámica de Columnas Empacadas
+                
+                La **transferencia de masa en la industria química depende fundamentalmente de la interacción eficiente entre fases dentro de una torre de relleno**, la cual busca maximizar el contacto superficial para procesos críticos como la absorción, destilación o extracción.
+                
+                ### 1. Columnas de Relleno y su Configuración
+                Estas torres consisten en columnas cilíndricas equipadas con soportes e inertes sólidos denominados **rellenos**, que pueden ser aleatorios (como los anillos Pall o Raschig) o regulares. El objetivo del relleno es permitir que el líquido fluya en forma de película, ofreciendo una gran superficie para el contacto íntimo con una corriente de gas en contracorriente.
+                
+                ### 2. Pérdida de Presión en Flujo Monofásico (Relleno Seco)
+                Cuando solo circula gas a través de la columna, la caída de presión por unidad de longitud ($\Delta P/Z$) está influenciada por las propiedades del fluido y la geometría del empaque. Este comportamiento se describe mediante la **Ecuación de Ergun**:
+                
+                $$\frac{\Delta P}{Z} = 150 \frac{(1-\epsilon)^2 \cdot \mu \cdot G'}{\rho_g \cdot \epsilon^3 \cdot d_p^2} + 1.75 \frac{(1-\epsilon) \cdot G'^2}{\rho_g \cdot \epsilon^3 \cdot d_p}$$
+                
+                Donde:
+                - $\epsilon$ = Fracción de vacío del lecho
+                - $G'$ = Velocidad másica superficial (kg/m²·s)
+                - $\rho_g$ = Densidad del gas (kg/m³)
+                - $\mu$ = Viscosidad del gas (Pa·s)
+                - $d_p$ = Diámetro efectivo de la partícula (m)
+                
+                ### 3. Dinámica del Flujo Bifásico: Carga e Inundación
+                Al introducir líquido en el sistema, los espacios vacíos se reducen, lo que incrementa la pérdida de presión del gas en comparación con el lecho seco. En este régimen ocurren dos fenómenos críticos:
+                
+                *   **Punto de Carga:** Es el momento en que la velocidad del gas comienza a impedir el libre descenso del líquido, provocando acumulaciones locales y un cambio brusco en la pendiente de la caída de presión.
+                
+                *   **Punto de Inundación:** Representa la **capacidad máxima de operación** de la torre; el líquido llena gran parte de los intersticios y el gas burbujea a través de él, pudiendo incluso expulsar el líquido fuera de la columna.
+                
+                ### 4. Retención de Líquido (Holdup)
+                La cantidad de líquido presente en el empaque durante la operación se clasifica en tres modos:
+                
+                *   **Retención Estática ($h_S$):** Líquido que permanece en el relleno tras ser mojado y drenado por gravedad.
+                *   **Retención Dinámica ($h_O$):** Líquido que fluye activamente por el relleno bajo condiciones de operación.
+                *   **Retención Total ($h_T$):** Suma de ambos componentes, constante hasta el punto de carga y creciente hasta la inundación.
+                
+                $$h_T = h_S + h_O$$
+                
+                ### 5. Correlación de Sherwood - Leva (Flooding)
+                Para predecir el punto de inundación en columnas de relleno, se utiliza la **Correlación de Sherwood-Leva**, que relaciona la velocidad másica del gas con las propiedades del sistema:
+                
+                $$\frac{G'^2 \cdot a_p \cdot \mu^{0.2}}{\rho_g \cdot \rho_l \cdot g \cdot \epsilon^3} = \text{función} \left( \frac{L'}{G'} \sqrt{\frac{\rho_g}{\rho_l}} \right)$$
+                
+                Donde $L'$ es la velocidad másica del líquido y $a_p$ el área superficial específica del relleno.
+                """)
+        
+        with col2:
+            with st.expander("📊 Diagrama del Proceso", expanded=True):
+                st.image("2.1 Hidrodinámica de Columnas Empacadas..png", use_container_width=True)
+
+    # ==================== PRACTICA 2 Pérdidas de Presión por Fricción ==============
 
     # ======================== FOOTER ========================
     st.markdown("""
