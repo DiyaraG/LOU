@@ -506,8 +506,7 @@ def mostrar_simulador(nombre):
             background: linear-gradient(90deg, #f39c12, #f1c40f) !important;
             transform: scale(1.02);
         }
-
- /* ======================== SLIDER CORREGIDO - SIN SALTOS ======================== */
+        /* ======================== SLIDER CORREGIDO - SIN SALTOS ======================== */
         /* Línea del slider - fondo (parte no recorrida) */
         div[data-baseweb="slider"] > div {
             background-color: #2c3e50 !important;
@@ -545,6 +544,18 @@ def mostrar_simulador(nombre):
         /* Active - sin cambios bruscos */
         div[role="slider"]:active {
             background: #e67e22 !important;
+        }
+   
+        [data-testid="stSidebar"] .stButton button {
+            background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
+            color: #1a5276 !important;
+            font-weight: bold !important;
+            border: none !important;
+        }
+        
+        [data-testid="stSidebar"] .stButton button:hover {
+            background: linear-gradient(90deg, #f39c12, #f1c40f) !important;
+            transform: scale(1.02);
         }
         
         [data-testid="stSidebar"] .stAlert {
@@ -653,36 +664,8 @@ def mostrar_simulador(nombre):
         .sub-title {
             color: #f0f4f8 !important;
         }
-
-    /* ======================== BOTONES NORMALES EN BARRA LATERAL (INICIAR/RESET) ======================== */
-        [data-testid="stSidebar"] .stButton button {
-            background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
-            color: #000000 !important;  /* Azul oscuro para máximo contraste */
-            font-weight: 800 !important; /* Texto más grueso */
-            border: 2px solid #000000 !important; /* Borde azul */
-            border-radius: 25px !important;
-            font-size: 1rem !important;
-            padding: 0.5rem 1rem !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        [data-testid="stSidebar"] .stButton button:hover {
-            background: linear-gradient(90deg, #f39c12, #e67e22) !important;
-            color: #ffffff !important; /* Texto blanco al pasar el mouse */
-            border: 2px solid #f1c40f !important;
-            transform: scale(1.02) !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
-        }
-        
-        [data-testid="stSidebar"] .stButton button:active {
-            transform: scale(0.98) !important;
-        }
-
-        
         </style>
-        """, unsafe_allow_html=True)       
-
-        
+        """, unsafe_allow_html=True)        
         # ======================== MARCO TEÓRICO ========================
         col_teoria1, col_teoria2, col_teoria3 = st.columns(3)
 
@@ -785,9 +768,9 @@ def mostrar_simulador(nombre):
         
         with st.sidebar.expander("Parámetros del Controlador PID Robusto"):
             kp_sug, ki_sug, kd_sug = calcular_pid_adaptativo(geom_tanque, r_max, h_total)
-            modo_auto = st.checkbox("Modo Robusto (Auto-sintonía optimizada)", value=True)
+            modo_auto = st.checkbox("🎯 Modo Robusto (Auto-sintonía optimizada)", value=True)
             if modo_auto:
-                st.success("Usando sintonización robusta")
+                st.success("💡 Usando sintonización robusta")
                 kp_val = st.number_input("Kp (robusto)", value=kp_sug, key="kp_asist")
                 ki_val = st.number_input("Ki (robusto)", value=ki_sug, format="%.3f", key="ki_asist")
                 kd_val = st.number_input("Kd (robusto)", value=kd_sug, format="%.3f", key="kd_asist")
@@ -797,7 +780,7 @@ def mostrar_simulador(nombre):
                 kd_val = st.number_input("Kd", value=1.5, step=0.2, format="%.3f", key="kd_man")
             tiempo_ensayo = st.slider("Tiempo de simulación [s]", 60, 600, 300)
         
-        with st.sidebar.expander("Cargar Datos Experimentales"):
+        with st.sidebar.expander("📊 Cargar Datos Experimentales"):
             st.caption("⚠️ Ingresa el nivel en **centímetros (cm)**")
             df_exp_default = pd.DataFrame({
                 "Tiempo (s)": [0, 60, 120, 180, 240, 300],
@@ -820,7 +803,7 @@ def mostrar_simulador(nombre):
     
         # ======================== BIBLIOTECA TÉCNICA EN BARRA LATERAL ========================
         st.sidebar.markdown("---")
-        st.sidebar.subheader("Biblioteca Técnica")
+        st.sidebar.subheader("📚 Biblioteca Técnica")
         
         with st.sidebar.container(border=True):
             nombre_pdf = "Guia_Practica_UCV.pdf"
@@ -1818,4 +1801,3 @@ if st.session_state.page == 'Inicio':
     mostrar_inicio()
 else:
     mostrar_simulador(st.session_state.page)
-
