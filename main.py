@@ -562,35 +562,39 @@ def mostrar_simulador(nombre):
             color: #1a5276 !important;
         }
 
-        /* ======================== ESTILO TARJETA BLANCA NOTORIA ======================== */
+         /* ======================== ESTILO ELEGANTE CON SOMBRA ======================== */
         .stColumn div[data-testid="stExpander"] {
             background: #ffffff !important;
-            border: 1px solid #cbd5e0 !important;
-            border-radius: 12px !important;
-            margin-bottom: 15px !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+            border: none !important;
+            border-radius: 16px !important;
+            margin-bottom: 16px !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .stColumn div[data-testid="stExpander"]:hover {
+            box-shadow: 0 4px 16px rgba(241, 196, 15, 0.12) !important;
+            transform: translateY(-2px) !important;
         }
         
         .stColumn div[data-testid="stExpander"] summary {
             background: #ffffff !important;
             color: #1a5276 !important;
             font-weight: 600 !important;
-            padding: 0.8rem 1rem !important;
-            border-radius: 12px !important;
+            padding: 1rem 1.2rem !important;
+            border-radius: 16px !important;
         }
         
-        .stColumn div[data-testid="stExpander"]:hover {
-            border: 1px solid #f1c40f !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+        .stColumn div[data-testid="stExpander"] summary:hover {
+            color: #f1c40f !important;
         }
         
         .stColumn div[data-testid="stExpander"] .stExpanderContent {
             background-color: #ffffff !important;
-            border-radius: 0 0 12px 12px !important;
-            padding: 15px !important;
-            border-top: 1px solid #e2e8f0 !important;
-        }
-        
+            border-radius: 0 0 16px 16px !important;
+            padding: 0 1.2rem 1.2rem 1.2rem !important;
+            border-top: 1px solid #f0f2f5 !important;
+        }        
         /* ======================== TÍTULO DEL SIMULADOR ======================== */
         /* Contenedor del título */
         .title-container {
