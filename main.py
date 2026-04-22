@@ -263,27 +263,39 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     font-weight: 500 !important;
 }
 
-/* ======================== ESTILO PARA PESTAÑAS LOU I Y LOU II ======================== */
+/* ======================== ESTILO TARJETA PARA PESTAÑAS ======================== */
 .stTabs [data-baseweb="tab"] {
-    font-weight: 800 !important;
-    font-size: 1.6rem !important;  /* Más grande */
-    letter-spacing: 2px !important;
+    font-weight: 700 !important;
+    font-size: 1.3rem !important;
+    letter-spacing: 1px !important;
     transition: all 0.3s ease !important;
     padding: 0.6rem 1.5rem !important;
+    background: #ffffff !important;
+    border: 1px solid #cbd5e0 !important;
+    border-radius: 12px !important;
+    margin: 0 5px !important;
+    color: #1a5276 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
 }
 
 /* Pestaña no seleccionada */
 .stTabs [data-baseweb="tab"]:not([aria-selected="true"]) {
-    color: #1a5276 !important;  /* Azul oscuro - contraste fuerte */
-    text-shadow: none !important;
+    background: #ffffff !important;
+    color: #1a5276 !important;
 }
 
 /* Pestaña seleccionada */
 .stTabs [aria-selected="true"] {
-    color: #f1c40f !important;  /* Dorado */
-    background: #1a5276 !important;  /* Fondo azul oscuro */
-    text-shadow: 0 0 8px rgba(241, 196, 15, 0.5) !important;
-    border-radius: 12px !important;
+    background: #1a5276 !important;
+    color: #f1c40f !important;
+    border: 1px solid #f1c40f !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Ocultar la línea indicadora azul */
+.stTabs [data-baseweb="tab-highlight"] {
+    display: none !important;
 }
 
 /* Línea indicadora - la puedes quitar o mantener */
