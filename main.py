@@ -860,7 +860,24 @@ def mostrar_simulador(nombre):
             datos_usr = st.data_editor(df_exp_default, num_rows="dynamic")
             mostrar_ref = st.checkbox("Mostrar referencia en gráfica", value=True)
         
+        with st.sidebar.expander("📊 Parámetros Calculados Automáticamente", expanded=False):
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.metric("Qmax Bomba", f"{q_max_bomba:.2f}")
+            with col2:
+                st.metric("Qmax Salida", f"{q_max_salida:.4f}")
+            with col3:
+                st.metric("Cd", f"{cd_automatico:.4f}")
+            
+            ajuste_manual = st.checkbox("Ajuste manual de parámetros", value=False)
+            if ajuste_manual:
+                q_max_bomba_manual = st.number_input("Qmax Bomba Manual [m³/s]", value=q_max_bomba, min_value=0.5, max_value=5.0, step=0.5)
+                cd_manual = st.number_input("Cd Manual", value=cd_automatico, min_value=0.30, max_value=0.90, step=0.01, format="%.4f")
+                st.session_state['cd_calculado'] = cd_manual
+                q_max_bomba = q_max_bomba_manual
+        
         st.sidebar.markdown("---")
+        
         col_btn1, col_btn2 = st.sidebar.columns(2)
         with col_btn1:
             iniciar_sim = st.button("▶️ Iniciar", use_container_width=True, type="primary")
