@@ -827,23 +827,29 @@ def mostrar_simulador(nombre):
                 p_magnitud = 0.0
                 p_tiempo = 0
                 modo_estres = False
-        
-        with st.sidebar.expander("Parámetros del Controlador PID Robusto"):
+
+         with st.sidebar.expander("Parámetros del Controlador PID Robusto"):
             cd_actual = st.session_state.get('cd_calculado', 0.61)
             kp_sug, ki_sug, kd_sug = sintonizar_controlador_robusto(
                 geom_tanque, r_max, h_total, cd_actual, area_orificio, op_tipo
             )
             modo_auto = st.checkbox("🎯 Modo Robusto (Auto-sintonía optimizada)", value=True)
             if modo_auto:
-                st.success("💡 Usando sintonización robusta")
+                st.success(f"💡 PID optimizado para {op_tipo} (Cd={cd_actual:.3f})")
+                st.caption(f"Kp={kp_sug} | Ki={ki_sug} | Kd={kd_sug}")
                 kp_val = st.number_input("Kp (robusto)", value=kp_sug, key="kp_asist")
                 ki_val = st.number_input("Ki (robusto)", value=ki_sug, format="%.3f", key="ki_asist")
                 kd_val = st.number_input("Kd (robusto)", value=kd_sug, format="%.3f", key="kd_asist")
             else:
-                kp_val = st.number_input("Kp", value=15.0, step=1.0, key="kp_man")
-                ki_val = st.number_input("Ki", value=3.0, step=0.5, format="%.3f", key="ki_man")
-                kd_val = st.number_input("Kd", value=1.5, step=0.2, format="%.3f", key="kd_man")
-            tiempo_ensayo = st.slider("Tiempo de simulación [s]", 60, 600, 300)
+                st.info(f"✍️ Modo Manual - {op_tipo}")
+                if op_tipo == "Llenado":
+                    kp_default, ki_default, kd_default = 12.0, 2.5, 0.8
+                else:
+                    kp_default, ki_default, kd_default = 8.0, 1.5, 0.5
+                kp_val = st.number_input("Kp", value=kp_default, step=1.0, key="kp_man")
+                ki_val = st.number_input("Ki", value=ki_default, step=0.5, format="%.3f", key="ki_man")
+                kd_val = st.number_input("Kd", value=kd_default, step=0.1, format="%.3f", key="kd_man")
+            tiempo_ensayo = st.slider("Tiempo de simulación [s]", 60, 600, 300)       
         
         with st.sidebar.expander("📊 Cargar Datos Experimentales"):
             st.caption("⚠️ Ingresa el nivel en **centímetros (cm)**")
