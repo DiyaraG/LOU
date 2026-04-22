@@ -419,6 +419,25 @@ def mostrar_simulador(nombre):
             font-weight: bold;
         }
 
+                /* Forzar visibilidad del encabezado del expander */
+        [data-testid="stSidebar"] .streamlit-expanderHeader {
+            background-color: #1a5276 !important;
+            color: #f1c40f !important;
+            border-left: 4px solid #f1c40f !important;
+        }
+        
+        [data-testid="stSidebar"] .streamlit-expanderHeader span {
+            color: #f1c40f !important;
+        }
+        
+        [data-testid="stSidebar"] .streamlit-expanderHeader:hover {
+            background-color: #2471a3 !important;
+        }
+        
+        [data-testid="stSidebar"] .streamlit-expanderHeader:hover span {
+            color: #ffffff !important;
+        }
+
         /* ======================== SLIDER CORREGIDO - SIN SALTOS ======================== */
         /* Línea del slider - fondo (parte no recorrida) */
         div[data-baseweb="slider"] > div {
