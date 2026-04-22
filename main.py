@@ -559,6 +559,21 @@ def mostrar_simulador(nombre):
             color: #f1c40f !important;
         }
 
+                /* ======================== BOTONES DE LA BARRA LATERAL ======================== */
+        [data-testid="stSidebar"] .stButton button {
+            background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
+            color: #0d3251 !important;  /* Azul oscuro - legible sobre amarillo */
+            font-weight: 800 !important;
+            border: none !important;
+            border-radius: 25px !important;
+        }
+        
+        [data-testid="stSidebar"] .stButton button:hover {
+            background: linear-gradient(90deg, #f39c12, #f1c40f) !important;
+            color: #0a2a42 !important;
+            transform: scale(1.02);
+        }
+
                 /* ======================== FORZAR VISIBILIDAD DE EXPANDERS EN BARRA LATERAL ======================== */
         /* Esto es lo que realmente controla los expanders */
         [data-testid="stSidebar"] .stExpander {
