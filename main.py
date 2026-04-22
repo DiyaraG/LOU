@@ -1124,10 +1124,87 @@ def mostrar_simulador(nombre):
             with st.expander("📊 Diagrama del Proceso", expanded=True):
                 st.image("1.3 Determinación de Curvas Características de Bombas Centrífugas..png", use_container_width=True)
 
-    # ==================== PRACTICA 4 tikitikiiiiiiiiiiiiiiiiiiiiiiiiiii ==============
+
+    # ==================== PRACTICA 5 Lechos Fluidizados ==============
     
     elif nombre == "Lechos Fluidizados":
-        st.info("Práctica: Lechos Fluidizados - En desarrollo")
+        with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
+            pdf_path = "Manual de la Práctica 5. Lechos Fluidizados. Estudio de sus Principales Características..pdf"
+            if os.path.exists(pdf_path):
+                with open(pdf_path, "rb") as f:
+                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Manual_Practica5_LechosFluidizados.pdf", mime="application/pdf")
+            else:
+                st.warning("⚠️ PDF no encontrado")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            with st.expander("📖 Marco Teórico", expanded=True):
+                st.markdown(r"""
+                 ### Lechos Fluidizados
+                
+                La **transición de un lecho estático a un estado fluidizado** representa un proceso crítico en la ingeniería química, donde un conjunto de partículas sólidas (como arena o catalizadores) suspende su estructura fija para comportarse dinámicamente como un fluido al interactuar con una corriente ascendente de aire.
+                
+                ### 1. Caracterización del Flujo: Número de Reynolds ($Re$)
+                Para estudiar el comportamiento del aire a través del lecho, se utiliza el **Número de Reynolds**, el cual relaciona las fuerzas inerciales y viscosas para determinar el régimen de flujo en los intersticios de las partículas.
+                
+                **Fórmula fundamental:**
+                $$Re = \frac{D_P \cdot U_S \cdot \rho_a}{\mu_a}$$
+                
+                Donde:
+                - $D_P$ = Diámetro de la partícula (m)
+                - $U_S$ = Velocidad superficial del fluido (m/s)
+                - $\rho_a$ = Densidad del aire (kg/m³)
+                - $\mu_a$ = Viscosidad del aire (Pa·s)
+                
+                ### 2. Porosidad o Fracción de Vacío ($\epsilon$)
+                La **fracción vacía** describe el volumen de espacios libres entre las partículas en relación con el volumen total del lecho. Este valor aumenta conforme el lecho se expande durante la fluidización.
+                
+                **Relación de porosidad:**
+                $$\epsilon = 1 - \frac{H_{LC}}{H}$$
+                
+                Donde:
+                - $H_{LC}$ = Altura del lecho compacto (m)
+                - $H$ = Altura promedio del lecho en operación (m)
+                
+                ### 3. Caída de Presión ($\Delta P$)
+                Al fluir a través del lecho, el fluido experimenta una pérdida de energía debido a la resistencia que ofrecen las partículas. Esta caída de presión se mide experimentalmente mediante manómetros diferenciales.
+                
+                **Cálculo experimental:**
+                $$\Delta P = \Delta h \cdot \rho_{LM} \cdot g$$
+                
+                Donde:
+                - $\Delta h$ = Diferencia de altura manométrica (m)
+                - $\rho_{LM}$ = Densidad del líquido manométrico (kg/m³)
+                - $g$ = Aceleración de gravedad (9.81 m/s²)
+                
+                ### 4. Punto de Mínima Fluidización ($U_{mf}$)
+                Es la velocidad crítica en la cual la fuerza ascendente del fluido iguala el peso del lecho. En este punto, las partículas dejan de estar en contacto permanente y comienzan a moverse libremente. Teóricamente, este valor se puede estimar mediante la **Ecuación de Ergun**, que considera tanto las pérdidas por fricción viscosa como inercial.
+                
+                **Ecuación de Ergun para $U_{mf}$:**
+                $$\frac{1.75}{\epsilon_{mf}^3} \left(\frac{D_P U_{mf} \rho}{\mu}\right)^2 + \frac{150(1-\epsilon_{mf})}{\epsilon_{mf}^3} \left(\frac{D_P U_{mf} \rho}{\mu}\right) = \frac{D_P^3 \rho (\rho_s - \rho) g}{\mu^2}$$
+                
+                ### 5. Número de Froude ($N_F$)
+                Este parámetro adimensional permite clasificar el **tipo de fluidización** (particular o agregativa), comparando las fuerzas de inercia con las fuerzas gravitatorias que actúan sobre las partículas.
+                
+                **Fórmula de Froude:**
+                $$N_F = \frac{U_{MF}^2}{g \cdot D_P}$$
+                
+                Donde:
+                - $U_{MF}$ = Velocidad de mínima fluidización (m/s)
+                - $g$ = Aceleración de gravedad (m/s²)
+                - $D_P$ = Diámetro de partícula (m)
+                
+                **Clasificación del tipo de fluidización:**
+                - $N_F < 1$: Fluidización particulada (uniforme, típica de líquidos)
+                - $N_F > 1$: Fluidización agregativa (con burbujas, típica de gases)
+                """)
+        
+        with col2:
+            with st.expander("📊 Diagrama del Proceso", expanded=True):
+                st.image("1.5 LECHOS FLUIDIZADOS..png", use_container_width=True)
+
+    # ==================== PRACTICA 6 tikitikiiiiiiiiiiiiiiiiiiiiiiiiiii ==============
     
     elif nombre in ["Hidrodinámica de Columnas Empacadas", "Filtración a Presión Constante", 
                     "Destilación Diferencial", "Destilación Continua", "Rectificación en Torre Rellena"]:
