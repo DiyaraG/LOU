@@ -562,13 +562,14 @@ def mostrar_simulador(nombre):
             color: #1a5276 !important;
         }
 
-        /* ======================== ESTILO TARJETA BLANCA NOTORIA ======================== */
+        /* ======================== ESTILO TARJETA BLANCA NOTORIA CON MOVIMIENTO ======================== */
         .stColumn div[data-testid="stExpander"] {
             background: #ffffff !important;
             border: 1px solid #cbd5e0 !important;
             border-radius: 12px !important;
             margin-bottom: 15px !important;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+            transition: all 0.3s ease !important;
         }
         
         .stColumn div[data-testid="stExpander"] summary {
@@ -577,11 +578,13 @@ def mostrar_simulador(nombre):
             font-weight: 600 !important;
             padding: 0.8rem 1rem !important;
             border-radius: 12px !important;
+            transition: all 0.3s ease !important;
         }
         
         .stColumn div[data-testid="stExpander"]:hover {
             border: 1px solid #f1c40f !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1) !important;
+            transform: translateY(-3px) !important;
         }
         
         .stColumn div[data-testid="stExpander"] .stExpanderContent {
