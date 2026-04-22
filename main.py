@@ -104,7 +104,29 @@ def calcular_cd_inteligente(df_usr, r, h_t, geom, area_ori):
     except:
         return 0.61
 
+def calcular_cd_automatico(geom, d_orificio_pulg):
+    """Calcula un Cd automático basado en la geometría y el diámetro del orificio."""
+    if geom == "Cilíndrico":
+        cd_base = 0.61
+    elif geom == "Cónico":
+        cd_base = 0.58
+    else:  # Esférico
+        cd_base = 0.55
+    
+    factor_diametro = np.clip(d_orificio_pulg / 1.0, 0.9, 1.1)
+    cd_final = cd_base * factor_diametro
+    return round(float(np.clip(cd_final, 0.45, 0.75)), 4)
+
+def calcular_q_max_salida(d_orificio_pulg, cd=0.61, h_max=10.0):
+    """Calcula el caudal máximo de salida basado en el orificio."""
+    g = 9.81
+    d_metros = d_orificio_pulg * 0.0254
+    area_orificio = np.pi * (d_metros / 2)**2
+    q_max_salida = cd * area_orificio * np.sqrt(2 * g * h_max)
+    return round(float(q_max_salida), 4)
+
 def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_prev, modo_op, cd_val, kp, ki, kd, d_pulgadas):
+    
     """
     Sistema CORREGIDO - Físicamente correcto:
     - V-01 (Entrada): Controla flujo de bomba (0 a Qmax_bomba)
