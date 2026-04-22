@@ -548,8 +548,9 @@ def mostrar_simulador(nombre):
    
         [data-testid="stSidebar"] .stButton button {
             background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
-            color: #1a5276 !important;
-            font-weight: bold !important;
+            color: #ffffff !important;
+            font-weight: 800 !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;  /* Sombra para contraste */
             border: none !important;
         }
         
