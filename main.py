@@ -562,31 +562,34 @@ def mostrar_simulador(nombre):
             color: #1a5276 !important;
         }
 
-        /* ======================== ESTILO SUTIL PARA EXPANDERS DEL MARCO TEÓRICO ======================== */
-        /* Contenedor - solo borde sutil */
+        /* ======================== ESTILO HIPER SUTIL PARA EXPANDERS ======================== */
+        /* Contenedor - sin borde visible normalmente */
         .stColumn div[data-testid="stExpander"] {
             background: transparent !important;
-            border: 1px solid #cbd5e0 !important;
-            border-radius: 12px !important;
+            border: none !important;
+            border-bottom: 2px solid transparent !important;
             margin-bottom: 15px !important;
             transition: all 0.3s ease !important;
         }
         
-        /* Encabezado - texto azul, fondo transparente */
+        /* Encabezado - texto azul normal */
         .stColumn div[data-testid="stExpander"] summary {
             background: transparent !important;
             color: #1a5276 !important;
-            border-radius: 12px !important;
             font-weight: 600 !important;
             font-size: 1rem !important;
-            padding: 0.8rem 1rem !important;
+            padding: 0.8rem 0.5rem !important;
             transition: all 0.3s ease !important;
         }
         
-        /* Hover - borde se vuelve dorado y texto cambia */
+        /* Icono del expander - sutil */
+        .stColumn div[data-testid="stExpander"] summary::before {
+            color: #1a5276 !important;
+        }
+        
+        /* Hover - aparece línea dorada abajo */
         .stColumn div[data-testid="stExpander"]:hover {
-            border: 1px solid #f1c40f !important;
-            box-shadow: 0 2px 8px rgba(241, 196, 15, 0.1) !important;
+            border-bottom: 2px solid #f1c40f !important;
         }
         
         .stColumn div[data-testid="stExpander"] summary:hover {
@@ -594,22 +597,22 @@ def mostrar_simulador(nombre):
             transform: translateX(5px) !important;
         }
         
-        /* Contenido - fondo blanco limpio */
+        /* Contenido */
         .stColumn div[data-testid="stExpander"] .stExpanderContent {
-            background-color: #ffffff !important;
-            border-radius: 0 0 10px 10px !important;
+            background-color: #fafbfc !important;
+            border-radius: 8px !important;
             padding: 15px !important;
-            border-top: 1px solid #e2e8f0 !important;
+            border: 1px solid #edf2f7 !important;
+            margin-top: 5px !important;
         }
         
-        /* Texto dentro del contenido */
         .stColumn div[data-testid="stExpander"] .stExpanderContent p,
         .stColumn div[data-testid="stExpander"] .stExpanderContent li {
-            color: #2d3748 !important;
+            color: #4a5568 !important;
             font-size: 0.95rem !important;
             line-height: 1.5 !important;
         }
-
+        
         /* ======================== TÍTULO DEL SIMULADOR ======================== */
         /* Contenedor del título */
         .title-container {
