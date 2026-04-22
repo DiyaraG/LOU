@@ -562,46 +562,50 @@ def mostrar_simulador(nombre):
             color: #1a5276 !important;
         }
 
-        /* ======================== ESTILO PARA EXPANDERS DEL MARCO TEÓRICO (SOLO ÁREA PRINCIPAL) ======================== */
-        /* Esto afecta SOLO a los expanders dentro de las columnas del marco teórico */
+        /* ======================== ESTILO SUTIL PARA EXPANDERS DEL MARCO TEÓRICO ======================== */
+        /* Contenedor - solo borde sutil */
         .stColumn div[data-testid="stExpander"] {
-            background: linear-gradient(135deg, #e8f4f8, #d4e9f2) !important;
-            border: 2px solid #1a5276 !important;
+            background: transparent !important;
+            border: 1px solid #cbd5e0 !important;
             border-radius: 12px !important;
             margin-bottom: 15px !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+            transition: all 0.3s ease !important;
         }
         
-        /* Encabezado - dentro de las columnas */
+        /* Encabezado - texto azul, fondo transparente */
         .stColumn div[data-testid="stExpander"] summary {
-            background: linear-gradient(90deg, #1a5276, #2471a3) !important;
-            color: #f1c40f !important;
-            border-radius: 10px !important;
-            font-weight: 700 !important;
-            font-size: 1.1rem !important;
+            background: transparent !important;
+            color: #1a5276 !important;
+            border-radius: 12px !important;
+            font-weight: 600 !important;
+            font-size: 1rem !important;
             padding: 0.8rem 1rem !important;
             transition: all 0.3s ease !important;
         }
         
-        /* Hover */
+        /* Hover - borde se vuelve dorado y texto cambia */
+        .stColumn div[data-testid="stExpander"]:hover {
+            border: 1px solid #f1c40f !important;
+            box-shadow: 0 2px 8px rgba(241, 196, 15, 0.1) !important;
+        }
+        
         .stColumn div[data-testid="stExpander"] summary:hover {
-            background: linear-gradient(90deg, #2471a3, #2e86c1) !important;
-            color: #ffffff !important;
+            color: #f1c40f !important;
             transform: translateX(5px) !important;
         }
         
-        /* Contenido */
+        /* Contenido - fondo blanco limpio */
         .stColumn div[data-testid="stExpander"] .stExpanderContent {
             background-color: #ffffff !important;
             border-radius: 0 0 10px 10px !important;
             padding: 15px !important;
-            border-top: 2px solid #f1c40f !important;
+            border-top: 1px solid #e2e8f0 !important;
         }
         
         /* Texto dentro del contenido */
         .stColumn div[data-testid="stExpander"] .stExpanderContent p,
         .stColumn div[data-testid="stExpander"] .stExpanderContent li {
-            color: #1a5276 !important;
+            color: #2d3748 !important;
             font-size: 0.95rem !important;
             line-height: 1.5 !important;
         }
