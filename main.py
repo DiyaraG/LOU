@@ -214,8 +214,7 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     color: #1a5276 !important;
 }
 
-/* ======================== TÍTULO PRINCIPAL - GOTAS DE AGUA SIMPLE ======================== */
-/* ======================== TÍTULO PRINCIPAL - GOTAS QUE APARECEN Y DESAPARECEN ======================== */
+/* ======================== TÍTULO PRINCIPAL - CON EFECTO BRILLO SUTIL ======================== */
 .title-container {
     background: linear-gradient(135deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
     border: 2px solid #f1c40f !important;
@@ -223,100 +222,33 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
     position: relative;
     overflow: hidden;
+    backdrop-filter: none !important;
 }
 
-/* Gota 1 - esquina superior izquierda */
+/* Efecto de brillo súper sutil */
 .title-container::before {
     content: '';
     position: absolute;
-    top: 20%;
-    left: 15%;
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle, 
-        rgba(241, 196, 15, 0.35) 0%, 
-        rgba(255, 255, 255, 0.15) 25%,
-        transparent 60%);
-    border-radius: 50%;
-    animation: dropAppear1 6s ease-out infinite;
+    top: 0;
+    left: -150%;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(241, 196, 15, 0.04), 
+        rgba(255, 255, 255, 0.06), 
+        rgba(241, 196, 15, 0.04), 
+        transparent);
+    animation: shine 12s ease-in-out infinite;
     pointer-events: none;
 }
 
-/* Gota 2 - centro derecha */
-.title-container::after {
-    content: '';
-    position: absolute;
-    bottom: 25%;
-    right: 20%;
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(circle, 
-        rgba(241, 196, 15, 0.3) 0%, 
-        rgba(255, 255, 255, 0.12) 25%,
-        transparent 60%);
-    border-radius: 50%;
-    animation: dropAppear2 8s ease-out infinite 2s;
-    pointer-events: none;
+@keyframes shine {
+    0% { left: -150%; }
+    30% { left: 100%; }
+    100% { left: 100%; }
 }
 
-/* Tercera gota - usando box-shadow (no necesita div extra) */
-.title-container {
-    box-shadow: 0 0 0 0 rgba(0,0,0,0);
-}
-
-.title-container::backdrop {
-    content: '';
-}
-
-/* Agregamos una tercera gota con un span (necesitas agregarlo al HTML) */
-
-@keyframes dropAppear1 {
-    0% {
-        opacity: 0;
-        transform: scale(0.3);
-    }
-    15% {
-        opacity: 0.9;
-        transform: scale(1);
-    }
-    35% {
-        opacity: 0.5;
-        transform: scale(1.2);
-    }
-    60% {
-        opacity: 0.2;
-        transform: scale(0.9);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.7);
-        visibility: hidden;
-    }
-}
-
-@keyframes dropAppear2 {
-    0% {
-        opacity: 0;
-        transform: scale(0.4);
-    }
-    20% {
-        opacity: 0.85;
-        transform: scale(1.05);
-    }
-    45% {
-        opacity: 0.4;
-        transform: scale(1.25);
-    }
-    70% {
-        opacity: 0.15;
-        transform: scale(0.85);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.6);
-        visibility: hidden;
-    }
-}
 
 .animated-title {
     background: linear-gradient(90deg, #f1c40f 0%, #f9e79f 50%, #f1c40f 100%) !important;
