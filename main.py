@@ -859,6 +859,32 @@ def mostrar_simulador(nombre):
             })
             datos_usr = st.data_editor(df_exp_default, num_rows="dynamic")
             mostrar_ref = st.checkbox("Mostrar referencia en gráfica", value=True)
+            
+            col_cd1, col_cd2 = st.columns(2)
+            with col_cd1:
+                if op_tipo == "Vaciado":
+                    if st.button("🧮 Calcular Cd desde datos", use_container_width=True):
+                        if not isinstance(datos_usr, pd.DataFrame):
+                            datos_usr = pd.DataFrame(datos_usr)
+                        
+                        if "Nivel Medido (cm)" in datos_usr.columns and len(datos_usr) >= 2:
+                            cd_calculado = calcular_cd_inteligente(
+                                datos_usr, r_max, h_total, geom_tanque, area_orificio
+                            )
+                            st.session_state['cd_calculado'] = cd_calculado
+                            st.success(f"✅ Cd calculado: {cd_calculado:.4f}")
+                        else:
+                            st.warning("⚠️ Ingresa al menos 2 datos")
+                else:
+                    st.button("🧮 Calcular Cd desde datos", disabled=True, 
+                             help="El Cd solo se calcula en proceso de Vaciado", 
+                             use_container_width=True)
+                    st.caption("ℹ️ Cd solo válido para Vaciado")
+            
+            with col_cd2:
+                if st.button("🔄 Usar Cd teórico", use_container_width=True):
+                    st.session_state['cd_calculado'] = cd_automatico
+                    st.success(f"✅ Cd teórico: {cd_automatico:.4f}")
         
         with st.sidebar.expander("📊 Parámetros Calculados Automáticamente", expanded=False):
             col1, col2, col3 = st.columns(3)
