@@ -98,11 +98,20 @@ def calcular_cd_inteligente(df_usr, r, h_t, geom, area_ori):
         return 0.61
 
 def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_prev, modo_op, cd_val, kp, ki, kd, d_pulgadas):
+    """
+    Sistema CORREGIDO - Físicamente correcto:
+    - V-01 (Entrada): Controla flujo de bomba (0 a Qmax_bomba)
+    - V-02 (Salida): Controla flujo por orificio (Ley de Torricelli)
+    - Modo_op: "Llenado" o "Vaciado" (control bidireccional)
+    """
+    from math import sqrt, pi
+    
     area_h = get_area_transversal(geom, r, h_prev, h_t)
     area_h = max(area_h, 0.0001)
+    
     err = sp - h_prev
-    a_o = np.pi * ((d_pulgadas * 0.0254) / 2)**2
-    q_max = 2.0
+    
+    # Acciones PID
     P = kp * err
     e_sum += err * dt
     e_sum = np.clip(e_sum, -50.0, 50.0)
@@ -110,28 +119,73 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_pre
     D = kd * (err - e_prev) / dt if dt > 0 else 0
     D = np.clip(D, -5.0, 5.0)
     u_control = P + I + D
+    
+    # Parámetros de la bomba y orificio
+    q_max_bomba = 2.0  # Caudal máximo de la bomba [m³/s]
+    d_metros = d_pulgadas * 0.0254
+    area_orificio = pi * (d_metros / 2)**2
+    g = 9.81
+    
+    # Lógica bidireccional según el modo de operación
     if modo_op == "Llenado":
-        q_entrada = np.clip(u_control, 0, q_max)
-        q_salida = cd_val * a_o * np.sqrt(2 * 9.81 * max(h_prev, 0.005)) if h_prev > 0.005 else 0
-        dh_dt = (q_entrada + q_p_val - q_salida) / area_h
-        u_graficar = q_entrada
-    else:
-        q_salida = np.clip(-u_control, 0, q_max)
-        q_entrada = q_p_val
-        dh_dt = (q_entrada - q_salida) / area_h
-        u_graficar = q_salida
-    h_next = np.clip(h_prev + dh_dt * dt, 0, h_t)
+        # Control de entrada (bomba)
+        flujo_base_bomba = q_max_bomba * 0.15
+        if err > 0.01:  # Nivel BAJO - Necesito SUBIR
+            q_entrada = flujo_base_bomba + np.clip(u_control, 0, q_max_bomba - flujo_base_bomba)
+        elif err < -0.01:  # Nivel ALTO - Necesito BAJAR (raro en llenado puro)
+            q_entrada = flujo_base_bomba * 0.3
+        else:
+            q_entrada = flujo_base_bomba
+        q_entrada = np.clip(q_entrada, 0, q_max_bomba)
+        
+        # Salida por gravedad (Ley de Torricelli)
+        if h_prev > 0.001:
+            q_salida = cd_val * area_orificio * sqrt(2 * g * h_prev)
+        else:
+            q_salida = 0.0
+        
+        # Agregar perturbación
+        q_entrada_total = q_entrada + q_p_val
+        q_salida_total = q_salida
+        
+        u_graficar = q_entrada  # Para mostrar en gráfica
+        
+    else:  # Modo Vaciado
+        # Control de salida (válvula de descarga)
+        flujo_base_salida = 0.0
+        if err > 0.01:  # Nivel ALTO - Necesito BAJAR más rápido
+            apertura_salida = np.clip(u_control / q_max_bomba, 0.3, 1.0)
+        elif err < -0.01:  # Nivel BAJO - Cerrar salida
+            apertura_salida = 0.1
+        else:
+            apertura_salida = 0.3
+        
+        # Caudal teórico de salida
+        if h_prev > 0.001:
+            q_salida_teorica = cd_val * area_orificio * sqrt(2 * g * h_prev)
+        else:
+            q_salida_teorica = 0.0
+        
+        q_salida = apertura_salida * q_salida_teorica
+        q_entrada = 0.0  # Sin entrada en modo vaciado puro
+        
+        # Agregar perturbación (fuga)
+        q_entrada_total = q_entrada
+        q_salida_total = q_salida + q_p_val
+        
+        u_graficar = q_salida  # Para mostrar en gráfica
+    
+    # Balance de masa
+    dh_dt = (q_entrada_total - q_salida_total) / area_h
+    h_next = h_prev + dh_dt * dt
+    h_next = np.clip(h_next, 0, h_t)
+    
     return h_next, u_graficar, err, e_sum, err
-
-def get_base64(path):
-    if os.path.exists(path):
-        with open(path, "rb") as f:
-            return base64.b64encode(f.read()).decode()
-    return None
 
 # =============================================================================
 # CONFIGURACIÓN DE LA PÁGINA + ESTILOS CRISTAL
 # =============================================================================
+
 st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🛠")
 
 st.markdown("""
