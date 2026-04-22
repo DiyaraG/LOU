@@ -263,30 +263,30 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     font-weight: 500 !important;
 }
 
-/* ======================== EFECTO LED PARA PESTAÑAS - AZUL CLARO (MÁS GRANDE) ======================== */
+/* ======================== ESTILO PARA PESTAÑAS LOU I Y LOU II ======================== */
 .stTabs [data-baseweb="tab"] {
     font-weight: 800 !important;
-    font-size: 1.3rem !important;
-    letter-spacing: 1.5px !important;
+    font-size: 1.5rem !important;  /* Más grande */
+    letter-spacing: 2px !important;
     transition: all 0.3s ease !important;
-    text-shadow: 0 0 5px rgba(52, 152, 219, 0.5) !important;
-    padding: 0.5rem 1.2rem !important;
+    padding: 0.6rem 1.5rem !important;
+    background: rgba(255,255,255,0.7) !important;  /* Fondo blanco translúcido */
+    border-radius: 12px !important;
+    margin: 0 5px !important;
 }
 
 /* Pestaña no seleccionada */
 .stTabs [data-baseweb="tab"]:not([aria-selected="true"]) {
-    color: #3498db !important;
-    text-shadow: 0 0 8px rgba(52, 152, 219, 0.4) !important;
+    color: #1a5276 !important;  /* Azul oscuro - más visible */
+    background: rgba(255,255,255,0.5) !important;
 }
 
-/* Pestaña seleccionada - brillo LED azul */
+/* Pestaña seleccionada */
 .stTabs [aria-selected="true"] {
-    color: #3498db !important;
-    background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(52, 152, 219, 0.08)) !important;
-    text-shadow: 0 0 18px rgba(52, 152, 219, 0.9), 0 0 8px rgba(52, 152, 219, 0.6) !important;
+    color: #f1c40f !important;  /* Dorado */
+    background: #1a5276 !important;  /* Fondo azul oscuro */
+    text-shadow: 0 0 8px rgba(241, 196, 15, 0.5) !important;
     border-radius: 12px !important;
-    animation: ledPulseBlue 1.5s ease-in-out infinite !important;
-    font-weight: 800 !important;
 }
 
 /* Línea indicadora LED azul - más gruesa */
