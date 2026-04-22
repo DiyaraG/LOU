@@ -985,7 +985,7 @@ def mostrar_simulador(nombre):
         
         with col2:
             with st.expander("📊 Diagrama del Proceso", expanded=True):
-                st.image("1 CALIBRACIÓN DE UN MEDIDOR DE FLUJO.png", use_container_width=True)
+                st.image("1.1 CALIBRACIÓN DE UN MEDIDOR DE FLUJO.png", use_container_width=True)
 
     # ==================== PRACTICA 2 Pérdidas de Presión por Fricción ==============
     
