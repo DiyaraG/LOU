@@ -562,52 +562,33 @@ def mostrar_simulador(nombre):
             color: #1a5276 !important;
         }
 
-        /* ======================== ESTILO PARA EXPANDERS DEL MARCO TEÓRICO ======================== */
-        /* Contenedor - fondo blanco suave */
+        /* ======================== ESTILO TARJETA BLANCA NOTORIA ======================== */
         .stColumn div[data-testid="stExpander"] {
             background: #ffffff !important;
-            border: 1px solid #e2e8f0 !important;
+            border: 1px solid #cbd5e0 !important;
             border-radius: 12px !important;
             margin-bottom: 15px !important;
-            transition: all 0.3s ease !important;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
         }
         
-        /* Encabezado */
         .stColumn div[data-testid="stExpander"] summary {
             background: #ffffff !important;
             color: #1a5276 !important;
-            border-radius: 12px !important;
             font-weight: 600 !important;
-            font-size: 1rem !important;
             padding: 0.8rem 1rem !important;
-            transition: all 0.3s ease !important;
+            border-radius: 12px !important;
         }
         
-        /* Hover - borde dorado */
         .stColumn div[data-testid="stExpander"]:hover {
             border: 1px solid #f1c40f !important;
-            box-shadow: 0 2px 8px rgba(241, 196, 15, 0.1) !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
         }
         
-        .stColumn div[data-testid="stExpander"] summary:hover {
-            color: #f1c40f !important;
-        }
-        
-        /* Contenido */
         .stColumn div[data-testid="stExpander"] .stExpanderContent {
-            background-color: #fafbfc !important;
+            background-color: #ffffff !important;
             border-radius: 0 0 12px 12px !important;
             padding: 15px !important;
-            border-top: 1px solid #edf2f7 !important;
-        }
-        
-        /* Texto dentro del contenido */
-        .stColumn div[data-testid="stExpander"] .stExpanderContent p,
-        .stColumn div[data-testid="stExpander"] .stExpanderContent li {
-            color: #2d3748 !important;
-            font-size: 0.95rem !important;
-            line-height: 1.5 !important;
+            border-top: 1px solid #e2e8f0 !important;
         }
         
         /* ======================== TÍTULO DEL SIMULADOR ======================== */
