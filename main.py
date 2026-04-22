@@ -829,7 +829,10 @@ def mostrar_simulador(nombre):
                 modo_estres = False
         
         with st.sidebar.expander("Parámetros del Controlador PID Robusto"):
-            kp_sug, ki_sug, kd_sug = calcular_pid_adaptativo(geom_tanque, r_max, h_total)
+            cd_actual = st.session_state.get('cd_calculado', 0.61)
+            kp_sug, ki_sug, kd_sug = sintonizar_controlador_robusto(
+                geom_tanque, r_max, h_total, cd_actual, area_orificio, op_tipo
+            )
             modo_auto = st.checkbox("🎯 Modo Robusto (Auto-sintonía optimizada)", value=True)
             if modo_auto:
                 st.success("💡 Usando sintonización robusta")
