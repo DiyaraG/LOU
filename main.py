@@ -1277,7 +1277,7 @@ def mostrar_simulador(nombre):
 
     # ==================== PRACTICA 3 Filtración a Presión Constante (falta la dos) ==============
 
-     elif nombre == "Hidrodinámica de Columnas Empacadas":
+     elif nombre == "Filtración a Presión Constante":
         with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
             pdf_path = "2 Manual de la Práctica 3. Estudio de las Características de la Filtración a Presión Constante de una Suspensión..pdf"
             if os.path.exists(pdf_path):
@@ -1291,47 +1291,59 @@ def mostrar_simulador(nombre):
         with col1:
             with st.expander("📖 Marco Teórico", expanded=True):
                 st.markdown(r"""
-                ## Hidrodinámica de Columnas Empacadas
+                ## Filtración a Presión Constante
                 
-                La **transferencia de masa en la industria química depende fundamentalmente de la interacción eficiente entre fases dentro de una torre de relleno**, la cual busca maximizar el contacto superficial para procesos críticos como la absorción, destilación o extracción.
+                **Entendida como una operación unitaria fundamental**, la filtración permite la separación de una fase dispersa (sólidos) de una fase continua (líquido o gas) mediante un medio poroso que retiene las partículas mientras permite el paso del filtrado.
                 
-                ### 1. Columnas de Relleno y su Configuración
-                Estas torres consisten en columnas cilíndricas equipadas con soportes e inertes sólidos denominados **rellenos**, que pueden ser aleatorios (como los anillos Pall o Raschig) o regulares. El objetivo del relleno es permitir que el líquido fluya en forma de película, ofreciendo una gran superficie para el contacto íntimo con una corriente de gas en contracorriente.
+                ### 1. Mecanismo y Cinética de Filtración
+                El proceso se rige por la relación básica donde la velocidad de flujo es directamente proporcional a la fuerza impulsora e inversamente proporcional a la resistencia encontrada. En términos matemáticos, se utiliza una adaptación de la **ecuación de Poiseuille** para representar la velocidad diferencial de filtración por unidad de área:
                 
-                ### 2. Pérdida de Presión en Flujo Monofásico (Relleno Seco)
-                Cuando solo circula gas a través de la columna, la caída de presión por unidad de longitud ($\Delta P/Z$) está influenciada por las propiedades del fluido y la geometría del empaque. Este comportamiento se describe mediante la **Ecuación de Ergun**:
-                
-                $$\frac{\Delta P}{Z} = 150 \frac{(1-\epsilon)^2 \cdot \mu \cdot G'}{\rho_g \cdot \epsilon^3 \cdot d_p^2} + 1.75 \frac{(1-\epsilon) \cdot G'^2}{\rho_g \cdot \epsilon^3 \cdot d_p}$$
+                $$\frac{dV}{A \cdot d\theta} = \frac{P}{\mu \left[ \alpha \frac{W}{A} + r \right]}$$
                 
                 Donde:
-                - $\epsilon$ = Fracción de vacío del lecho
-                - $G'$ = Velocidad másica superficial (kg/m²·s)
-                - $\rho_g$ = Densidad del gas (kg/m³)
-                - $\mu$ = Viscosidad del gas (Pa·s)
-                - $d_p$ = Diámetro efectivo de la partícula (m)
+                - $P$ = Presión de operación (Pa)
+                - $\mu$ = Viscosidad del fluido (Pa·s)
+                - $\alpha$ = Resistencia específica de la torta (m/kg)
+                - $W$ = Masa de sólidos acumulados (kg)
+                - $A$ = Área de filtración (m²)
+                - $r$ = Resistencia del medio filtrante (m⁻¹)
                 
-                ### 3. Dinámica del Flujo Bifásico: Carga e Inundación
-                Al introducir líquido en el sistema, los espacios vacíos se reducen, lo que incrementa la pérdida de presión del gas en comparación con el lecho seco. En este régimen ocurren dos fenómenos críticos:
+                ### 2. Resistencias en el Proceso
+                La oposición al flujo proviene de dos fuentes principales que se suman durante la operación:
                 
-                *   **Punto de Carga:** Es el momento en que la velocidad del gas comienza a impedir el libre descenso del líquido, provocando acumulaciones locales y un cambio brusco en la pendiente de la caída de presión.
+                *   **Resistencia del medio filtrante ($r$):** Fuerza de empuje que ofrece el soporte o tela al paso del fluido.
+                *   **Resistencia específica de la torta ($\alpha$):** Fuerza contraria generada por el espesor acumulado de sólidos. A mayor espesor y tiempo de operación, mayor es esta resistencia.
                 
-                *   **Punto de Inundación:** Representa la **capacidad máxima de operación** de la torre; el líquido llena gran parte de los intersticios y el gas burbujea a través de él, pudiendo incluso expulsar el líquido fuera de la columna.
+                ### 3. Modelo de Kozeny a Presión Constante
+                Para sistemas que operan a presión constante, se utiliza la **ecuación de Kozeny** modificada para determinar las constantes del proceso mediante la relación entre el volumen de filtrado ($V$) y el tiempo ($\theta$).
                 
-                ### 4. Retención de Líquido (Holdup)
-                La cantidad de líquido presente en el empaque durante la operación se clasifica en tres modos:
+                **Ecuación característica:**
+                $$(V + V_f)^2 = C \cdot (\theta + \theta_f)$$
                 
-                *   **Retención Estática ($h_S$):** Líquido que permanece en el relleno tras ser mojado y drenado por gravedad.
-                *   **Retención Dinámica ($h_O$):** Líquido que fluye activamente por el relleno bajo condiciones de operación.
-                *   **Retención Total ($h_T$):** Suma de ambos componentes, constante hasta el punto de carga y creciente hasta la inundación.
+                Donde:
+                - $V_f$ = Volumen ficticio que compensa la resistencia del medio filtrante (m³)
+                - $\theta_f$ = Tiempo ficticio (s)
+                - $C$ = Constante de permeabilidad del lecho (m⁶/s)
                 
-                $$h_T = h_S + h_O$$
+                ### 4. Determinación de Constantes
+                Para implementar este modelo en una interfaz de cálculo, la ecuación se suele **linealizar** representando la recíproca de la velocidad frente al volumen acumulado:
                 
-                ### 5. Correlación de Sherwood - Leva (Flooding)
-                Para predecir el punto de inundación en columnas de relleno, se utiliza la **Correlación de Sherwood-Leva**, que relaciona la velocidad másica del gas con las propiedades del sistema:
+                $$\frac{d\theta}{dV} = \frac{2}{C} V + \frac{2V_f}{C}$$
                 
-                $$\frac{G'^2 \cdot a_p \cdot \mu^{0.2}}{\rho_g \cdot \rho_l \cdot g \cdot \epsilon^3} = \text{función} \left( \frac{L'}{G'} \sqrt{\frac{\rho_g}{\rho_l}} \right)$$
+                Esta forma permite obtener la constante $C$ a partir de la pendiente de la recta y el volumen ficticio $V_f$ desde la ordenada en el origen.
                 
-                Donde $L'$ es la velocidad másica del líquido y $a_p$ el área superficial específica del relleno.
+                ### 5. Factores Críticos de Operación
+                
+                *   **Viscosidad:** La velocidad de filtración es inversamente proporcional a la viscosidad del fluido, la cual disminuye al aumentar la temperatura.
+                
+                *   **Presión:** En sólidos granulares, un aumento de presión incrementa casi proporcionalmente la velocidad de flujo.
+                
+                *   **Porosidad ($\epsilon$):** Define la fracción de espacios vacíos en la torta, parámetro esencial para calcular la permeabilidad del lecho.
+                
+                **Relación entre resistencia específica y porosidad:**
+                $$\alpha = \frac{180(1-\epsilon)^2}{\rho_s \cdot d_p^2 \cdot \epsilon^3}$$
+                
+                Donde $\rho_s$ es la densidad de los sólidos y $d_p$ el diámetro de partícula.
                 """)
         
         with col2:
