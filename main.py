@@ -1040,7 +1040,7 @@ def mostrar_simulador(nombre):
             status_placeholder = st.empty()
             dt = 1.0
             vector_t = np.arange(0, tiempo_ensayo, dt)
-            h_log, u_log, e_log = [], [], []
+            h_log, qin_log, qout_log, e_log = [], [], [], []
             h_corrida = 0.001 if op_tipo == "Llenado" else h_total * 0.95
             valor_presente = h_corrida
             error_presente = 0.0
