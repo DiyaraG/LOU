@@ -1098,7 +1098,12 @@ def mostrar_simulador(nombre):
                 ax_t.set_axis_off()
                 ax_t.set_xlim(-r_max*3, r_max*3)
                 ax_t.set_ylim(-0.8, h_total*1.3)
-                color_agua = '#3498db'
+                if abs(e_inst) < 0.05:
+                    color_agua = '#27ae60'
+                elif abs(e_inst) < 0.15:
+                    color_agua = '#f39c12'
+                else:
+                    color_agua = '#e74c3c'
                 
                 if geom_tanque == "Cilíndrico":
                     c_in_x, c_in_y = -r_max, h_total*0.8
