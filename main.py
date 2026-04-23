@@ -1247,7 +1247,8 @@ def mostrar_simulador(nombre):
             df_final = pd.DataFrame({
                 "Tiempo [s]": vector_t,
                 "Nivel [m]": h_log,
-                "Control [m³/s]": u_log,
+                "Q_entrada [m³/s]": qin_log,
+                "Q_salida [m³/s]": qout_log,
                 "Error [m]": e_log,
                 "Kp_Usado": [st.session_state.get('kp_ejecucion', 18.0)] * len(vector_t),
                 "Ki_Usado": [st.session_state.get('ki_ejecucion', 3.5)] * len(vector_t),
