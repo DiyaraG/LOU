@@ -126,7 +126,6 @@ def calcular_q_max_salida(d_orificio_pulg, cd=0.61, h_max=10.0):
     return round(float(q_max_salida), 4)
 
 def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_prev, modo_op, cd_val, kp, ki, kd, d_pulgadas):
-    
     """
     Sistema CORREGIDO - Físicamente correcto:
     - V-01 (Entrada): Controla flujo de bomba (0 a Qmax_bomba)
@@ -177,8 +176,6 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_pre
         q_entrada_total = q_entrada + q_p_val
         q_salida_total = q_salida
         
-        u_graficar = q_entrada  # Para mostrar en gráfica
-        
     else:  # Modo Vaciado
         # Control de salida (válvula de descarga)
         flujo_base_salida = 0.0
@@ -201,15 +198,14 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_pre
         # Agregar perturbación (fuga)
         q_entrada_total = q_entrada
         q_salida_total = q_salida + q_p_val
-        
-        u_graficar = q_salida  # Para mostrar en gráfica
     
     # Balance de masa
     dh_dt = (q_entrada_total - q_salida_total) / area_h
     h_next = h_prev + dh_dt * dt
     h_next = np.clip(h_next, 0, h_t)
     
-    return h_next, u_graficar, err, e_sum, err
+    # Retorna 6 valores: h_next, q_entrada, q_salida, err, e_sum, err_pasado
+    return h_next, q_entrada, q_salida, err, e_sum, err
 
 # =============================================================================
 # CONFIGURACIÓN DE LA PÁGINA + ESTILOS CRISTAL
