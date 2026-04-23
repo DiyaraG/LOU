@@ -1190,15 +1190,22 @@ def mostrar_simulador(nombre):
                 placeholder_u.pyplot(fig_u)
                 plt.close(fig_u)
                 
-                # Válvula
-                fig_v, ax_v = plt.subplots(figsize=(8, 3))
-                ax_v.plot(vector_t[:i+1], u_log, color='#2ecc71', lw=2.5)
-                ax_v.fill_between(vector_t[:i+1], u_log, color='#2ecc71', alpha=0.15)
-                ax_v.set_ylim(-0.1, 1.1)
-                ax_v.set_yticks([0, 0.5, 1])
-                ax_v.set_yticklabels(['CERRADA', '50%', 'ABIERTA'])
-                ax_v.set_title("Apertura de Válvula de Control")
-                placeholder_valvula.pyplot(fig_v)
+                # Gráfico de válvulas
+                fig_v, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 3))
+                ax1.step(vector_t[:i+1], qin_log, where='post', color='blue', lw=2)
+                ax1.set_ylabel('Q entrada [m³/s]')
+                ax1.set_ylim(0, q_max_bomba * 1.1)
+                ax1.grid(True, alpha=0.2)
+                ax1.set_title('V-01 (Entrada)')
+                
+                ax2.step(vector_t[:i+1], qout_log, where='post', color='red', lw=2)
+                ax2.set_ylabel('Q salida [m³/s]')
+                ax2.set_xlabel('Tiempo [s]')
+                ax2.set_ylim(0, q_max_bomba * 1.1)
+                ax2.grid(True, alpha=0.2)
+                ax2.set_title('V-02 (Salida)')
+                plt.tight_layout()
+                placeholder_valvulas.pyplot(fig_v)
                 plt.close(fig_v)
                 
                 # Comparativa
