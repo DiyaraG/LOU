@@ -1010,18 +1010,31 @@ def mostrar_simulador(nombre):
                 placeholder_comparativa = st.empty()
             
             with col_met:
-                st.subheader("Métricas de Control Robusto")
-                kp_show = st.session_state.get('kp_ejecucion', 18.0)
-                ki_show = st.session_state.get('ki_ejecucion', 3.5)
-                kd_show = st.session_state.get('kd_ejecucion', 1.5)
+                st.subheader("📊 Métricas de Control")
+                
+                kp_show = st.session_state.get('kp_ejecucion', 12.0)
+                ki_show = st.session_state.get('ki_ejecucion', 2.5)
                 cd_show = st.session_state.get('cd_final', 0.61)
-                st.write(f"**Parámetros Activos:** Kp={kp_show} | Ki={ki_show} | Kd={kd_show} | Cd={cd_show:.3f}")
+                
+                st.write(f"**Parámetros Activos:**")
+                st.caption(f"Proceso: {op_tipo} | Qmax: {q_max_bomba:.2f} m³/s | Cd: {cd_show:.4f}")
+                st.caption(f"Kp: {kp_show} | Ki: {ki_show} | Kd: {st.session_state.get('kd_ejecucion', 0.8)}")
+                st.markdown("---")
+                
                 placeholder_iae = st.empty()
                 placeholder_itae = st.empty()
+                placeholder_iae.metric("IAE (Error Acumulado)", "0.00")
+                placeholder_itae.metric("ITAE (Criterio Tesis)", "0.00")
+                
+                st.markdown("---")
                 m_h = st.empty()
                 m_e = st.empty()
+                m_qin = st.empty()
+                m_qout = st.empty()
                 m_h.metric("Nivel PV [m]", "0.000")
                 m_e.metric("Error [m]", "0.000")
+                m_qin.metric("Flujo Entrada [m³/s]", "0.000")
+                m_qout.metric("Flujo Salida [m³/s]", "0.000")
     
             # Preparación
             status_placeholder = st.empty()
