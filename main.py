@@ -930,19 +930,8 @@ def mostrar_simulador(nombre):
                 q_max_bomba = q_max_bomba_manual
         
         st.sidebar.markdown("---")
-        
-        col_btn1, col_btn2 = st.sidebar.columns(2)
-        with col_btn1:
-            iniciar_sim = st.button("▶️ Iniciar", use_container_width=True, type="primary")
-        with col_btn2:
-            if st.button("🔄 Reset", use_container_width=True, type="secondary"):
-                st.session_state.ejecutando = False
-                st.rerun()
-    
-        if 'ejecutando' not in st.session_state:
-            st.session_state.ejecutando = False
-    
-        # ======================== BIBLIOTECA TÉCNICA EN BARRA LATERAL ========================
+
+                # ======================== BIBLIOTECA TÉCNICA EN BARRA LATERAL ========================
         st.sidebar.markdown("---")
         st.sidebar.subheader("📚 Biblioteca Técnica")
         
@@ -963,6 +952,19 @@ def mostrar_simulador(nombre):
                 st.sidebar.caption("💡 Coloca el PDF en la misma carpeta que el script")
         
         st.sidebar.markdown("---")
+
+         # ======================== BOTONES INICIAR Y RESET ========================
+        
+        col_btn1, col_btn2 = st.sidebar.columns(2)
+        with col_btn1:
+            iniciar_sim = st.button("▶️ Iniciar", use_container_width=True, type="primary")
+        with col_btn2:
+            if st.button("🔄 Reset", use_container_width=True, type="secondary"):
+                st.session_state.ejecutando = False
+                st.rerun()
+    
+        if 'ejecutando' not in st.session_state:
+            st.session_state.ejecutando = False
     
         # ======================== INICIALIZACIÓN ========================
         if iniciar_sim:
