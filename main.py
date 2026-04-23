@@ -991,20 +991,17 @@ def mostrar_simulador(nombre):
     
         # ======================== SIMULACIÓN PRINCIPAL ========================
         if not st.session_state.ejecutando:
-            st.info(" Ajusta los parámetros en la barra lateral y pulsa ''Iniciar''")
+            st.info("💡 Ajusta los parámetros en la barra lateral y pulsa 'Iniciar Simulación Robusta'")
         else:
             col_graf, col_met = st.columns([2, 1])
             
             with col_graf:
                 st.subheader("Monitor del Proceso - Control Robusto Anti-Perturbaciones")
                 placeholder_tanque = st.empty()
-                st.subheader("Tendencia Temporal")
+                st.subheader("📈 Tendencia Temporal")
                 placeholder_grafico = st.empty()
-                st.subheader("⚙️ Acción del Controlador")
-                placeholder_u = st.empty()
-                st.markdown("---")
-                st.subheader("⚙️ Estado de Operación: Válvula de Control")
-                placeholder_valvula = st.empty()
+                st.subheader("🔧 Acción de las Válvulas")
+                placeholder_valvulas = st.empty()
                 st.markdown("---")
                 st.subheader("📊 Comparativa: Modelo Teórico vs Datos Experimentales")
                 placeholder_comparativa = st.empty()
@@ -1073,7 +1070,7 @@ def mostrar_simulador(nombre):
                 k_i = st.session_state.get('ki_ejecucion', 3.5)
                 k_d = st.session_state.get('kd_ejecucion', 1.5)
                 
-                h_corrida, u_inst, e_inst, err_int, err_pasado = resolver_sistema_robusto(
+                h_corrida, q_entrada, q_salida, e_inst, err_int, err_pasado = resolver_sistema_robusto(
                     dt, h_corrida, sp_nivel, geom_tanque, r_max, h_total, q_p_inst,
                     err_int, err_pasado, op_tipo, cd_para_simular, k_p, k_i, k_d, d_pulgadas
                 )
@@ -1088,16 +1085,19 @@ def mostrar_simulador(nombre):
                 qout_log.append(q_salida)
                 e_log.append(e_inst)
                 
-                m_h.metric("Nivel PV [m]", f"{h_corrida:.3f}")
-                m_e.metric("Error [m]", f"{e_inst:.4f}")
+                m_h.metric("Nivel PV [m]", f"{valor_presente:.3f}")
+                m_e.metric("Error [m]", f"{error_presente:.4f}")
                 m_qin.metric("Flujo Entrada [m³/s]", f"{q_entrada:.3f}")
                 m_qout.metric("Flujo Salida [m³/s]", f"{q_salida:.3f}")
+                placeholder_iae.metric("IAE (Error Acumulado)", f"{iae_acumulado:.2f}")
+                placeholder_itae.metric("ITAE (Criterio Tesis)", f"{itae_acumulado:.2f}")
                 
                 # VISUALIZACIÓN DEL TANQUE
                 fig_t, ax_t = plt.subplots(figsize=(7, 5))
                 ax_t.set_axis_off()
                 ax_t.set_xlim(-r_max*3, r_max*3)
                 ax_t.set_ylim(-0.8, h_total*1.3)
+                
                 if abs(e_inst) < 0.05:
                     color_agua = '#27ae60'
                 elif abs(e_inst) < 0.15:
@@ -1157,6 +1157,9 @@ def mostrar_simulador(nombre):
                 ax_t.text(0, h_total * 1.2, f"PV: {valor_presente:.3f} m", ha='center', va='center', fontsize=11, fontweight='bold',
                           bbox=dict(facecolor='white', alpha=0.9, edgecolor='#1a5276', boxstyle='round,pad=0.5', lw=2))
                 
+                if p_activa and t_act >= p_tiempo:
+                    ax_t.text(0, -0.5, f"⚠️ PERTURBACIÓN ACTIVA", ha='center', color='orange', fontweight='bold')
+                
                 placeholder_tanque.pyplot(fig_t)
                 plt.close(fig_t)
                 
@@ -1175,22 +1178,7 @@ def mostrar_simulador(nombre):
                 placeholder_grafico.pyplot(fig_tr)
                 plt.close(fig_tr)
                 
-                # Gráfica de acción de control
-                fig_u, ax_u = plt.subplots(figsize=(8, 2.5))
-                ax_u.step(vector_t[:i+1], u_log, color='#e67e22', where='post', label='Flujo de Control')
-                if p_activa and p_tiempo > 0:
-                    ax_u.axvline(x=p_tiempo, color='red', linestyle='--', alpha=0.5)
-                ax_u.set_xlim(0, tiempo_ensayo)
-                techo_dinamico = max(max(u_log), 0.1) * 1.2 if u_log else 0.7
-                ax_u.set_ylim(0, techo_dinamico)
-                ax_u.grid(True, alpha=0.2)
-                ax_u.set_xlabel('Tiempo [s]')
-                ax_u.set_ylabel('Flujo [m³/s]')
-                ax_u.legend(loc='upper right', fontsize='x-small')
-                placeholder_u.pyplot(fig_u)
-                plt.close(fig_u)
-                
-                # Gráfico de válvulas
+                # Gráfico de válvulas (V-01 y V-02)
                 fig_v, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 3))
                 ax1.step(vector_t[:i+1], qin_log, where='post', color='blue', lw=2)
                 ax1.set_ylabel('Q entrada [m³/s]')
