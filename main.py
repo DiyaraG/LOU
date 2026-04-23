@@ -991,7 +991,7 @@ def mostrar_simulador(nombre):
     
         # ======================== SIMULACIÓN PRINCIPAL ========================
         if not st.session_state.ejecutando:
-            st.info("💡 Ajusta los parámetros en la barra lateral y pulsa 'Iniciar Simulación Robusta'")
+            st.info(" Ajusta los parámetros en la barra lateral y pulsa ''Iniciar''")
         else:
             col_graf, col_met = st.columns([2, 1])
             
@@ -1932,7 +1932,7 @@ def mostrar_simulador(nombre):
     <hr style="margin: 2rem 0 1rem 0; border-color: #1a5276;">
     <div style="text-align: center; color: #5d6d7e; font-size: 0.8rem;">
         <p>Universidad Central de Venezuela - Escuela de Ingeniería Química</p>
-        <p>Laboratorio de Operaciones Unitarias | Centro de Simulación Virtual | © 2025</p>
+        <p>Laboratorio de Operaciones Unitarias | Centro de Simulación Virtual | © 2026</p>
     </div>
     """, unsafe_allow_html=True)
 
