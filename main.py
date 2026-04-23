@@ -831,6 +831,10 @@ def mostrar_simulador(nombre):
             h_sug = 3.0 if geom_tanque != "Esférico" else r_max * 2
             h_total = st.number_input("Altura de Diseño (H) [m]", value=float(h_sug), min_value=0.1, step=0.5)
             sp_nivel = st.slider("Consigna de Nivel (Setpoint) [m]", 0.1, float(h_total), float(h_total/2))
+
+        with st.sidebar.expander("🚰 Bomba de Alimentación", expanded=True):
+            q_max_bomba = st.number_input("Caudal máximo de bomba [m³/s]", value=2.0, min_value=0.5, max_value=5.0, step=0.5)
+            st.caption("💡 Capacidad máxima de la bomba de entrada")        
         
         with st.sidebar.expander("Dimensiones de Salida", expanded=True):
             d_pulgadas = st.number_input("Diámetro del Orificio (pulgadas)", value=1.0, min_value=0.1, step=0.1)
