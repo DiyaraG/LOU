@@ -1105,37 +1105,40 @@ def mostrar_simulador(nombre):
                     c_in_x, c_in_y = -r_max, h_total*0.8
                     c_out_x, c_out_y = r_max, 0.1
                     ax_t.plot([-r_max, -r_max, r_max, r_max], [h_total, 0, 0, h_total], color='#2c3e50', lw=5, zorder=2)
-                    ax_t.add_patch(plt.Rectangle((-r_max, 0), 2*r_max, valor_presente, color=color_agua, alpha=0.85, zorder=1, edgecolor='#2980b9', linewidth=1.5))
-                    if 0 < valor_presente < h_total:
-                        ax_t.axhline(y=valor_presente, color='white', linestyle='-', linewidth=2, alpha=0.8, zorder=3)
+                    ax_t.add_patch(plt.Rectangle((-r_max, 0), 2*r_max, h_corrida, color=color_agua, alpha=0.85, zorder=1))
+                    # Flechas de flujo
+                    if q_entrada > 0:
+                        ax_t.annotate('', xy=(-r_max-1.5, h_corrida*0.7), xytext=(-r_max-0.3, h_corrida*0.7),
+                                    arrowprops=dict(arrowstyle='->', lw=3, color='blue'))
+                    if q_salida > 0:
+                        ax_t.annotate('', xy=(r_max+1.5, 0.3), xytext=(r_max+0.3, 0.3),
+                                    arrowprops=dict(arrowstyle='->', lw=3, color='red'))
+                    
                 elif geom_tanque == "Cónico":
                     c_in_x, c_in_y = -(r_max/h_total)*(h_total*0.8), h_total*0.8
                     c_out_x, c_out_y = 0, 0
                     ax_t.plot([-r_max, 0, r_max], [h_total, 0, h_total], color='#2c3e50', lw=5, zorder=2)
-                    if valor_presente > 0:
-                        radio_superficie = (r_max / h_total) * valor_presente
-                        vertices = [[-radio_superficie, valor_presente], [radio_superficie, valor_presente], [0, 0]]
-                        ax_t.add_patch(plt.Polygon(vertices, color=color_agua, alpha=0.85, zorder=1, edgecolor='#2980b9', linewidth=1.5))
-                        ax_t.plot([-radio_superficie, radio_superficie], [valor_presente, valor_presente], color='white', linewidth=2, alpha=0.8, zorder=3)
+                    if h_corrida > 0:
+                        radio_h = (r_max / h_total) * h_corrida
+                        vertices = [[-radio_h, h_corrida], [radio_h, h_corrida], [0, 0]]
+                        ax_t.add_patch(plt.Polygon(vertices, color=color_agua, alpha=0.85, zorder=1))
+                    
                 else:  # Esférico
                     import math
                     c_in_y = h_total * 0.7
                     c_in_x = -math.sqrt(abs(r_max**2 - (c_in_y - r_max)**2))
                     c_out_x, c_out_y = 0, 0
-                    agua_esf = plt.Circle((0, r_max), r_max, color=color_agua, alpha=0.85, zorder=1, edgecolor='#2980b9', linewidth=1.5)
-                    ax_t.add_patch(agua_esf)
-                    recorte_nivel = plt.Rectangle((-r_max, 0), 2*r_max, valor_presente, transform=ax_t.transData)
-                    agua_esf.set_clip_path(recorte_nivel)
+                    agua = plt.Circle((0, r_max), r_max, color=color_agua, alpha=0.85, zorder=1)
+                    ax_t.add_patch(agua)
+                    recorte = plt.Rectangle((-r_max, 0), 2*r_max, h_corrida, transform=ax_t.transData)
+                    agua.set_clip_path(recorte)
                     ax_t.add_patch(plt.Circle((0, r_max), r_max, color='#2c3e50', fill=False, lw=5, zorder=2))
-                    if 0 < valor_presente < 2*r_max:
-                        radio_nivel = math.sqrt(r_max**2 - (valor_presente - r_max)**2)
-                        ax_t.plot([-radio_nivel, radio_nivel], [valor_presente, valor_presente], color='white', linewidth=2, alpha=0.8, zorder=3)
                 
-                # Válvulas
+                # Tuberías y válvulas
                 ax_t.add_patch(plt.Rectangle((c_in_x - 1.5, c_in_y - 0.1), 1.5, 0.2, color='silver', zorder=0))
                 ax_t.add_patch(plt.Polygon([[c_in_x-1, c_in_y+0.2], [c_in_x-1, c_in_y-0.2], [c_in_x-0.6, c_in_y]], color='#2c3e50', zorder=2))
                 ax_t.add_patch(plt.Polygon([[c_in_x-0.2, c_in_y+0.2], [c_in_x-0.2, c_in_y-0.2], [c_in_x-0.6, c_in_y]], color='#2c3e50', zorder=2))
-                ax_t.text(c_in_x-0.6, c_in_y+0.4, "V-01", ha='center', fontsize=9, fontweight='bold')
+                ax_t.text(c_in_x-0.6, c_in_y+0.4, "V-01", ha='center', fontsize=9, fontweight='bold', color='blue')
                 
                 if geom_tanque == "Cilíndrico":
                     ax_t.add_patch(plt.Rectangle((c_out_x, c_out_y - 0.1), 1.5, 0.2, color='silver', zorder=0))
@@ -1143,15 +1146,16 @@ def mostrar_simulador(nombre):
                 else:
                     ax_t.add_patch(plt.Rectangle((c_out_x - 0.1, -0.6), 0.2, 0.6, color='silver', zorder=0))
                     vs_x, vs_y = c_out_x, -0.4
+                
                 ax_t.add_patch(plt.Polygon([[vs_x-0.25, vs_y+0.2], [vs_x-0.25, vs_y-0.2], [vs_x, vs_y]], color='#2c3e50', zorder=2))
                 ax_t.add_patch(plt.Polygon([[vs_x+0.25, vs_y+0.2], [vs_x+0.25, vs_y-0.2], [vs_x, vs_y]], color='#2c3e50', zorder=2))
                 offset_t = 0.4 if geom_tanque == "Cilíndrico" else 0
-                ax_t.text(vs_x + offset_t, vs_y - 0.5, "V-02 (CV)", ha='center', fontsize=9, fontweight='bold')
+                ax_t.text(vs_x + offset_t, vs_y - 0.5, "V-02", ha='center', fontsize=9, fontweight='bold', color='red')
                 
                 ax_t.axhline(y=sp_nivel, color='red', ls='--', lw=2, zorder=3, alpha=0.8)
-                ax_t.text(-r_max*2.8, sp_nivel + 0.05, f"SETPOINT: {sp_nivel:.2f}m", color='red', fontweight='bold', fontsize=9)
-                ax_t.text(0, h_total * 1.2, f"PV: {valor_presente:.3f} m", ha='center', va='center', fontsize=11, fontweight='bold',
-                          bbox=dict(facecolor='white', alpha=0.9, edgecolor='#1a5276', boxstyle='round,pad=0.5', lw=2))
+                ax_t.text(-r_max*2.8, sp_nivel + 0.05, f"SP: {sp_nivel:.2f}m", color='red', fontweight='bold')
+                ax_t.text(0, h_total * 1.2, f"PV: {h_corrida:.3f} m", ha='center', fontweight='bold',
+                         bbox=dict(facecolor='white', alpha=0.9, edgecolor='#1a5276', boxstyle='round'))
                 
                 if p_activa and t_act >= p_tiempo:
                     ax_t.text(0, -0.5, f"⚠️ PERTURBACIÓN ACTIVA", ha='center', color='orange', fontweight='bold')
