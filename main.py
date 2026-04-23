@@ -931,7 +931,7 @@ def mostrar_simulador(nombre):
         
         st.sidebar.markdown("---")
         
-        # ======================== BIBLIOTECA TÉCNICA EN BARRA LATERAL ========================
+        # ======================== BIBLIOTECA TÉCNICA ========================
         st.sidebar.subheader("📚 Biblioteca Técnica")
         
         with st.sidebar.container(border=True):
