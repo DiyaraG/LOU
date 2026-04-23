@@ -1084,13 +1084,14 @@ def mostrar_simulador(nombre):
                 itae_acumulado += (t_act * abs(e_inst)) * dt
                 
                 h_log.append(h_corrida)
-                u_log.append(u_inst)
+                qin_log.append(q_entrada)
+                qout_log.append(q_salida)
                 e_log.append(e_inst)
                 
-                m_h.metric("Nivel PV [m]", f"{valor_presente:.3f}")
-                m_e.metric("Error [m]", f"{error_presente:.4f}")
-                placeholder_iae.metric("IAE (Error Acumulado)", f"{iae_acumulado:.2f}")
-                placeholder_itae.metric("ITAE (Criterio Tesis)", f"{itae_acumulado:.2f}")
+                m_h.metric("Nivel PV [m]", f"{h_corrida:.3f}")
+                m_e.metric("Error [m]", f"{e_inst:.4f}")
+                m_qin.metric("Flujo Entrada [m³/s]", f"{q_entrada:.3f}")
+                m_qout.metric("Flujo Salida [m³/s]", f"{q_salida:.3f}")
                 
                 # VISUALIZACIÓN DEL TANQUE
                 fig_t, ax_t = plt.subplots(figsize=(7, 5))
