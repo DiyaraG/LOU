@@ -7,8 +7,10 @@ import time
 import base64
 
 # =============================================================================
-# VALORES POR DEFECTO
+# 1. CONFIGURACIÓN INICIAL Y CONSTANTES
 # =============================================================================
+
+# ===== 1.1 VALORES POR DEFECTO =====
 modo_auto = False
 p_activa = True
 p_magnitud = 0.045
