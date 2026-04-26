@@ -16,9 +16,14 @@ p_activa = True
 p_magnitud = 0.045
 p_tiempo = 80
 
+# ===== 1.2 CONFIGURACIÓN DE PÁGINA =====
+st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🛠")
+
 # =============================================================================
-# FUNCIONES DE CÁLCULO
+# 2. FUNCIONES DE CÁLCULO Y MODELOS FÍSICOS
 # =============================================================================
+
+# ===== 2.1 FUNCIONES GEOMÉTRICAS =====
 def get_area_transversal(geom, r, h, h_total):
     h_efectiva = max(h, 0.001)
     if geom == "Cilíndrico":
@@ -213,7 +218,7 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_pre
 # CONFIGURACIÓN DE LA PÁGINA + ESTILOS CRISTAL
 # =============================================================================
 
-st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🛠")
+
 
 st.markdown("""
 <style>
