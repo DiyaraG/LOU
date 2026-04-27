@@ -452,11 +452,14 @@ div[data-testid="column"]:first-child .stButton > button:hover {
 )
 
 # =============================================================================
-# LÓGICA DE NAVEGACIÓN
+# 4. NAVEGACIÓN Y PÁGINA PRINCIPAL
 # =============================================================================
+
+# ===== 4.1 INICIALIZACIÓN DE ESTADO =====
 if 'page' not in st.session_state:
     st.session_state.page = 'Inicio'
 
+# ===== 4.2 PÁGINA DE INICIO CON TABS =====
 def mostrar_inicio():
     url_logo_ucv = "https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_Universidad_Central_de_Venezuela.svg.png"
     url_logo_quimica = "https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_ingenieriaquimica.png"
