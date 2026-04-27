@@ -230,7 +230,7 @@ st.markdown("""
 <style>
 /* Cursor personalizado tipo ingeniería */
 html, body, [data-testid="stAppViewContainer"] {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size: 24px;'><text y='20'>⚙️</text></svg>") 16 16, auto;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' style='font-size: 14px;'><text y='16'>⚙️</text></svg>") 10 10, auto;
 }
 button, [data-testid="stHeaderActionElements"] { 
     cursor: pointer !important; 
