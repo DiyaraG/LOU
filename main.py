@@ -1294,6 +1294,8 @@ def mostrar_simulador(nombre):
                 
     # ======================== CASOS ESPECÍFICOS ========================
 
+    # ===== PRÁCTICAS LOU I (TEÓRICAS) =====
+
     # ==== PRACTICA 1 Calibración de un Medidor de Flujo =====
     
     elif nombre == "Calibración de un Medidor de Flujo":
