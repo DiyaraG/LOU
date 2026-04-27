@@ -38,6 +38,8 @@ def get_area_transversal(geom, r, h, h_total):
         else:
             return np.pi * (r ** 2)
 
+# ===== 2.2 FUNCIONES DEL CONTROLADOR PID =====
+
 def calcular_pid_adaptativo(geom, r_max, h_total):
     import math
     area_max = math.pi * (r_max ** 2)
@@ -83,7 +85,9 @@ def sintonizar_controlador_robusto(geom, r, h_t, cd_calculado, area_ori, op_tipo
     kd = np.clip(kd, 1.0, 3.0)
     
     return round(kp, 2), round(ki, 3), round(kd, 2)
-
+    
+# ===== 2.3 FUNCIONES DE COEFICIENTE DE DESCARGA =====
+    
 def calcular_cd_inteligente(df_usr, r, h_t, geom, area_ori):
     df = pd.DataFrame(df_usr) if isinstance(df_usr, list) else df_usr
     if len(df) < 2:
@@ -131,6 +135,8 @@ def calcular_q_max_salida(d_orificio_pulg, cd=0.61, h_max=10.0):
     area_orificio = np.pi * (d_metros / 2)**2
     q_max_salida = cd * area_orificio * np.sqrt(2 * g * h_max)
     return round(float(q_max_salida), 4)
+
+# ===== 2.4 SIMULADOR PRINCIPAL =====
 
 def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_prev, modo_op, cd_val, kp, ki, kd, d_pulgadas):
     """
