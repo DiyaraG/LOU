@@ -1777,7 +1777,6 @@ def mostrar_simulador(nombre):
                 st.image("2.4 ESTUDIO DE LA DESTILACIÓN DIFERENCIAL.png", use_container_width=True)
     
     # ==================== PRACTICA 5 Destilación Continua   ==============
-
  
     elif nombre == "Destilación Continua":
         with st.expander(" Biblioteca Virtual - Descargar Práctica", expanded=True):
