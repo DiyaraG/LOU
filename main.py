@@ -443,9 +443,7 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     padding: 15px !important;
 }
 
-# =============================================================================
-# Cirrre del style
-# =============================================================================
+# ===== FIN DEL CSS GLOBAL =====
     </style>
     """,
     unsafe_allow_html=True
