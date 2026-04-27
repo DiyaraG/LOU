@@ -503,6 +503,7 @@ def mostrar_inicio():
 # =============================================================================
 
 def mostrar_simulador(nombre):
+    # ===== ENCABEZADO COMÚN PARA TODAS LAS PRÁCTICAS =====    
     col_back, _ = st.columns([1, 5])
     with col_back:
         if st.button("⬅ Menú Principal"):
@@ -520,7 +521,7 @@ def mostrar_simulador(nombre):
 
     # =============================================================================
 
-    # Caso 1: Balance en Estado No Estacionario (simulación compleja)
+    # ===== PRÁCTICA: BALANCE EN ESTADO NO ESTACIONARIO =====
     if nombre == "Balance en Estado No Estacionario":
         
         # ======================== CSS ESPECÍFICO PARA BALANCE ========================
