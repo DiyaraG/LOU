@@ -236,6 +236,14 @@ button, [data-testid="stHeaderActionElements"] {
     cursor: pointer !important; 
 }
 
+/* Cursor para botones: mano */
+button, 
+.stButton > button,
+[data-testid="stDownloadButton"] button,
+div[data-testid="column"]:first-child .stButton > button {
+    cursor: pointer !important;
+}
+
 @keyframes wave { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
 .stApp {
     background-image: linear-gradient(rgba(255,255,255,0.8), rgba(240,242,245,0.85)),
