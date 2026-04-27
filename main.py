@@ -893,7 +893,7 @@ def mostrar_simulador(nombre):
                 kd_val = st.number_input("Kd", value=kd_default, step=0.1, format="%.3f", key="kd_man")
             tiempo_ensayo = st.slider("Tiempo de simulación [s]", 60, 600, 300)      
         
-        with st.sidebar.expander("📊 Cargar Datos Experimentales"):
+        with st.sidebar.expander("Cargar Datos Experimentales"):
             st.caption("⚠️ Ingresa el nivel en **centímetros (cm)**")
             df_exp_default = pd.DataFrame({
                 "Tiempo (s)": [0, 60, 120, 180, 240, 300],
@@ -905,7 +905,7 @@ def mostrar_simulador(nombre):
             col_cd1, col_cd2 = st.columns(2)
             with col_cd1:
                 if op_tipo == "Vaciado":
-                    if st.button("🧮 Calcular Cd desde datos", use_container_width=True):
+                    if st.button("Calcular Cd desde datos", use_container_width=True):
                         if not isinstance(datos_usr, pd.DataFrame):
                             datos_usr = pd.DataFrame(datos_usr)
                         
@@ -918,7 +918,7 @@ def mostrar_simulador(nombre):
                         else:
                             st.warning("⚠️ Ingresa al menos 2 datos")
                 else:
-                    st.button("🧮 Calcular Cd desde datos", disabled=True, 
+                    st.button("Calcular Cd desde datos", disabled=True, 
                              help="El Cd solo se calcula en proceso de Vaciado", 
                              use_container_width=True)
                     st.caption("ℹ️ Cd solo válido para Vaciado")
@@ -928,7 +928,7 @@ def mostrar_simulador(nombre):
                     st.session_state['cd_calculado'] = cd_automatico
                     st.success(f"✅ Cd teórico: {cd_automatico:.4f}")
         
-        with st.sidebar.expander("📊 Parámetros Calculados Automáticamente", expanded=False):
+        with st.sidebar.expander("Parámetros Calculados Automáticamente", expanded=False):
             col1, col2, col3 = st.columns(3)
             with col1:
                 st.metric("Qmax Bomba", f"{q_max_bomba:.2f}")
@@ -947,7 +947,7 @@ def mostrar_simulador(nombre):
         st.sidebar.markdown("---")
         
         # ======================== BIBLIOTECA TÉCNICA ========================
-        st.sidebar.subheader("📚 Biblioteca Técnica")
+        st.sidebar.subheader("Biblioteca Técnica")
         
         with st.sidebar.container(border=True):
             nombre_pdf = "Guia_Practica_UCV.pdf"
@@ -1014,11 +1014,11 @@ def mostrar_simulador(nombre):
                 st.subheader("🔧 Acción de las Válvulas")
                 placeholder_valvulas = st.empty()
                 st.markdown("---")
-                st.subheader("📊 Comparativa: Modelo Teórico vs Datos Experimentales")
+                st.subheader(" Comparativa: Modelo Teórico vs Datos Experimentales")
                 placeholder_comparativa = st.empty()
             
             with col_met:
-                st.subheader("📊 Métricas de Control")
+                st.subheader(" Métricas de Control")
                 
                 kp_show = st.session_state.get('kp_ejecucion', 12.0)
                 ki_show = st.session_state.get('ki_ejecucion', 2.5)
@@ -1070,7 +1070,7 @@ def mostrar_simulador(nombre):
             cd_para_simular = st.session_state.get('cd_final', 0.61)
     
             for i, t_act in enumerate(vector_t):
-                status_placeholder.markdown("**💧 CONTROL ROBUSTO ACTIVADO - PROCESANDO...**")
+                status_placeholder.markdown("** CONTROL ACTIVADO - PROCESANDO...**")
 
                 if p_activa and t_act >= p_tiempo:
                     q_p_inst = p_magnitud
@@ -1229,7 +1229,7 @@ def mostrar_simulador(nombre):
                 barra_p.progress((i + 1) / len(vector_t))
             
             status_placeholder.empty()
-            st.success(f"✅ Simulación Robusta completada - El controlador mantuvo el nivel ante las perturbaciones")
+            st.success(f"✅ Simulación completada - El controlador mantuvo el nivel ante las perturbaciones")
             st.balloons()
             
             # ======================== ANÁLISIS FINAL ========================
@@ -1270,7 +1270,7 @@ def mostrar_simulador(nombre):
                 "Kd_Usado": [st.session_state.get('kd_ejecucion', 1.5)] * len(vector_t)
             })
             
-            st.subheader("📋 Resumen de Datos y Estabilidad del Control Robusto")
+            st.subheader(" Resumen de Datos y Estabilidad del Control Robusto")
             col_tab, col_res = st.columns([2, 1])
             with col_tab:
                 st.dataframe(df_final.tail(10).style.format("{:.4f}"), use_container_width=True)
@@ -1278,7 +1278,7 @@ def mostrar_simulador(nombre):
                 err_f = abs(sp_nivel - h_log[-1]) if len(h_log) > 0 else 0
                 st.metric("Error Residual Final", f"{err_f:.4f} m")
                 st.download_button(
-                    label="📥 Descargar Reporte de Simulación Robusta (CSV)",
+                    label="📥 Descargar Reporte de Simulación (CSV)",
                     data=df_final.to_csv(index=False),
                     file_name=f"resultados_robustos_{geom_tanque}.csv",
                     mime="text/csv",
@@ -1301,7 +1301,7 @@ def mostrar_simulador(nombre):
             pdf_path = "Manual de la Práctica 1. Calibración de un Medidor de Flujo..pdf"
             if os.path.exists(pdf_path):
                 with open(pdf_path, "rb") as f:
-                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Manual_Practica1_Calibracion.pdf", mime="application/pdf")
+                    st.download_button(label="📥 Descargar Práctica 1 (PDF)", data=f, file_name="Manual_Practica1_Calibracion.pdf", mime="application/pdf")
             else:
                 st.warning("⚠️ PDF no encontrado")
         
@@ -1349,7 +1349,7 @@ def mostrar_simulador(nombre):
                 """)
         
         with col2:
-            with st.expander("📊 Diagrama del Proceso", expanded=True):
+            with st.expander(" Diagrama del Proceso", expanded=True):
                 st.image("1.1 CALIBRACIÓN DE UN MEDIDOR DE FLUJO.png", use_container_width=True)
 
     # ==================== PRACTICA 2 Pérdidas de Presión por Fricción ==============
@@ -1359,7 +1359,7 @@ def mostrar_simulador(nombre):
             pdf_path = "Manual de la Práctica 2. Determinación de las Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías..pdf"
             if os.path.exists(pdf_path):
                 with open(pdf_path, "rb") as f:
-                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Manual_Practica2_PerdidasFriccion.pdf", mime="application/pdf")
+                    st.download_button(label=" Descargar Práctica (PDF)", data=f, file_name="Manual_Practica2_PerdidasFriccion.pdf", mime="application/pdf")
             else:
                 st.warning("⚠️ PDF no encontrado")
         
@@ -1422,7 +1422,7 @@ def mostrar_simulador(nombre):
                 """)
         
         with col2:
-            with st.expander("📊 Diagrama del Proceso", expanded=True):
+            with st.expander(" Diagrama del Proceso", expanded=True):
                 st.image("2 Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías..png", use_container_width=True)
 
     # ==================== PRACTICA 3 Bombas Centrífugas ==============
@@ -1432,7 +1432,7 @@ def mostrar_simulador(nombre):
             pdf_path = "Manual de la Práctica 3. Determinación de Curvas Características de Bombas Centrífugas..pdf"
             if os.path.exists(pdf_path):
                 with open(pdf_path, "rb") as f:
-                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Manual_Practica3_BombaCentrifuga.pdf", mime="application/pdf")
+                    st.download_button(label=" Descargar Práctica (PDF)", data=f, file_name="Manual_Practica3_BombaCentrifuga.pdf", mime="application/pdf")
             else:
                 st.warning("⚠️ PDF no encontrado")
         
@@ -1486,7 +1486,7 @@ def mostrar_simulador(nombre):
                 """)
         
         with col2:
-            with st.expander("📊 Diagrama del Proceso", expanded=True):
+            with st.expander(" Diagrama del Proceso", expanded=True):
                 st.image("1.3 Determinación de Curvas Características de Bombas Centrífugas..png", use_container_width=True)
 
 
@@ -1497,7 +1497,7 @@ def mostrar_simulador(nombre):
             pdf_path = "Manual de la Práctica 5. Lechos Fluidizados. Estudio de sus Principales Características..pdf"
             if os.path.exists(pdf_path):
                 with open(pdf_path, "rb") as f:
-                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Manual_Practica5_LechosFluidizados.pdf", mime="application/pdf")
+                    st.download_button(label=" Descargar Práctica (PDF)", data=f, file_name="Manual_Practica5_LechosFluidizados.pdf", mime="application/pdf")
             else:
                 st.warning("⚠️ PDF no encontrado")
         
@@ -1566,7 +1566,7 @@ def mostrar_simulador(nombre):
                 """)
         
         with col2:
-            with st.expander("📊 Diagrama del Proceso", expanded=True):
+            with st.expander(" Diagrama del Proceso", expanded=True):
                 st.image("1.5 LECHOS FLUIDIZADOS.png", use_container_width=True)
 
     # =================================LOU II====================================================== 
@@ -1578,7 +1578,7 @@ def mostrar_simulador(nombre):
             pdf_path = "2 Manual de la Práctica 1. Hidrodinámica de Columnas Empacadas..pdf"
             if os.path.exists(pdf_path):
                 with open(pdf_path, "rb") as f:
-                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="ColumnasEmpacadas.pdf", mime="application/pdf")
+                    st.download_button(label=" Descargar Práctica (PDF)", data=f, file_name="ColumnasEmpacadas.pdf", mime="application/pdf")
             else:
                 st.warning("⚠️ PDF no encontrado")
         
@@ -1631,7 +1631,7 @@ def mostrar_simulador(nombre):
                 """)
         
         with col2:
-            with st.expander("📊 Diagrama del Proceso", expanded=True):
+            with st.expander(" Diagrama del Proceso", expanded=True):
                 st.image("2.1 Hidrodinámica de Columnas Empacadas..png", use_container_width=True)
 
     # ==================== PRACTICA 3 Filtración a Presión Constante (falta la dos) ==============
@@ -1641,7 +1641,7 @@ def mostrar_simulador(nombre):
             pdf_path = "2 Manual de la Práctica 3. Estudio de las Características de la Filtración a Presión Constante de una Suspensión..pdf"
             if os.path.exists(pdf_path):
                 with open(pdf_path, "rb") as f:
-                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="PresionConstante.pdf", mime="application/pdf")
+                    st.download_button(label=" Descargar Práctica (PDF)", data=f, file_name="PresionConstante.pdf", mime="application/pdf")
             else:
                 st.warning("⚠️ PDF no encontrado")
         
@@ -1706,7 +1706,7 @@ def mostrar_simulador(nombre):
                 """)
         
         with col2:
-            with st.expander("📊 Diagrama del Proceso", expanded=True):
+            with st.expander(" Diagrama del Proceso", expanded=True):
                 st.image("2.2 A PRESIÓN CONSTANTE.png", use_container_width=True)
 
     # ==================== PRACTICA 5 Destilación Diferencial ==============
@@ -1716,7 +1716,7 @@ def mostrar_simulador(nombre):
             pdf_path = "2 Manual de la Práctica 4. Estudio de la Destilación Diferencial..pdf"
             if os.path.exists(pdf_path):
                 with open(pdf_path, "rb") as f:
-                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="DestilaciónDiferencial.pdf", mime="application/pdf")
+                    st.download_button(label=" Descargar Práctica (PDF)", data=f, file_name="DestilaciónDiferencial.pdf", mime="application/pdf")
             else:
                 st.warning("⚠️ PDF no encontrado")
         
@@ -1773,7 +1773,7 @@ def mostrar_simulador(nombre):
                 """)
         
         with col2:
-            with st.expander("📊 Diagrama del Proceso", expanded=True):
+            with st.expander(" Diagrama del Proceso", expanded=True):
                 st.image("2.4 ESTUDIO DE LA DESTILACIÓN DIFERENCIAL.png", use_container_width=True)
     
     # ==================== PRACTICA 5 Destilación Continua   ==============
@@ -1784,7 +1784,7 @@ def mostrar_simulador(nombre):
             pdf_path = "2 Manual de la Práctica 5. Destilación Continua de una Mezcla Binaria en una Columna de Separación por Etapas..pdf"
             if os.path.exists(pdf_path):
                 with open(pdf_path, "rb") as f:
-                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="DestilaciónContinua.pdf", mime="application/pdf")
+                    st.download_button(label=" Descargar Práctica (PDF)", data=f, file_name="DestilaciónContinua.pdf", mime="application/pdf")
             else:
                 st.warning("⚠️ PDF no encontrado")
         
@@ -1862,7 +1862,7 @@ def mostrar_simulador(nombre):
                 """)
         
         with col2:
-            with st.expander("📊 Diagrama del Proceso", expanded=True):
+            with st.expander(" Diagrama del Proceso", expanded=True):
                 st.image("2.5 Destilación Continua.png", use_container_width=True)   
 
     # ======================== PRACTICA 6 Rectificación en Torre Rellena ========================   
@@ -1872,7 +1872,7 @@ def mostrar_simulador(nombre):
             pdf_path = "2 Manual de la Práctica 6. Rectificación de una Mezcla Binaria en una Torre Rellena..pdf"
             if os.path.exists(pdf_path):
                 with open(pdf_path, "rb") as f:
-                    st.download_button(label="📥 Descargar Guía (PDF)", data=f, file_name="Rectificacion.pdf", mime="application/pdf")
+                    st.download_button(label=" Descargar Práctica (PDF)", data=f, file_name="Rectificacion.pdf", mime="application/pdf")
             else:
                 st.warning("⚠️ PDF no encontrado")
         
@@ -1956,7 +1956,7 @@ def mostrar_simulador(nombre):
                 """)
         
         with col2:
-            with st.expander("📊 Diagrama del Proceso", expanded=True):
+            with st.expander(" Diagrama del Proceso", expanded=True):
                 st.image("2.6 Rectificación de una Mezcla Binaria en una Torre Rellena..png", use_container_width=True)       
     
     # ======================== FOOTER ========================
