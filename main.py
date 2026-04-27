@@ -1070,7 +1070,7 @@ def mostrar_simulador(nombre):
             cd_para_simular = st.session_state.get('cd_final', 0.61)
     
             for i, t_act in enumerate(vector_t):
-                status_placeholder.markdown("** CONTROL ACTIVADO - PROCESANDO...**")
+                status_placeholder.markdown("**CONTROL ACTIVADO - PROCESANDO...**")
 
                 if p_activa and t_act >= p_tiempo:
                     q_p_inst = p_magnitud
