@@ -451,10 +451,6 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     padding: 15px !important;
 }
 
-/* ===== CURSOR PARA BOTONES - PONER ESTO AL FINAL ===== */
-button, .stButton > button {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text font-size='24' y='24'>👆⚙️</text></svg>") 16 16, pointer !important;
-}
 
 # ===== FIN DEL CSS GLOBAL =====
     </style>
