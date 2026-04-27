@@ -228,6 +228,14 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_pre
 
 st.markdown("""
 <style>
+/* Cursor personalizado tipo ingeniería */
+html, body, [data-testid="stAppViewContainer"] {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size: 24px;'><text y='20'>⚙️</text></svg>") 16 16, auto;
+}
+button, [data-testid="stHeaderActionElements"] { 
+    cursor: pointer !important; 
+}
+
 @keyframes wave { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
 .stApp {
     background-image: linear-gradient(rgba(255,255,255,0.8), rgba(240,242,245,0.85)),
