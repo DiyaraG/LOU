@@ -221,10 +221,10 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_pre
     return h_next, q_entrada, q_salida, err, e_sum, err
 
 # =============================================================================
-# CONFIGURACIÓN DE LA PÁGINA + ESTILOS CRISTAL
+# 3. ESTILOS CSS
 # =============================================================================
 
-
+# ===== 3.1 CSS GLOBAL =====
 
 st.markdown("""
 <style>
