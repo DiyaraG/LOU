@@ -236,11 +236,6 @@ button, [data-testid="stHeaderActionElements"] {
     cursor: pointer !important; 
 }
 
-/* Cursor para botones: mano apuntando + engranaje */
-button, .stButton > button {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text font-size='24' y='24'>👆⚙️</text></svg>") 16 16, pointer;
-}
-
 @keyframes wave { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
 .stApp {
     background-image: linear-gradient(rgba(255,255,255,0.8), rgba(240,242,245,0.85)),
