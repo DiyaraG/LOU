@@ -963,16 +963,48 @@ def mostrar_simulador(nombre):
             if os.path.exists(nombre_pdf):
                 with open(nombre_pdf, "rb") as f:
                     st.sidebar.download_button(
-                        label="📥 Descargar Guía de Práctica (PDF)",
+                        label="📥 Descargar Práctica Física (PDF)",
                         data=f,
                         file_name="Guia_Practica_EIQ_UCV.pdf",
                         mime="application/pdf",
                         use_container_width=True
                     )
-                st.sidebar.caption("📖 Guía completa de la práctica de laboratorio")
+                st.sidebar.caption("📖 Práctica de laboratorio Físico")
             else:
                 st.sidebar.warning("⚠️ Archivo 'Guia_Practica_UCV.pdf' no encontrado en el directorio")
                 st.sidebar.caption("💡 Coloca el PDF en la misma carpeta que el script")
+
+         with st.sidebar.container(border=True):
+            nombre_pdf = "Guia_Practica_UCV.pdf"
+            if os.path.exists(nombre_pdf):
+                with open(nombre_pdf, "rb") as f:
+                    st.sidebar.download_button(
+                        label="📥 Descargar Manual de Práctica Virtual (PDF)",
+                        data=f,
+                        file_name="Manual_EIQ_UCV.pdf",
+                        mime="application/pdf",
+                        use_container_width=True
+                    )
+                st.sidebar.caption("📖 Manual completo de la práctica de laboratorio")
+            else:
+                st.sidebar.warning("⚠️ Archivo 'Manual_UCV.pdf' no encontrado en el directorio")
+                st.sidebar.caption("💡 Coloca el PDF en la misma carpeta que el script")
+
+                with open(nombre_pdf, "rb") as f:
+                    st.sidebar.download_button(
+                        label="📥 Descargar Práctica Virtual (PDF)",
+                        data=f,
+                        file_name="PracticaV_EIQ_UCV.pdf",
+                        mime="application/pdf",
+                        use_container_width=True
+                    )
+                st.sidebar.caption("📖 Practica Virtual de laboratorio")
+            else:
+                st.sidebar.warning("⚠️ Archivo 'PracticaV_UCV.pdf' no encontrado en el directorio")
+                st.sidebar.caption("💡 Coloca el PDF en la misma carpeta que el script")
+        
+
+                
         
         st.sidebar.markdown("---")
         
