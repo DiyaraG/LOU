@@ -226,9 +226,6 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_pre
 
 st.markdown("""
 <style>
-/* =========================================================================
-   CURSORES PERSONALIZADOS - CORREGIDOS
-   ========================================================================= */
 
 /* =========================================================================
    CURSORES PERSONALIZADOS - ⚙️ ENGRANAJE REALISTA GRIS
@@ -254,10 +251,21 @@ button, a, [data-testid="stHeaderActionElements"], .stSlider,
     color: #2D3748;
 }
 .title-container {
-    background: rgba(255,255,255,0.6); border: 1px solid rgba(200,210,230,0.5);
-    border-radius: 15px; padding: 20px; margin-bottom: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05); backdrop-filter: blur(5px);
-    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(255,255,255,0.6); 
+    border: 1px solid rgba(200,210,230,0.5);
+    border-radius: 15px; 
+    padding: 20px; 
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+    backdrop-filter: blur(5px);
+    display: flex; 
+    align-items: center; 
+    justify-content: center;  
+    text-align: center;       
+}
+.text-center-container {
+    text-align: center;
+    flex-grow: 1;
 }
 .logo-img { height: 80px; width: auto; }
 .animated-title {
