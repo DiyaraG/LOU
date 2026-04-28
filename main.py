@@ -230,17 +230,20 @@ st.markdown("""
    CURSORES PERSONALIZADOS - CORREGIDOS
    ========================================================================= */
 
-/* Cursor de ENGRANAJE (azul) - para el fondo general */
+/* =========================================================================
+   CURSORES PERSONALIZADOS - ⚙️ ENGRANAJE REALISTA GRIS
+   ========================================================================= */
+/* Cursor de ENGRANAJE GRIS - para el fondo general */
 html, body, [data-testid="stAppViewContainer"] {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%231a5276' stroke-width='2'><circle cx='12' cy='12' r='3'/><path d='M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12'/></svg>") 14 14, auto !important;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24' fill='none' stroke='%23666666' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='2.5' fill='%23666666' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(45 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(105 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(165 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(225 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(285 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(345 12 12)' fill='%23888888' stroke='none'/><circle cx='12' cy='12' r='5.5' stroke='%23666666' stroke-width='0.8' fill='none'/></svg>") 15 15, auto !important;
 }
 
-/* Cursor de ENGRANAJE (amarillo) + MANITO - para botones y elementos interactivos */
+/* Cursor de ENGRANAJE GRIS + MANITO 👆 - para botones y elementos interactivos */
 button, a, [data-testid="stHeaderActionElements"], .stSlider,
 .stButton, .stCheckbox, .stToggle, .stSelectbox, .stNumberInput,
 [role="button"], [role="slider"], .streamlit-expanderHeader,
 .stTabs [data-baseweb="tab"] {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='%23f1c40f' stroke-width='2'><circle cx='12' cy='12' r='3'/><path d='M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12'/></svg>") 16 16, pointer !important;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24' fill='none' stroke='%23666666' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='2.5' fill='%23666666' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(45 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(105 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(165 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(225 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(285 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(345 12 12)' fill='%23888888' stroke='none'/><circle cx='12' cy='12' r='5.5' stroke='%23666666' stroke-width='0.8' fill='none'/></svg>") 15 15, pointer !important;
 }
 
 @keyframes wave { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
