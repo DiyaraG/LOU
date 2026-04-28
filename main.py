@@ -225,96 +225,44 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_pre
 # =============================================================================
 
 # ===== 3.1 CSS GLOBAL =====
-
 st.markdown("""
 <style>
-/* Cursor personalizado tipo ingeniería */
+/* =========================================================================
+   CURSORES PERSONALIZADOS
+   ========================================================================= */
+/* Cursor de ENGRANAJE - para el fondo general */
 html, body, [data-testid="stAppViewContainer"] {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' style='font-size: 14px;'><text y='16'>⚙️</text></svg>") 10 10, auto;
-}
-button, [data-testid="stHeaderActionElements"] { 
-    cursor: pointer !important; 
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%231a5276' stroke-width='2'><circle cx='12' cy='12' r='3'/><path d='M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12'/></svg>") 14 14, auto !important;
 }
 
-@keyframes wave { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+/* Cursor de ENGRANAJE + MANITO - para botones y elementos interactivos */
+button, a, [data-testid="stHeaderActionElements"], .stSlider,
+.stButton, .stCheckbox, .stToggle, .stSelectbox, .stNumberInput,
+[role="button"], [role="slider"], .streamlit-expanderHeader,
+.stTabs [data-baseweb="tab"] {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='%23f1c40f' stroke-width='2'><circle cx='12' cy='12' r='3'/><path d='M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12'/></svg>") 16 16, pointer !important;
+}
+
+/* =========================================================================
+   FONDO DE PANTALLA
+   ========================================================================= */
+@keyframes wave { 
+    0% { background-position: -200% 0; } 
+    100% { background-position: 200% 0; } 
+}
+
 .stApp {
     background-image: linear-gradient(rgba(255,255,255,0.8), rgba(240,242,245,0.85)),
                       url("https://raw.githubusercontent.com/DiyaraG/LOU/main/Lou%20fondo.jpeg");
-    background-size: cover; background-position: center; background-attachment: fixed;
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed;
     color: #2D3748;
 }
-.title-container {
-    background: rgba(255,255,255,0.6); border: 1px solid rgba(200,210,230,0.5);
-    border-radius: 15px; padding: 20px; margin-bottom: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05); backdrop-filter: blur(5px);
-    display: flex; align-items: center; justify-content: space-between;
-}
-.logo-img { height: 80px; width: auto; }
-.animated-title {
-    font-size: 42px; font-weight: 800; margin: 0;
-    background: linear-gradient(90deg, #1A202C 0%, #4A5568 25%, #3182CE 50%, #4A5568 75%, #1A202C 100%);
-    background-size: 200% auto; color: transparent;
-    -webkit-background-clip: text; background-clip: text;
-    animation: wave 8s linear infinite; letter-spacing: 2px;
-}
-.sub-title { font-size: 15px; text-align: center; color: #718096; margin-top: 5px; letter-spacing: 4px; }
-.stButton>button {
-    width: 100%; border-radius: 10px; height: 3.8em;
-    background-color: rgba(255,255,255,0.8); color: #2D3748;
-    border: 1px solid #E2E8F0; transition: all 0.3s ease;
-}
 
-/* Estilo de Pestañas y Botones */
-    .stTabs [data-baseweb="tab-list"] { justify-content: center; background-color: transparent; }
-    .stTabs [data-baseweb="tab"] { font-weight: 600; color: #A0AEC0; transition: 0.4s; }
-    .stTabs [aria-selected="true"] { color: #2B6CB0 !important; background-color: white !important; border-radius: 10px; }
-    .stTabs [data-baseweb="tab-highlight"] { background-color: #3182CE !important; }
-
-/* ======================== ESTILO PARA BOTONES DE PRÁCTICAS Y MENÚ PRINCIPAL ======================== */
-/* Botones de las prácticas en la pantalla de inicio */
-.stButton > button {
-    background: #ffffff !important;
-    border: 1px solid #cbd5e0 !important;
-    border-radius: 12px !important;
-    color: #1a5276 !important;
-    font-weight: 600 !important;
-    padding: 0.8rem 1rem !important;
-    height: auto !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
-}
-
-/* Hover - elevación y borde dorado */
-.stButton > button:hover {
-    border: 1px solid #f1c40f !important;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1) !important;
-    transform: translateY(-3px) !important;
-    background: #ffffff !important;
-    color: #1a5276 !important;
-}
-
-/* Botón Menú Principal (el de volver atrás) */
-div[data-testid="column"]:first-child .stButton > button {
-    background: #ffffff !important;
-    border: 1px solid #cbd5e0 !important;
-    border-radius: 12px !important;
-    color: #1a5276 !important;
-    font-weight: 600 !important;
-    padding: 0.5rem 1rem !important;
-    height: auto !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
-}
-
-div[data-testid="column"]:first-child .stButton > button:hover {
-    border: 1px solid #f1c40f !important;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1) !important;
-    transform: translateY(-3px) !important;
-    background: #ffffff !important;
-    color: #1a5276 !important;
-}
-
-/* ======================== TÍTULO PRINCIPAL - CON EFECTO BRILLO SUTIL ======================== */
+/* =========================================================================
+   ENCABEZADO CON TÍTULO ANIMADO
+   ========================================================================= */
 .title-container {
     background: linear-gradient(135deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
     border: 2px solid #f1c40f !important;
@@ -322,10 +270,15 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
     position: relative;
     overflow: hidden;
+    padding: 20px;
+    margin-bottom: 25px;
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
     backdrop-filter: none !important;
 }
 
-/* Efecto de brillo súper sutil */
+/* Efecto de brillo sutil */
 .title-container::before {
     content: '';
     position: absolute;
@@ -349,21 +302,41 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     100% { left: 100%; }
 }
 
+.logo-img { 
+    height: 80px; 
+    width: auto; 
+}
+
 .animated-title {
+    font-size: 42px; 
+    font-weight: 800; 
+    margin: 0;
     background: linear-gradient(90deg, #f1c40f 0%, #f9e79f 50%, #f1c40f 100%) !important;
     background-size: 200% auto !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     color: transparent !important;
     animation: wave 6s linear infinite !important;
+    letter-spacing: 2px;
 }
 
-.sub-title {
+.sub-title { 
+    font-size: 15px; 
+    text-align: center; 
     color: #f0f4f8 !important;
+    margin-top: 5px; 
+    letter-spacing: 4px; 
     font-weight: 500 !important;
 }
 
-/* ======================== ESTILO TARJETA PARA PESTAÑAS ======================== */
+/* =========================================================================
+   PESTAÑAS DE NAVEGACIÓN (LOU I / LOU II)
+   ========================================================================= */
+.stTabs [data-baseweb="tab-list"] { 
+    justify-content: center; 
+    background-color: transparent; 
+}
+
 .stTabs [data-baseweb="tab"] {
     font-weight: 700 !important;
     font-size: 1.3rem !important;
@@ -393,17 +366,7 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     transform: translateY(-2px) !important;
 }
 
-/* Ocultar la línea indicadora azul */
-.stTabs [data-baseweb="tab-highlight"] {
-    display: none !important;
-}
-
-/* Línea indicadora - la puedes quitar o mantener */
-.stTabs [data-baseweb="tab-highlight"] {
-    display: none !important;  /* Opcional: oculta la línea azul */
-}
-
-/* Línea indicadora LED azul - más gruesa */
+/* Línea indicadora LED azul */
 .stTabs [data-baseweb="tab-highlight"] {
     background-color: #3498db !important;
     box-shadow: 0 0 15px rgba(52, 152, 219, 1), 0 0 8px rgba(52, 152, 219, 0.7) !important;
@@ -411,15 +374,87 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     border-radius: 2px !important;
 }
 
-/* Animación LED azul */
-@keyframes ledPulseBlue {
-    0% { text-shadow: 0 0 8px rgba(52, 152, 219, 0.5), 0 0 3px rgba(52, 152, 219, 0.3); }
-    50% { text-shadow: 0 0 25px rgba(52, 152, 219, 1), 0 0 10px rgba(52, 152, 219, 0.7); }
-    100% { text-shadow: 0 0 8px rgba(52, 152, 219, 0.5), 0 0 3px rgba(52, 152, 219, 0.3); }
+/* =========================================================================
+   BOTONES MEJORADOS
+   ========================================================================= */
+/* Botones generales */
+.stButton > button {
+    width: 100%; 
+    border-radius: 12px !important; 
+    height: auto !important;
+    background: #ffffff !important;
+    color: #1a5276 !important;
+    border: 1px solid #cbd5e0 !important;
+    font-weight: 600 !important;
+    padding: 0.8rem 1rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
 }
 
-/* ======================== ESTILO PARA EXPANDERS (VISIBLE SIEMPRE) ======================== */
-/* Encabezado del expander - SIEMPRE VISIBLE */
+/* Hover - elevación y borde dorado */
+.stButton > button:hover {
+    border: 1px solid #f1c40f !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1) !important;
+    transform: translateY(-3px) !important;
+    background: #ffffff !important;
+    color: #1a5276 !important;
+}
+
+/* Botón PRIMARIO - NARANJA (Iniciar Simulación) */
+.stButton > button[kind="primary"] {
+    background: linear-gradient(90deg, #e67e22, #f39c12) !important;
+    color: #ffffff !important;
+    font-weight: bold !important;
+    border: 2px solid #f1c40f !important;
+    box-shadow: 0 0 15px rgba(230, 126, 34, 0.4) !important;
+}
+
+.stButton > button[kind="primary"]:hover {
+    background: linear-gradient(90deg, #f39c12, #f1c40f) !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 0 30px #f39c12, 0 0 15px #f1c40f !important;
+    border-color: #ffffff !important;
+    color: #1a1a1a !important;
+}
+
+/* Botón SECUNDARIO (Reset) */
+.stButton > button[kind="secondary"] {
+    background: linear-gradient(90deg, #7b241c, #943126) !important;
+    color: white !important;
+    border: 2px solid #f1c40f !important;
+    box-shadow: 0 0 10px rgba(241, 196, 15, 0.2) !important;
+}
+
+.stButton > button[kind="secondary"]:hover {
+    background: linear-gradient(90deg, #943126, #a93226) !important;
+    box-shadow: 0 0 20px #f1c40f !important;
+    border-color: #f39c12 !important;
+}
+
+/* Botón Menú Principal (volver atrás) */
+div[data-testid="column"]:first-child .stButton > button {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e0 !important;
+    border-radius: 12px !important;
+    color: #1a5276 !important;
+    font-weight: 600 !important;
+    padding: 0.5rem 1rem !important;
+    height: auto !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+}
+
+div[data-testid="column"]:first-child .stButton > button:hover {
+    border: 1px solid #f1c40f !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1) !important;
+    transform: translateY(-3px) !important;
+    background: #ffffff !important;
+    color: #1a5276 !important;
+}
+
+/* =========================================================================
+   EXPANDERS - SIEMPRE VISIBLES
+   ========================================================================= */
 .streamlit-expanderHeader {
     background-color: #1a5276 !important;
     border-radius: 10px !important;
@@ -451,12 +486,131 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     padding: 15px !important;
 }
 
+/* =========================================================================
+   BARRA LATERAL
+   ========================================================================= */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #1a5276 0%, #154360 100%) !important;
+    border-right: 4px solid #f1c40f !important;
+}
 
-# ===== FIN DEL CSS GLOBAL =====
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+[data-testid="stSidebar"] .stMarkdown, 
+[data-testid="stSidebar"] label, 
+[data-testid="stSidebar"] p, 
+[data-testid="stSidebar"] span {
+    color: #f0f4f8 !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+}
+
+[data-testid="stSidebar"] h1, 
+[data-testid="stSidebar"] h2, 
+[data-testid="stSidebar"] h3 {
+    color: #f1c40f !important;
+    border-bottom: 1px solid #f1c40f80;
+    padding-bottom: 5px;
+    margin-top: 10px;
+}
+
+/* =========================================================================
+   MÉTRICAS Y TARJETAS
+   ========================================================================= */
+div[data-testid="stMetric"] {
+    background: linear-gradient(135deg, #ffffff 0%, #f5f9fc 100%) !important;
+    border: none !important;
+    border-left: 5px solid #1a5276 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    padding: 15px !important;
+}
+
+div[data-testid="stMetric"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12) !important;
+}
+
+div[data-testid="stMetric"] label {
+    color: #1a5276 !important;
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase !important;
+}
+
+div[data-testid="stMetric"] div[data-testid="stMetricValue"] {
+    color: #154360 !important;
+    font-size: 2.2rem !important;
+    font-weight: 800 !important;
+}
+
+/* =========================================================================
+   BARRA DE PROGRESO
+   ========================================================================= */
+.stProgress > div > div > div > div {
+    background: linear-gradient(90deg, #1a5276, #3498db, #1a5276) !important;
+    background-size: 200% 100% !important;
+    animation: gradientMove 1.5s ease infinite, pulso_azul 2s ease-in-out infinite !important;
+    border-radius: 10px !important;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+@keyframes pulso_azul {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+
+/* =========================================================================
+   SLIDERS
+   ========================================================================= */
+div[data-baseweb="slider"] > div > div > div {
+    background-color: #f39c12 !important;
+}
+
+div[role="slider"] {
+    background-color: #f39c12 !important;
+    border: 2px solid white !important;
+}
+
+/* =========================================================================
+   MENSAJES DE ESTADO
+   ========================================================================= */
+div[data-testid="stInfo"] {
+    background-color: #e8f4fd !important;
+    border-left: 5px solid #1a5276 !important;
+    border-radius: 10px !important;
+}
+
+div[data-testid="stSuccess"] {
+    background-color: #e8f8e8 !important;
+    border-left: 5px solid #27ae60 !important;
+    border-radius: 10px !important;
+}
+
+div[data-testid="stWarning"] {
+    background-color: #fef5e7 !important;
+    border-left: 5px solid #f39c12 !important;
+    border-radius: 10px !important;
+}
+
+/* =========================================================================
+   RESPONSIVE
+   ========================================================================= */
+@media (max-width: 768px) {
+    .header-container h1 {
+        font-size: 1.2rem !important;
+    }
+    div[data-testid="stMetric"] div[data-testid="stMetricValue"] {
+        font-size: 1.5rem !important;
+    }
+}
+</style>
+""", unsafe_allow_html=True)
 
 # =============================================================================
 # 4. NAVEGACIÓN Y PÁGINA PRINCIPAL
