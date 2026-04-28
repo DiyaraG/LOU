@@ -226,6 +226,21 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_pre
 
 st.markdown("""
 <style>
+/* =========================================================================
+   CURSORES PERSONALIZADOS - CORREGIDOS
+   ========================================================================= */
+/* Cursor de ENGRANAJE - para el fondo general */
+html, body, [data-testid="stAppViewContainer"] {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%231a5276' stroke-width='2'><circle cx='12' cy='12' r='3'/><path d='M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12'/></svg>") 14 14, auto !important;
+}
+
+/* Cursor de ENGRANAJE + MANITO - para botones y elementos interactivos */
+button, a, [data-testid="stHeaderActionElements"], .stSlider,
+.stButton, .stCheckbox, .stToggle, .stSelectbox, .stNumberInput,
+[role="button"], [role="slider"], .streamlit-expanderHeader,
+.stTabs [data-baseweb="tab"] {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='%23f1c40f' stroke-width='2'><circle cx='12' cy='12' r='3'/><path d='M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12'/></svg>") 16 16, pointer !important;
+}
 /* Cursor personalizado tipo ingeniería */
 html, body, [data-testid="stAppViewContainer"] {
     cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' style='font-size: 14px;'><text y='16'>⚙️</text></svg>") 10 10, auto;
