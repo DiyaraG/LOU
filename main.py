@@ -573,6 +573,24 @@ def mostrar_simulador(nombre):
         # ======================== CSS ESPECÍFICO PARA BALANCE ========================
         st.markdown("""
         <style>
+       
+        /* =========================================================================
+           CURSORES PERSONALIZADOS - ENGRANAJE GRIS + MANITO
+           ========================================================================= */
+        /* Cursor de ENGRANAJE GRIS - para el fondo general */
+        html, body, [data-testid="stAppViewContainer"] {
+        cursor: url("data:image/svg+xml;utf8,...ENGRANAJE GRIS...") 15 15, auto !important;
+        }
+
+        /* Cursor de ENGRANAJE GRIS + MANITO - para botones y elementos interactivos */
+        button, a, [data-testid="stHeaderActionElements"], .stSlider,
+        .stButton, .stCheckbox, .stToggle, .stSelectbox, .stNumberInput,
+        [role="button"], [role="slider"], .streamlit-expanderHeader,
+        .stTabs [data-baseweb="tab"] {
+        cursor: url("data:image/svg+xml;utf8,...ENGRANAJE GRIS...") 15 15, pointer !important;
+        }
+
+
         /* Barra lateral con colores azules y amarillos - SOLO PARA BALANCE */
         [data-testid="stSidebar"] {
             background: linear-gradient(180deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
@@ -806,6 +824,31 @@ def mostrar_simulador(nombre):
         .sub-title {
             color: #f0f4f8 !important;
         }
+                .sub-title {
+            color: #f0f4f8 !important;
+        }
+
+        /* =========================================================================
+           FORZAR CURSOR EN BOTONES - CORRECCIÓN DEFINITIVA
+           ========================================================================= */
+        .stButton > button,
+        .stButton > button:hover,
+        .stButton > button:active,
+        .stButton > button:focus,
+        .stButton > button[kind="primary"],
+        .stButton > button[kind="primary"]:hover,
+        .stButton > button[kind="secondary"],
+        .stButton > button[kind="secondary"]:hover {
+            cursor: url("data:image/svg+xml;utf8,...ENGRANAJE GRIS...") 15 15, pointer !important;
+        }
+
+        /* Forzar cursor en pestañas */
+        .stTabs [data-baseweb="tab"],
+        .stTabs [data-baseweb="tab"]:hover,
+        .stTabs [aria-selected="true"] {
+            cursor: url("data:image/svg+xml;utf8,...ENGRANAJE GRIS...") 15 15, pointer !important;
+        }
+        </style>
         </style>
         """, unsafe_allow_html=True)        
         # ======================== MARCO TEÓRICO ========================
