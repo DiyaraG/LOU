@@ -896,7 +896,7 @@ def mostrar_simulador(nombre):
             sp_nivel = st.slider("Consigna de Nivel (Setpoint) [m]", 0.1, float(h_total), float(h_total/2))
 
         with st.sidebar.expander(" Bomba de Alimentación", expanded=True):
-            q_max_bomba = st.number_input("Caudal máximo de bomba [m³/s]", value=2.0, min_value=0.5, max_value=5.0, step=0.5)
+            q_max_bomba = st.number_input("Caudal máximo de bomba [m³/s]", value=2.0, min_value=0.0000833, max_value=5.0, step=0.0001,format="%.6f")
             st.caption("💡 Capacidad máxima de la bomba de entrada")        
         
         with st.sidebar.expander("Dimensiones de Salida", expanded=True):
