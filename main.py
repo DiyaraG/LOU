@@ -922,12 +922,12 @@ def mostrar_simulador(nombre):
                 p_tiempo = 0
                 p_tipo = "Entrada"
 
-        with st.sidebar.expander("Parámetros del Controlador PID Robusto"):
+        with st.sidebar.expander("Parámetros del Controlador PID "):
             cd_actual = st.session_state.get('cd_calculado', 0.61)
             kp_sug, ki_sug, kd_sug = sintonizar_controlador_robusto(
                 geom_tanque, r_max, h_total, cd_actual, area_orificio, op_tipo
             )
-            modo_auto = st.checkbox("🎯 Modo Robusto (Auto-sintonía optimizada)", value=True)
+            modo_auto = st.checkbox("🎯 Modo  Auto-sintonía optimizada", value=True)
             if modo_auto:
                 st.success(f"💡 PID optimizado para {op_tipo} (Cd={cd_actual:.3f})")
                 st.caption(f"Kp={kp_sug} | Ki={ki_sug} | Kd={kd_sug}")
@@ -943,7 +943,7 @@ def mostrar_simulador(nombre):
                 kp_val = st.number_input("Kp", value=kp_default, step=1.0, key="kp_man")
                 ki_val = st.number_input("Ki", value=ki_default, step=0.5, format="%.3f", key="ki_man")
                 kd_val = st.number_input("Kd", value=kd_default, step=0.1, format="%.3f", key="kd_man")
-            tiempo_ensayo = st.slider("Tiempo de simulación [s]", 60, 600, 300)      
+            tiempo_ensayo = st.slider("Tiempo de simulación [s]", 60, 1000, 300)      
         
         with st.sidebar.expander("Cargar Datos Experimentales"):
             st.caption("⚠️ Ingresa el nivel en **centímetros (cm)**")
