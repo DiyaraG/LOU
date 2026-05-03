@@ -838,7 +838,14 @@ def mostrar_simulador(nombre):
        
         </style>
         </style>
-        """, unsafe_allow_html=True)        
+        """, unsafe_allow_html=True)       
+
+        # ======================== INICIALIZAR ESTADOS ========================
+        if 'ejecutando' not in st.session_state:
+            st.session_state.ejecutando = False
+        
+        if 'diagrama_abierto' not in st.session_state:
+            st.session_state.diagrama_abierto = True
         # ======================== MARCO TEÓRICO ========================
         col_teoria1, col_teoria2, col_teoria3 = st.columns(3)
 
