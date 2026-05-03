@@ -1028,63 +1028,63 @@ def mostrar_simulador(nombre):
        
 # ======================== BIBLIOTECA TÉCNICA ========================
 
-with st.sidebar.expander("📚 Biblioteca Técnica", expanded=False):
-    st.markdown("### 📄 Documentación del Laboratorio")
-    
-    # Configuración de documentos
-    documentos = {
-        "Guía de Práctica Física": {
-            "archivo": "Guia_Practica_UCV.pdf",
-            "descripcion": "Procedimientos experimentales y mediciones",
-            "icono": "🔬",
-            "color": "blue"
-        },
-        "Manual de Práctica Virtual": {
-            "archivo": "Manual_UCV.pdf",
-            "descripcion": "Guía completa del simulador y controles",
-            "icono": "💻",
-            "color": "green"
-        },
-        "Práctica Virtual Interactiva": {
-            "archivo": "PracticaV_UCV.pdf",
-            "descripcion": "Ejercicios y casos de estudio",
-            "icono": "🎮",
-            "color": "orange"
+    with st.sidebar.expander("📚 Biblioteca Técnica", expanded=False):
+        st.markdown("### 📄 Documentación del Laboratorio")
+        
+        # Configuración de documentos
+        documentos = {
+            "Guía de Práctica Física": {
+                "archivo": "Guia_Practica_UCV.pdf",
+                "descripcion": "Procedimientos experimentales y mediciones",
+                "icono": "🔬",
+                "color": "blue"
+            },
+            "Manual de Práctica Virtual": {
+                "archivo": "Manual_UCV.pdf",
+                "descripcion": "Guía completa del simulador y controles",
+                "icono": "💻",
+                "color": "green"
+            },
+            "Práctica Virtual Interactiva": {
+                "archivo": "PracticaV_UCV.pdf",
+                "descripcion": "Ejercicios y casos de estudio",
+                "icono": "🎮",
+                "color": "orange"
+            }
         }
-    }
-    
-    # Selector de documento
-    doc_seleccionado = st.selectbox(
-        "Seleccionar documento",
-        list(documentos.keys()),
-        format_func=lambda x: f"{documentos[x]['icono']} {x}"
-    )
-    
-    if doc_seleccionado:
-        doc_info = documentos[doc_seleccionado]
         
-        # Mostrar información del documento
-        st.markdown(f"""
-        <div style='background-color: #f0f4f8; padding: 10px; border-radius: 10px; margin: 10px 0;'>
-            <small>{doc_info['descripcion']}</small>
-        </div>
-        """, unsafe_allow_html=True)
+        # Selector de documento
+        doc_seleccionado = st.selectbox(
+            "Seleccionar documento",
+            list(documentos.keys()),
+            format_func=lambda x: f"{documentos[x]['icono']} {x}"
+        )
         
-        # Botón de descarga
-        if os.path.exists(doc_info["archivo"]):
-            with open(doc_info["archivo"], "rb") as f:
-                st.download_button(
-                    label=f"{doc_info['icono']} Descargar {doc_seleccionado}",
-                    data=f,
-                    file_name=doc_info["archivo"].replace(".pdf", f"_{doc_seleccionado.replace(' ', '_')}.pdf"),
-                    mime="application/pdf",
-                    use_container_width=True,
-                    type="primary"
-                )
-        else:
-            st.warning(f"⚠️ Archivo no encontrado: {doc_info['archivo']}")
-            st.caption("💡 Coloca los PDFs en la misma carpeta que el script")
+        if doc_seleccionado:
+            doc_info = documentos[doc_seleccionado]
             
+            # Mostrar información del documento
+            st.markdown(f"""
+            <div style='background-color: #f0f4f8; padding: 10px; border-radius: 10px; margin: 10px 0;'>
+                <small>{doc_info['descripcion']}</small>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # Botón de descarga
+            if os.path.exists(doc_info["archivo"]):
+                with open(doc_info["archivo"], "rb") as f:
+                    st.download_button(
+                        label=f"{doc_info['icono']} Descargar {doc_seleccionado}",
+                        data=f,
+                        file_name=doc_info["archivo"].replace(".pdf", f"_{doc_seleccionado.replace(' ', '_')}.pdf"),
+                        mime="application/pdf",
+                        use_container_width=True,
+                        type="primary"
+                    )
+            else:
+                st.warning(f"⚠️ Archivo no encontrado: {doc_info['archivo']}")
+                st.caption("💡 Coloca los PDFs en la misma carpeta que el script")
+                
         st.sidebar.markdown("---")
 
         # ======================== BOTONES INICIAR Y RESET ========================
