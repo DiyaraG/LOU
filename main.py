@@ -1057,6 +1057,14 @@ def mostrar_simulador(nombre):
             
             if doc_seleccionado:
                 doc_info = documentos[doc_seleccionado]
+
+
+                # Mostrar información del documento
+                st.markdown(f"""
+                <div style='background-color: #f0f4f8; padding: 10px; border-radius: 10px; margin: 10px 0;'>
+                    <small>{doc_info['descripcion']}</small>
+                </div>
+                """, unsafe_allow_html=True)
                 
                 
                 # Botón de descarga
