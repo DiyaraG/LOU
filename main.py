@@ -140,10 +140,15 @@ def calcular_q_max_salida(d_orificio_pulg, cd=0.61, h_max=10.0):
 
 def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_prev, modo_op, cd_val, kp, ki, kd, d_pulgadas):
     """
-    Sistema CORREGIDO - Físicamente correcto:
-    - V-01 (Entrada): Controla flujo de bomba (0 a Qmax_bomba)
-    - V-02 (Salida): Controla flujo por orificio (Ley de Torricelli)
-    - Modo_op: "Llenado" o "Vaciado" (control bidireccional)
+    SISTEMA CORREGIDO - Control de VÁLVULAS según modo de operación:
+    
+    MODO LLENADO:
+    - V-01 (Entrada): Controlada por PID (actúa sobre bomba)
+    - V-02 (Salida): Abierta completamente (descarga libre por gravedad)
+    
+    MODO VACIADO:
+    - V-01 (Entrada): COMPLETAMENTE CERRADA (q_entrada = 0)
+    - V-02 (Salida): Controlada por PID (estrangula el flujo de salida)
     """
     from math import sqrt, pi
     
@@ -161,63 +166,85 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_pre
     D = np.clip(D, -5.0, 5.0)
     u_control = P + I + D
     
-    # Parámetros de la bomba y orificio
+    # Parámetros físicos
     q_max_bomba = 2.0  # Caudal máximo de la bomba [m³/s]
     d_metros = d_pulgadas * 0.0254
     area_orificio = pi * (d_metros / 2)**2
     g = 9.81
     
-    # Lógica bidireccional según el modo de operación
+    # =========================================================================
+    # LÓGICA SEGÚN MODO DE OPERACIÓN
+    # =========================================================================
+    
     if modo_op == "Llenado":
-        # Control de entrada (bomba)
-        flujo_base_bomba = q_max_bomba * 0.15
-        if err > 0.01:  # Nivel BAJO - Necesito SUBIR
+        # ===== MODO LLENADO: V-01 controla entrada, V-02 libre =====
+        
+        # Control de V-01 (Bomba de entrada) con PID
+        flujo_base_bomba = q_max_bomba * 0.15  # 15% mínimo
+        
+        if err > 0.01:  # NIVEL BAJO - Necesito SUBIR
+            # Abrir más la bomba
             q_entrada = flujo_base_bomba + np.clip(u_control, 0, q_max_bomba - flujo_base_bomba)
-        elif err < -0.01:  # Nivel ALTO - Necesito BAJAR (raro en llenado puro)
+        elif err < -0.01:  # NIVEL ALTO - Necesito BAJAR
+            # Cerrar la bomba al mínimo
             q_entrada = flujo_base_bomba * 0.3
-        else:
+        else:  # En Setpoint - mantener equilibrio
             q_entrada = flujo_base_bomba
+        
         q_entrada = np.clip(q_entrada, 0, q_max_bomba)
         
-        # Salida por gravedad (Ley de Torricelli)
+        # V-02: Descarga libre por gravedad (COMPLETAMENTE ABIERTA)
         if h_prev > 0.001:
             q_salida = cd_val * area_orificio * sqrt(2 * g * h_prev)
         else:
             q_salida = 0.0
         
-        # Agregar perturbación
+        # Agregar perturbación en entrada (si aplica)
         q_entrada_total = q_entrada + q_p_val
         q_salida_total = q_salida
+    
+    else:  # modo_op == "Vaciado"
+        # ===== MODO VACIADO: V-01 cerrada, V-02 controla salida =====
         
-    else:  # Modo Vaciado
-        # Control de salida (válvula de descarga)
-        flujo_base_salida = 0.0
-        if err > 0.01:  # Nivel ALTO - Necesito BAJAR más rápido
-            apertura_salida = np.clip(u_control / q_max_bomba, 0.3, 1.0)
-        elif err < -0.01:  # Nivel BAJO - Cerrar salida
-            apertura_salida = 0.1
-        else:
-            apertura_salida = 0.3
+        # V-01: Bomba COMPLETAMENTE APAGADA
+        q_entrada = 0.0
         
-        # Caudal teórico de salida
+        # Control de V-02 (Válvula de descarga) con PID
+        # Apertura mínima para permitir drenaje
+        apertura_base_salida = 0.2  # 20% mínimo (antes 10%)
+        
+        if err > 0.01:  # NIVEL ALTO - Necesito BAJAR más rápido
+            # Abrir más la válvula de salida
+            apertura_adicional = np.clip(u_control / q_max_bomba, 0, 0.8)
+            apertura_salida = apertura_base_salida + apertura_adicional
+        elif err < -0.01:  # NIVEL BAJO - Cerrar salida (evitar vaciado excesivo)
+            # Cerrar más la válvula
+            reduccion = np.clip(-u_control / q_max_bomba, 0, 0.8)
+            apertura_salida = max(apertura_base_salida - reduccion, 0.05)
+        else:  # En Setpoint
+            apertura_salida = apertura_base_salida
+        
+        apertura_salida = np.clip(apertura_salida, 0.05, 1.0)
+        
+        # Caudal de salida teórico (Ley de Torricelli)
         if h_prev > 0.001:
             q_salida_teorica = cd_val * area_orificio * sqrt(2 * g * h_prev)
         else:
             q_salida_teorica = 0.0
         
+        # Aplicar apertura de la válvula
         q_salida = apertura_salida * q_salida_teorica
-        q_entrada = 0.0  # Sin entrada en modo vaciado puro
         
-        # Agregar perturbación (fuga)
+        # Agregar perturbación (fuga en salida, si aplica)
         q_entrada_total = q_entrada
         q_salida_total = q_salida + q_p_val
     
-    # Balance de masa
+    # Balance de masa (Ecuación de continuidad)
     dh_dt = (q_entrada_total - q_salida_total) / area_h
     h_next = h_prev + dh_dt * dt
     h_next = np.clip(h_next, 0, h_t)
     
-    # Retorna 6 valores: h_next, q_entrada, q_salida, err, e_sum, err_pasado
+    # Retorna: nivel, Qentrada, Qsalida, error, integral_acum, error_pasado
     return h_next, q_entrada, q_salida, err, e_sum, err
 
 # =============================================================================
