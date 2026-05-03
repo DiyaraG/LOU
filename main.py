@@ -673,6 +673,45 @@ def mostrar_simulador(nombre):
             background: linear-gradient(90deg, #f39c12, #f1c40f) !important;
             transform: scale(1.02);
         }
+        
+        /* ======  ======= */
+
+        /* ======================== FORZAR FONDO DEL EXPANDER CERRADO ======================== */
+        /* Forzar el fondo del expander del diagrama cuando está cerrado */
+        details.stExpander {
+            background: linear-gradient(180deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
+            border-radius: 15px !important;
+            border: 1px solid #f1c40f !important;
+            margin-bottom: 15px !important;
+        }
+        
+        /* Encabezado del expander cuando está cerrado */
+        details.stExpander summary {
+            background: linear-gradient(180deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
+            border-radius: 15px !important;
+            color: #f1c40f !important;
+            font-weight: bold !important;
+        }
+        
+        /* Encabezado cuando está abierto */
+        details.stExpander[open] summary {
+            background: linear-gradient(180deg, #0d3251 0%, #1a5276 50%, #154360 100%) !important;
+            border-radius: 15px 15px 0 0 !important;
+            color: #f1c40f !important;
+        }
+        
+        /* Contenido del expander cuando está abierto */
+        details.stExpander[open] .stExpanderContent {
+            background-color: #f5f9fc !important;
+            border-radius: 0 0 15px 15px !important;
+            border: none !important;
+        }
+        
+        /* Asegurar que el texto del encabezado se vea bien */
+        details.stExpander summary span {
+            color: #f1c40f !important;
+        }
+        
         /* ======================== SLIDER CORREGIDO - SIN SALTOS ======================== */
         /* Línea del slider - fondo (parte no recorrida) */
         div[data-baseweb="slider"] > div {
