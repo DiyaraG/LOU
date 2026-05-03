@@ -1124,7 +1124,8 @@ def mostrar_simulador(nombre):
                 st.session_state['ki_ejecucion'] = 3.5
                 st.session_state['kd_ejecucion'] = 1.5
                 st.session_state['cd_final'] = cd_para_usar
-    
+                
+            st.rerun()
         # ======================== SIMULACIÓN PRINCIPAL ========================
         if not st.session_state.ejecutando:
             st.info("💡 Ajusta los parámetros en la barra lateral y pulsa 'Iniciar Simulación Robusta'")
