@@ -1027,59 +1027,64 @@ def mostrar_simulador(nombre):
         
        
 # ======================== BIBLIOTECA TÉCNICA ========================
-        st.sidebar.subheader("📚 Biblioteca Técnica")
+
+with st.sidebar.expander("📚 Biblioteca Técnica", expanded=False):
+    st.markdown("### 📄 Documentación del Laboratorio")
+    
+    # Configuración de documentos
+    documentos = {
+        "Guía de Práctica Física": {
+            "archivo": "Guia_Practica_UCV.pdf",
+            "descripcion": "Procedimientos experimentales y mediciones",
+            "icono": "🔬",
+            "color": "blue"
+        },
+        "Manual de Práctica Virtual": {
+            "archivo": "Manual_UCV.pdf",
+            "descripcion": "Guía completa del simulador y controles",
+            "icono": "💻",
+            "color": "green"
+        },
+        "Práctica Virtual Interactiva": {
+            "archivo": "PracticaV_UCV.pdf",
+            "descripcion": "Ejercicios y casos de estudio",
+            "icono": "🎮",
+            "color": "orange"
+        }
+    }
+    
+    # Selector de documento
+    doc_seleccionado = st.selectbox(
+        "Seleccionar documento",
+        list(documentos.keys()),
+        format_func=lambda x: f"{documentos[x]['icono']} {x}"
+    )
+    
+    if doc_seleccionado:
+        doc_info = documentos[doc_seleccionado]
         
-        # Primer contenedor: Práctica Física
-        with st.sidebar.container(border=True):
-            nombre_pdf = "Guia_Practica_UCV.pdf"
-            if os.path.exists(nombre_pdf):
-                with open(nombre_pdf, "rb") as f:
-                    st.sidebar.download_button(
-                        label="📥 Descargar Práctica Física (PDF)",
-                        data=f,
-                        file_name="Guia_Practica_EIQ_UCV.pdf",
-                        mime="application/pdf",
-                        use_container_width=True
-                    )
-                st.sidebar.caption("📖 Práctica de laboratorio Físico")
-            else:
-                st.sidebar.warning("⚠️ Archivo 'Guia_Practica_UCV.pdf' no encontrado en el directorio")
-                st.sidebar.caption("💡 Coloca el PDF en la misma carpeta que el script")
+        # Mostrar información del documento
+        st.markdown(f"""
+        <div style='background-color: #f0f4f8; padding: 10px; border-radius: 10px; margin: 10px 0;'>
+            <small>{doc_info['descripcion']}</small>
+        </div>
+        """, unsafe_allow_html=True)
         
-        # Segundo contenedor: Manual de Práctica Virtual
-        with st.sidebar.container(border=True):
-            nombre_pdf = "Manual_UCV.pdf"
-            if os.path.exists(nombre_pdf):
-                with open(nombre_pdf, "rb") as f:
-                    st.sidebar.download_button(
-                        label="📥 Descargar Manual de Práctica Virtual (PDF)",
-                        data=f,
-                        file_name="Manual_EIQ_UCV.pdf",
-                        mime="application/pdf",
-                        use_container_width=True
-                    )
-                st.sidebar.caption("📖 Manual completo de la práctica de laboratorio")
-            else:
-                st.sidebar.warning("⚠️ Archivo 'Manual_UCV.pdf' no encontrado en el directorio")
-                st.sidebar.caption("💡 Coloca el PDF en la misma carpeta que el script")
-        
-        # Tercer contenedor: Práctica Virtual
-        with st.sidebar.container(border=True):
-            nombre_pdf = "PracticaV_UCV.pdf"
-            if os.path.exists(nombre_pdf):
-                with open(nombre_pdf, "rb") as f:
-                    st.sidebar.download_button(
-                        label="📥 Descargar Práctica Virtual (PDF)",
-                        data=f,
-                        file_name="PracticaV_EIQ_UCV.pdf",
-                        mime="application/pdf",
-                        use_container_width=True
-                    )
-                st.sidebar.caption("📖 Práctica Virtual de laboratorio")
-            else:
-                st.sidebar.warning("⚠️ Archivo 'PracticaV_UCV.pdf' no encontrado en el directorio")
-                st.sidebar.caption("💡 Coloca el PDF en la misma carpeta que el script")
-        
+        # Botón de descarga
+        if os.path.exists(doc_info["archivo"]):
+            with open(doc_info["archivo"], "rb") as f:
+                st.download_button(
+                    label=f"{doc_info['icono']} Descargar {doc_seleccionado}",
+                    data=f,
+                    file_name=doc_info["archivo"].replace(".pdf", f"_{doc_seleccionado.replace(' ', '_')}.pdf"),
+                    mime="application/pdf",
+                    use_container_width=True,
+                    type="primary"
+                )
+        else:
+            st.warning(f"⚠️ Archivo no encontrado: {doc_info['archivo']}")
+            st.caption("💡 Coloca los PDFs en la misma carpeta que el script")
+            
         st.sidebar.markdown("---")
 
         # ======================== BOTONES INICIAR Y RESET ========================
