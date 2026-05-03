@@ -1034,17 +1034,17 @@ def mostrar_simulador(nombre):
                 "Guía de Práctica Física": {
                     "archivo": "Guia_Practica_UCV.pdf",
                     "descripcion": "Procedimientos experimentales y mediciones",
-                
+                    "icono": ""
                 },
-                "Manual de la Interfaz": {
+                "Manual de Práctica Virtual": {
                     "archivo": "Manual_UCV.pdf",
                     "descripcion": "Guía completa del simulador y controles",
-            
+                    "icono": ""
                 },
                 "Práctica Virtual Interactiva": {
                     "archivo": "PracticaV_UCV.pdf",
                     "descripcion": "Ejercicios y casos de estudio",
-            
+                    "icono": ""
                 }
             }
             
