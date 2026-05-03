@@ -1097,6 +1097,7 @@ def mostrar_simulador(nombre):
         with col_btn2:
             if st.button("🔄 Reset", use_container_width=True, type="secondary"):
                 st.session_state.ejecutando = False
+                st.session_state.diagrama_abierto = True  # ← REABRE EL DIAGRAMA
                 st.rerun()
         
         if 'ejecutando' not in st.session_state:
