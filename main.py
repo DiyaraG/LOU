@@ -908,14 +908,14 @@ def mostrar_simulador(nombre):
                 """)
 
         # ======================== DIAGRAMA DEL PROCESO ========================
-        with st.expander("Diagrama del Proceso", expanded=True):
+        # El estado "expanded" depende de si estamos ejecutando o no
+        with st.expander("Diagrama del Proceso", expanded=st.session_state.diagrama_abierto and not st.session_state.ejecutando):
             col_img = st.columns([1, 5, 1])[1]
             with col_img:
                 if os.path.exists("Captura de pantalla 2026-03-29 163125 (1).png"):
                     st.image("Captura de pantalla 2026-03-29 163125 (1).png", use_container_width=True)
                 else:
                     st.info("📍 El diagrama del sistema se mostrará aquí.")
-                    
         # ======================== BARRA LATERAL ========================
         st.sidebar.header("⚙️ Configuración del Sistema")
         
