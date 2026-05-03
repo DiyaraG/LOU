@@ -1034,17 +1034,17 @@ def mostrar_simulador(nombre):
                 "Guía de Práctica Física": {
                     "archivo": "Guia_Practica_UCV.pdf",
                     "descripcion": "Procedimientos experimentales y mediciones",
-                    "icono": "🔬"
+                
                 },
-                "Manual de Práctica Virtual": {
+                "Manual de la Interfaz": {
                     "archivo": "Manual_UCV.pdf",
                     "descripcion": "Guía completa del simulador y controles",
-                    "icono": "💻"
+            
                 },
                 "Práctica Virtual Interactiva": {
                     "archivo": "PracticaV_UCV.pdf",
                     "descripcion": "Ejercicios y casos de estudio",
-                    "icono": "🎮"
+            
                 }
             }
             
@@ -1058,12 +1058,6 @@ def mostrar_simulador(nombre):
             if doc_seleccionado:
                 doc_info = documentos[doc_seleccionado]
                 
-                # Mostrar información del documento
-                st.markdown(f"""
-                <div style='background-color: #f0f4f8; padding: 10px; border-radius: 10px; margin: 10px 0;'>
-                    <small>{doc_info['descripcion']}</small>
-                </div>
-                """, unsafe_allow_html=True)
                 
                 # Botón de descarga
                 if os.path.exists(doc_info["archivo"]):
