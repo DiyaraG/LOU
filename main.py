@@ -1061,11 +1061,10 @@ def mostrar_simulador(nombre):
 
                 # Mostrar información del documento
                 st.markdown(f"""
-                <div style='background-color: #f0f4f8; padding: 10px; border-radius: 10px; margin: 10px 0;'>
-                    <small>{doc_info['descripcion']}</small>
+                <div style='background-color: #e8f0fe; padding: 12px; border-radius: 10px; margin: 10px 0; border-left: 4px solid #1a5276;'>
+                    <small style='color: #1a5276;'>{doc_info['descripcion']}</small>
                 </div>
                 """, unsafe_allow_html=True)
-                
                 
                 # Botón de descarga
                 if os.path.exists(doc_info["archivo"]):
