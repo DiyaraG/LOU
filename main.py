@@ -516,49 +516,6 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='2.5' fill='%23666666' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(45 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(105 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(165 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(225 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(285 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(345 12 12)' fill='%23888888' stroke='none'/><circle cx='12' cy='12' r='5.5' stroke='%23888888' stroke-width='0.8' fill='none'/></svg>") 15 15, pointer !important;
 }
 
-/* ======================== FONDO BLANCO SÓLIDO PARA EXPANDERS DE PRÁCTICAS TEÓRICAS ======================== */
-/* Esto aplica a todas las prácticas que NO son el simulador de Balance */
-.stMainBlockContainer .stExpander,
-div:not([data-testid="stSidebar"]) .stExpander {
-    background-color: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 12px !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
-}
-
-.stMainBlockContainer .stExpander summary,
-div:not([data-testid="stSidebar"]) .stExpander summary {
-    background-color: #f8fafc !important;
-    border-radius: 12px !important;
-    color: #1a5276 !important;
-    font-weight: 700 !important;
-    border-bottom: 1px solid #e2e8f0 !important;
-}
-
-.stMainBlockContainer .stExpander .stExpanderContent,
-div:not([data-testid="stSidebar"]) .stExpander .stExpanderContent {
-    background-color: #ffffff !important;
-    color: #2d3748 !important;
-    padding: 20px !important;
-    border-radius: 0 0 12px 12px !important;
-}
-
-/* Forzar texto visible en el contenido */
-.stMainBlockContainer .stExpander .stExpanderContent p,
-.stMainBlockContainer .stExpander .stExpanderContent li,
-.stMainBlockContainer .stExpander .stExpanderContent span,
-.stMainBlockContainer .stExpander .stExpanderContent div {
-    color: #2d3748 !important;
-}
-
-/* Títulos dentro del expander */
-.stMainBlockContainer .stExpander .stExpanderContent h1,
-.stMainBlockContainer .stExpander .stExpanderContent h2,
-.stMainBlockContainer .stExpander .stExpanderContent h3,
-.stMainBlockContainer .stExpander .stExpanderContent h4 {
-    color: #1a5276 !important;
-}
-
 # ===== FIN DEL CSS GLOBAL =====
     </style>
     """,
