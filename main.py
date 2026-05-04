@@ -29,87 +29,45 @@ if 'bienvenida_mostrada' not in st.session_state:
 
 # Mostrar ventana de bienvenida si no se ha mostrado antes
 if not st.session_state.bienvenida_mostrada:
-    # Usar un contenedor vacío para el modal
-    with st.container():
-        st.markdown("""
-        <style>
-        .welcome-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .welcome-card {
-            background: linear-gradient(135deg, #1a5276 0%, #0d3251 100%);
-            border-radius: 25px;
-            padding: 40px 50px;
-            max-width: 550px;
-            text-align: center;
-            border: 3px solid #f1c40f;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-        }
-        
-        .welcome-card h1 {
-            color: #f1c40f;
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-        
-        .welcome-card .icon {
-            font-size: 4rem;
-            margin-bottom: 10px;
-        }
-        
-        .welcome-card p {
-            color: #f0f4f8;
-            font-size: 1rem;
-            line-height: 1.6;
-            margin: 15px 0;
-        }
-        
-        .welcome-card .highlight {
-            color: #f1c40f;
-            font-weight: bold;
-        }
-        
-        .welcome-card hr {
-            border-color: #f1c40f;
-            margin: 15px 0;
-        }
-        
-        .welcome-card small {
-            color: #c0d0e0;
-            font-size: 0.8rem;
-        }
-        </style>
-        
-        <div class="welcome-overlay">
-            <div class="welcome-card">
-                <div class="icon">🎓 🧪 ⚙️</div>
-                <h1>¡BIENVENIDO!</h1>
-                <p>Esta es la <span class="highlight">primera interfaz virtual</span> del<br>
-                <strong>Laboratorio de Operaciones Unitarias</strong><br>
-                de la <strong>Universidad Central de Venezuela</strong>.</p>
-                <hr>
-                <p>📐 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
-                🔬 Simula procesos en tiempo real<br>
-                📊 Visualiza datos y aprende de forma interactiva</p>
-                <small>💡 Selecciona una práctica para comenzar</small>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+    # Limpiar la pantalla y mostrar solo la bienvenida
+    st.markdown("""
+    <style>
+    /* Ocultar todo el contenido principal */
+    .stApp > header, .stApp > .main > div:first-child {
+        display: none;
+    }
+    </style>
+    """, unsafe_allow_html=True)
     
-    # Botón para cerrar el modal (ahora visible y clickeable)
+    # Contenedor centrado
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        if st.button("✨ COMENZAR ✨", use_container_width=True, type="primary", key="btn_comenzar"):
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #1a5276 0%, #0d3251 100%);
+                    border-radius: 25px;
+                    padding: 40px 30px;
+                    text-align: center;
+                    border: 3px solid #f1c40f;
+                    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+                    margin-top: 50px;">
+            <div style="font-size: 4rem; margin-bottom: 10px;">🎓 🧪 ⚙️</div>
+            <h1 style="color: #f1c40f; font-size: 2rem; margin-bottom: 15px;">¡BIENVENIDO!</h1>
+            <p style="color: #f0f4f8; font-size: 1rem; line-height: 1.6;">
+                Esta es la <span style="color: #f1c40f; font-weight: bold;">primera interfaz virtual</span> del<br>
+                <strong>Laboratorio de Operaciones Unitarias</strong><br>
+                de la <strong>Universidad Central de Venezuela</strong>.
+            </p>
+            <hr style="border-color: #f1c40f; margin: 15px 0;">
+            <p style="color: #f0f4f8;">
+                📐 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
+                🔬 Simula procesos en tiempo real<br>
+                📊 Visualiza datos y aprende de forma interactiva
+            </p>
+            <p style="color: #c0d0e0; font-size: 0.8rem;">💡 Selecciona una práctica para comenzar</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        if st.button("✨ COMENZAR ✨", use_container_width=True, type="primary"):
             st.session_state.bienvenida_mostrada = True
             st.rerun()
     
