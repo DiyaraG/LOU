@@ -574,135 +574,138 @@ def mostrar_inicio():
     /* Contenedor principal del carrusel */
     .carrousel-practicas {
         width: 100%;
-        overflow: hidden;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
         background: linear-gradient(90deg, #0d3251, #1a5276);
-        padding: 8px 0;
+        padding: 10px 0;
         border-radius: 12px;
         margin: 25px 0 15px 0;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        cursor: grab;
+        scroll-behavior: smooth;
     }
-
-    /* Pista que se mueve */
+    
+    .carrousel-practicas:active {
+        cursor: grabbing;
+    }
+    
+    /* Scrollbar personalizada */
+    .carrousel-practicas::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .carrousel-practicas::-webkit-scrollbar-track {
+        background: #1a5276;
+        border-radius: 10px;
+    }
+    
+    .carrousel-practicas::-webkit-scrollbar-thumb {
+        background: #f1c40f;
+        border-radius: 10px;
+    }
+    
+    /* Contenedor de los ítems */
     .carrousel-practicas .track {
-        display: flex;
-        animation: deslizar 40s linear infinite;
-        gap: 12px;
+        display: inline-flex;
+        gap: 15px;
+        padding: 0 10px;
         align-items: center;
     }
-
-    /* Cada ítem del carrusel - TAMAÑO FIJO PEQUEÑO */
+    
+    /* Cada ítem del carrusel - TAMAÑO FIJO PEQUEÑO como miniatura de pestaña */
     .carrousel-practicas .item {
-        flex-shrink: 0;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         text-align: center;
-        transition: transform 0.2s ease;
-        background: rgba(255,255,255,0.08);
-        padding: 4px 6px;
-        border-radius: 8px;
-        width: 85px;
+        transition: all 0.2s ease;
+        background: rgba(255,255,255,0.1);
+        padding: 6px 8px;
+        border-radius: 10px;
+        width: 90px;
+        cursor: pointer;
     }
-
+    
     /* Efecto hover */
     .carrousel-practicas .item:hover {
-        transform: scale(1.03);
-        background: rgba(255,255,255,0.15);
+        transform: translateY(-3px);
+        background: rgba(255,255,255,0.2);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
-
-    /* Estilo de las imágenes - TAMAÑO PEQUEÑO UNIFORME */
+    
+    /* Estilo de las imágenes - TAMAÑO MINIATURA (como vista previa de pestaña) */
     .carrousel-practicas .item img {
-        height: 45px;
-        width: 75px;
-        object-fit: cover;
-        border-radius: 5px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        width: 70px !important;
+        height: 50px !important;
+        object-fit: cover !important;
+        border-radius: 6px !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+        display: block !important;
     }
-
-    /* Título de la práctica - TEXTO MUY PEQUEÑO */
+    
+    /* Placeholder cuando no hay imagen */
+    .carrousel-practicas .item .placeholder-img {
+        width: 70px;
+        height: 50px;
+        background: linear-gradient(135deg, #2c3e50, #1a5276);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+    }
+    
+    /* Título de la práctica - TEXTO PEQUEÑO */
     .carrousel-practicas .item .titulo {
         display: block;
-        font-size: 0.55rem;
+        font-size: 0.6rem;
         color: #f1c40f;
-        margin-top: 3px;
+        margin-top: 5px;
         font-weight: 400;
-        max-width: 75px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    /* Animación de desplazamiento */
-    @keyframes deslizar {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-    }
-
-    /* Pausar al pasar el mouse */
-    .carrousel-practicas:hover .track {
-        animation-play-state: paused;
+        max-width: 80px;
+        white-space: normal;
+        word-break: break-word;
+        line-height: 1.2;
+        text-align: center;
     }
     </style>
-
-    <div class="carrousel-practicas">
+    
+    <div class="carrousel-practicas" id="carouselScroll">
         <div class="track">
     """, unsafe_allow_html=True)
     
-    # Lista de todas las imágenes de prácticas que existen en tu proyecto
+    # Lista de todas las imágenes de prácticas
     imagenes_practicas = [
-        ("1.1 CALIBRACIÓN DE UN MEDIDOR DE FLUJO.png", "Calibración Flujo"),
-        ("2 Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías..png", "Pérdidas Fricción"),
-        ("1.3 Determinación de Curvas Características de Bombas Centrífugas..png", "Bombas Centrífugas"),
-        ("Captura de pantalla 2026-03-29 163125 (1).png", "Balance No Estacionario"),
-        ("1.5 LECHOS FLUIDIZADOS.png", "Lechos Fluidizados"),
-        ("2.1 Hidrodinámica de Columnas Empacadas..png", "Columnas Empacadas"),
-        ("2.2 A PRESIÓN CONSTANTE.png", "Filtración Constante"),
-        ("2.4 ESTUDIO DE LA DESTILACIÓN DIFERENCIAL.png", "Destilación Diferencial"),
-        ("2.5 Destilación Continua.png", "Destilación Continua"),
-        ("2.6 Rectificación de una Mezcla Binaria en una Torre Rellena..png", "Rectificación Torre"),
+        ("1.1 CALIBRACIÓN DE UN MEDIDOR DE FLUJO.png", "Calibración\nFlujo"),
+        ("2 Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías..png", "Pérdidas\nFricción"),
+        ("1.3 Determinación de Curvas Características de Bombas Centrífugas..png", "Bombas\nCentrífugas"),
+        ("Captura de pantalla 2026-03-29 163125 (1).png", "Balance No\nEstacionario"),
+        ("1.5 LECHOS FLUIDIZADOS.png", "Lechos\nFluidizados"),
+        ("2.1 Hidrodinámica de Columnas Empacadas..png", "Columnas\nEmpacadas"),
+        ("2.2 A PRESIÓN CONSTANTE.png", "Filtración\nConstante"),
+        ("2.4 ESTUDIO DE LA DESTILACIÓN DIFERENCIAL.png", "Destilación\nDiferencial"),
+        ("2.5 Destilación Continua.png", "Destilación\nContinua"),
+        ("2.6 Rectificación de una Mezcla Binaria en una Torre Rellena..png", "Rectificación\nTorre"),
     ]
     
-    # Función para obtener imagen en base64
-    def get_img_base64_img(img_path):
+    # Mostrar todas las imágenes (una sola vez, sin duplicar para evitar problemas)
+    for img_path, nombre in imagenes_practicas:
         if os.path.exists(img_path):
+            # Leer imagen y convertir a base64
             with open(img_path, "rb") as f:
-                return base64.b64encode(f.read()).decode()
-        return None
-    
-    # Primer set de imágenes
-    for img_path, nombre in imagenes_practicas:
-        img_data = get_img_base64_img(img_path)
-        if img_data:
+                img_data = base64.b64encode(f.read()).decode()
             st.markdown(f'''
             <div class="item">
-                <img src="data:image/png;base64,{img_data}" alt="{nombre}">
-                <span class="titulo">{nombre}</span>
-            </div>
-            ''', unsafe_allow_html=True)
-        else:
-            # Si no existe la imagen, mostrar un pequeño placeholder
-            st.markdown(f'''
-            <div class="item">
-                <div style="width:75px; height:45px; background:#2c3e50; border-radius:5px; display:flex; align-items:center; justify-content:center;">
-                    <span style="color:#f1c40f; font-size:9px;">{nombre[:12]}</span>
-                </div>
-                <span class="titulo">{nombre}</span>
-            </div>
-            ''', unsafe_allow_html=True)
-    
-    # Segundo set (repetido para efecto infinito)
-    for img_path, nombre in imagenes_practicas:
-        img_data = get_img_base64_img(img_path)
-        if img_data:
-            st.markdown(f'''
-            <div class="item">
-                <img src="data:image/png;base64,{img_data}" alt="{nombre}">
+                <img src="data:image/png;base64,{img_data}" alt="{nombre.replace(chr(10), ' ')}">
                 <span class="titulo">{nombre}</span>
             </div>
             ''', unsafe_allow_html=True)
         else:
             st.markdown(f'''
             <div class="item">
-                <div style="width:75px; height:45px; background:#2c3e50; border-radius:5px; display:flex; align-items:center; justify-content:center;">
-                    <span style="color:#f1c40f; font-size:9px;">{nombre[:12]}</span>
-                </div>
+                <div class="placeholder-img">📷</div>
                 <span class="titulo">{nombre}</span>
             </div>
             ''', unsafe_allow_html=True)
@@ -710,6 +713,39 @@ def mostrar_inicio():
     st.markdown('''
         </div>
     </div>
+    
+    <script>
+    // Hacer que el carrusel sea desplazable con el mouse
+    const carousel = document.getElementById('carouselScroll');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    
+    carousel.addEventListener('mousedown', (e) => {
+        isDown = true;
+        carousel.style.cursor = 'grabbing';
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+        isDown = false;
+        carousel.style.cursor = 'grab';
+    });
+    
+    carousel.addEventListener('mouseup', () => {
+        isDown = false;
+        carousel.style.cursor = 'grab';
+    });
+    
+    carousel.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - carousel.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        carousel.scrollLeft = scrollLeft - walk;
+    });
+    </script>
     ''', unsafe_allow_html=True)
     
 # =============================================================================
