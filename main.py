@@ -568,83 +568,99 @@ def mostrar_inicio():
                     st.session_state.page = p
                     st.rerun()
 
-    # ======================== CARRUSEL DE LOGOS (SOLO EN INICIO) ========================
+    # ======================== CARRUSEL DE IMÁGENES (PARTE INFERIOR) ========================
     st.markdown("""
     <style>
-    /* Estilos para el carrusel - SOLO EN PÁGINA DE INICIO */
-    .carrousel-inf {
+    /* Contenedor principal del carrusel */
+    .carrousel-imagenes {
         width: 100%;
         overflow: hidden;
         background: linear-gradient(90deg, #0d3251, #1a5276);
-        padding: 8px 0;
-        border-radius: 50px;
-        margin: 30px 0 10px 0;
+        padding: 15px 0;
+        border-radius: 15px;
+        margin: 30px 0 20px 0;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
-    .carrousel-inf .track {
+    /* Pista que se mueve */
+    .carrousel-imagenes .track {
         display: flex;
-        animation: deslizar 25s linear infinite;
-        gap: 50px;
+        animation: deslizar 20s linear infinite;
+        gap: 30px;
         align-items: center;
     }
 
-    .carrousel-inf .item {
+    /* Cada ítem del carrusel */
+    .carrousel-imagenes .item {
         flex-shrink: 0;
         text-align: center;
-        transition: transform 0.2s;
+        transition: transform 0.3s ease;
     }
 
-    .carrousel-inf .item:hover {
-        transform: scale(1.08);
+    /* Efecto hover */
+    .carrousel-imagenes .item:hover {
+        transform: scale(1.05);
     }
 
-    .carrousel-inf .item img {
-        height: 40px;
+    /* Estilo de las imágenes */
+    .carrousel-imagenes .item img {
+        height: 80px;
         width: auto;
-        filter: brightness(0) invert(1);
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
 
-    .carrousel-inf .item span {
-        display: block;
-        font-size: 0.7rem;
-        color: #f1c40f;
-        margin-top: 5px;
-        font-weight: 500;
-    }
-
-    .carrousel-inf .item a {
-        text-decoration: none;
-    }
-
+    /* Animación de desplazamiento */
     @keyframes deslizar {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
     }
 
-    .carrousel-inf:hover .track {
+    /* Pausar al pasar el mouse */
+    .carrousel-imagenes:hover .track {
         animation-play-state: paused;
     }
     </style>
 
-    <div class="carrousel-inf">
+    <div class="carrousel-imagenes">
         <div class="track">
-            <div class="item"><a href="https://ucv.ve" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Logo_UCV.svg/2560px-Logo_UCV.svg.png" alt="UCV"><span>Universidad Central de Venezuela</span></a></div>
-            <div class="item"><a href="#" target="_blank"><img src="https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_ingenieriaquimica.png" alt="EIQ"><span>Ingeniería Química</span></a></div>
-            <div class="item"><a href="https://streamlit.io" target="_blank"><img src="https://streamlit.io/images/brand/streamlit-mark-color.svg" alt="Streamlit"><span>Streamlit</span></a></div>
-            <div class="item"><a href="https://www.python.org" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/2560px-Python-logo-notext.svg.png" alt="Python"><span>Python</span></a></div>
-            <div class="item"><a href="https://numpy.org" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/NumPy_logo_2020.svg/2560px-NumPy_logo_2020.svg.png" alt="NumPy"><span>NumPy</span></a></div>
-            <!-- Repetición para efecto continuo -->
-            <div class="item"><a href="https://ucv.ve" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Logo_UCV.svg/2560px-Logo_UCV.svg.png" alt="UCV"><span>Universidad Central de Venezuela</span></a></div>
-            <div class="item"><a href="#" target="_blank"><img src="https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_ingenieriaquimica.png" alt="EIQ"><span>Ingeniería Química</span></a></div>
-            <div class="item"><a href="https://streamlit.io" target="_blank"><img src="https://streamlit.io/images/brand/streamlit-mark-color.svg" alt="Streamlit"><span>Streamlit</span></a></div>
-            <div class="item"><a href="https://www.python.org" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/2560px-Python-logo-notext.svg.png" alt="Python"><span>Python</span></a></div>
-            <div class="item"><a href="https://numpy.org" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/NumPy_logo_2020.svg/2560px-NumPy_logo_2020.svg.png" alt="NumPy"><span>NumPy</span></a></div>
+            <!-- PRIMER SET DE IMÁGENES (cambia los nombres por los tuyos) -->
+            <div class="item">
+                <img src="imagen1.jpg" alt="Imagen 1" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+1'">
+            </div>
+            <div class="item">
+                <img src="imagen2.jpg" alt="Imagen 2" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+2'">
+            </div>
+            <div class="item">
+                <img src="imagen3.jpg" alt="Imagen 3" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+3'">
+            </div>
+            <div class="item">
+                <img src="imagen4.jpg" alt="Imagen 4" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+4'">
+            </div>
+            <div class="item">
+                <img src="imagen5.jpg" alt="Imagen 5" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+5'">
+            </div>
+            
+            <!-- SEGUNDO SET (repetido para efecto infinito) -->
+            <div class="item">
+                <img src="imagen1.jpg" alt="Imagen 1" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+1'">
+            </div>
+            <div class="item">
+                <img src="imagen2.jpg" alt="Imagen 2" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+2'">
+            </div>
+            <div class="item">
+                <img src="imagen3.jpg" alt="Imagen 3" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+3'">
+            </div>
+            <div class="item">
+                <img src="imagen4.jpg" alt="Imagen 4" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+4'">
+            </div>
+            <div class="item">
+                <img src="imagen5.jpg" alt="Imagen 5" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+5'">
+            </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
-
-
+    
 # =============================================================================
 # SIMULADOR COMPLETO
 # =============================================================================
