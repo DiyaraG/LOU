@@ -29,69 +29,83 @@ if 'bienvenida_mostrada' not in st.session_state:
 
 # Mostrar ventana de bienvenida si no se ha mostrado antes
 if not st.session_state.bienvenida_mostrada:
-    # Fondo negro y overlay
+    # Limpiar la pantalla
     st.markdown("""
     <style>
-    /* Fondo negro para toda la aplicación durante la bienvenida */
-    .stApp {
-        background: #000000 !important;
-    }
-    
-    /* Ocultar solo el header, pero mantener el contenido para el botón */
-    .stApp > header {
+    /* Ocultar todo el contenido que no sea la bienvenida */
+    .stApp header, .stApp .stTabs, .stApp .stButton > button:not(.welcome-btn) {
         display: none !important;
     }
     
-    /* Centrar el contenido principal */
+    /* Centrar el contenido de bienvenida */
     .main .block-container {
-        padding-top: 15rem !important;
+        padding-top: 10rem !important;
+        padding-bottom: 5rem !important;
+    }
+    
+    /* Estilo específico para el botón de bienvenida */
+    .welcome-btn {
+        display: block !important;
+        background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
+        color: #1a5276 !important;
+        font-weight: bold !important;
+        font-size: 1.2rem !important;
+        padding: 0.75rem !important;
+        border-radius: 30px !important;
+        border: none !important;
+        cursor: pointer !important;
+        margin-top: 20px !important;
+    }
+    
+    .welcome-btn:hover {
+        background: linear-gradient(90deg, #f39c12, #e67e22) !important;
+        transform: scale(1.02) !important;
     }
     </style>
     """, unsafe_allow_html=True)
     
-    # Contenedor centrado con el mensaje
+    # Contenedor del mensaje
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown("""
         <div style="background: linear-gradient(135deg, #1a5276 0%, #0d3251 100%);
                     border-radius: 20px;
-                    padding: 45px 35px;
+                    padding: 40px 30px;
                     text-align: center;
                     border: 2px solid #f1c40f;
                     box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
             
-            <div style="font-size: 3rem; margin-bottom: 5px;">🛠️</div>
+            <div style="font-size: 3rem; margin-bottom: 10px;">🛠️</div>
             
-            <h1 style="color: #f1c40f; font-size: 1.8rem; margin: 0 0 20px 0; letter-spacing: 2px;">
+            <h1 style="color: #f1c40f; font-size: 1.6rem; margin: 0 0 15px 0; letter-spacing: 2px;">
                 LABORATORIO DE OPERACIONES UNITARIAS
             </h1>
             
-            <p style="color: #ffffff; font-size: 1rem; line-height: 1.6; margin: 10px 0;">
+            <p style="color: #ffffff; font-size: 1rem; margin: 10px 0;">
                 <strong>Universidad Central de Venezuela</strong>
             </p>
             
-            <hr style="border-color: #f1c40f; margin: 20px 0; width: 50%;">
+            <hr style="border-color: #f1c40f; margin: 20px auto; width: 50%;">
             
-            <p style="color: #e0e0e0; font-size: 0.95rem; line-height: 1.8; margin: 15px 0;">
-                📚 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
-                ⚙️ Simulación disponible: <strong>Balance en Estado No Estacionario</strong><br>
+            <p style="color: #e0e0e0; font-size: 0.95rem; line-height: 1.8;">
+                💡 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
+                🎓 Simulación disponible: <strong>Balance en Estado No Estacionario</strong><br>
                 📊 Visualiza datos y aprende de forma interactiva
             </p>
             
-            <hr style="border-color: #f1c40f; margin: 20px 0; width: 30%;">
+            <hr style="border-color: #f1c40f; margin: 20px auto; width: 30%;">
             
-            <p style="color: #f1c40f; font-size: 0.85rem; margin: 10px 0;">
+            <p style="color: #f1c40f; font-size: 0.85rem;">
                 👆 Presione "Comenzar" para acceder
             </p>
         </div>
         """, unsafe_allow_html=True)
         
-        # Botón fuera del div HTML para que sea clickeable
-        if st.button("▶ COMENZAR", use_container_width=True, type="primary", key="welcome_button"):
+        # Botón de Streamlit normal
+        if st.button("▶ COMENZAR", use_container_width=True, type="primary"):
             st.session_state.bienvenida_mostrada = True
             st.rerun()
     
-    # Detener la ejecución
     st.stop()
 
 # =============================================================================
