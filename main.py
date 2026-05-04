@@ -20,6 +20,107 @@ p_tiempo = 80
 st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🛠")
 
 # =============================================================================
+# 1.2.1 VENTANA DE BIENVENIDA (solo aparece una vez por sesión)
+# =============================================================================
+
+# Inicializar estado de bienvenida
+if 'bienvenida_mostrada' not in st.session_state:
+    st.session_state.bienvenida_mostrada = False
+
+# Mostrar ventana de bienvenida si no se ha mostrado antes
+if not st.session_state.bienvenida_mostrada:
+    # Crear un modal usando un contenedor con CSS
+    st.markdown("""
+    <style>
+    @keyframes slideDown {
+        from { transform: translateY(-100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .welcome-modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #1a5276 0%, #0d3251 100%);
+        border-radius: 25px;
+        padding: 35px 45px;
+        max-width: 550px;
+        text-align: center;
+        border: 3px solid #f1c40f;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        z-index: 9999;
+        animation: slideDown 0.5s ease-out;
+        backdrop-filter: blur(5px);
+    }
+    
+    .welcome-modal h1 {
+        color: #f1c40f;
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    
+    .welcome-modal .icon {
+        font-size: 4rem;
+        margin-bottom: 10px;
+    }
+    
+    .welcome-modal p {
+        color: #f0f4f8;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin: 15px 0;
+    }
+    
+    .welcome-modal .highlight {
+        color: #f1c40f;
+        font-weight: bold;
+    }
+    
+    .welcome-modal small {
+        color: #c0d0e0;
+        font-size: 0.8rem;
+    }
+    
+    /* Fondo oscuro detrás del modal */
+    .modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.75);
+        z-index: 9998;
+        animation: slideDown 0.3s ease-out;
+    }
+    </style>
+    
+    <div class="modal-backdrop" id="backdrop"></div>
+    <div class="welcome-modal">
+        <div class="icon">🎓 🧪 ⚙️</div>
+        <h1>¡BIENVENIDO!</h1>
+        <p>Esta es la <span class="highlight">primera interfaz virtual</span> del<br>
+        <strong>Laboratorio de Operaciones Unitarias</strong><br>
+        de la <strong>Universidad Central de Venezuela</strong>.</p>
+        <hr style="border-color: #f1c40f; margin: 15px 0;">
+        <p>📐 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
+        🔬 Simula procesos en tiempo real<br>
+        📊 Visualiza datos y aprende de forma interactiva</p>
+        <small>💡 Selecciona una práctica para comenzar</small>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Preguntar al usuario si quiere cerrar el modal
+    col_close1, col_close2, col_close3 = st.columns([1, 2, 1])
+    with col_close2:
+        if st.button("✨ COMENZAR ✨", use_container_width=True, type="primary"):
+            st.session_state.bienvenida_mostrada = True
+            st.rerun()
+    
+    # Detener la ejecución para que no se vea el contenido principal detrás
+    st.stop()
+
+# =============================================================================
 # 2. FUNCIONES DE CÁLCULO Y MODELOS FÍSICOS
 # =============================================================================
 
