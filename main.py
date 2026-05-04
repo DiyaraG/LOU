@@ -20,7 +20,7 @@ p_tiempo = 80
 st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🛠")
 
 # =============================================================================
-# 1.3 VENTANA DE BIENVENIDA (solo aparece una vez por sesión)
+# 1.3 VENTANA DE BIENVENIDA 
 # =============================================================================
 
 # Inicializar estado de bienvenida
@@ -236,32 +236,41 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_pre
     # LÓGICA SEGÚN MODO DE OPERACIÓN
     # =========================================================================
     
-    if modo_op == "Llenado":
-        # ===== MODO LLENADO: V-01 controla entrada, V-02 libre =====
+        if modo_op == "Llenado":
+        # Control de V-01 (Bomba de entrada) con PID - SENSIBILIZADO
         
-        # Control de V-01 (Bomba de entrada) con PID
-        flujo_base_bomba = q_max_bomba * 0.15  # 15% mínimo
-        
-        if err > 0.01:  # NIVEL BAJO - Necesito SUBIR
-            # Abrir más la bomba
-            q_entrada = flujo_base_bomba + np.clip(u_control, 0, q_max_bomba - flujo_base_bomba)
-        elif err < -0.01:  # NIVEL ALTO - Necesito BAJAR
-            # Cerrar la bomba al mínimo
-            q_entrada = flujo_base_bomba * 0.3
-        else:  # En Setpoint - mantener equilibrio
-            q_entrada = flujo_base_bomba
-        
-        q_entrada = np.clip(q_entrada, 0, q_max_bomba)
-        
-        # V-02: Descarga libre por gravedad (COMPLETAMENTE ABIERTA)
+        # 1. Calcular flujo de salida por gravedad (para anticipar equilibrio)
         if h_prev > 0.001:
-            q_salida = cd_val * area_orificio * sqrt(2 * g * h_prev)
+            q_salida_estimada = cd_val * area_orificio * sqrt(2 * g * h_prev)
         else:
-            q_salida = 0.0
+            q_salida_estimada = 0.0
         
-        # Agregar perturbación en entrada (si aplica)
-        q_entrada_total = q_entrada + q_p_val
-        q_salida_total = q_salida
+        # 2. Control con zona de transición suave
+        if err > 0.05:  # Lejos del setpoint (BAJO) - ABRIR
+            # Abrir la bomba proporcionalmente al error
+            q_entrada = np.clip(u_control, q_salida_estimada * 0.5, q_max_bomba)
+            
+        elif err > 0.01:  # Aproximándose al setpoint - REDUCIR velocidad
+            # Reducir gradualmente el flujo para evitar sobrepico
+            factor_acercamiento = err / 0.05  # Va de 0.2 a 1.0
+            flujo_objetivo = q_salida_estimada + (q_max_bomba - q_salida_estimada) * factor_acercamiento * 0.3
+            q_entrada = np.clip(flujo_objetivo, q_salida_estimada * 0.5, q_max_bomba)
+            
+        elif err >= -0.01 and err <= 0.01:  # EN EL SETPOINT - Equilibrio exacto
+            # Igualar exactamente el flujo de salida
+            q_entrada = q_salida_estimada
+            
+        elif err < -0.01:  # SOBRE el setpoint - CERRAR
+            # Cerrar la bomba proporcionalmente al exceso
+            exceso = abs(err)
+            factor_cierre = max(0, 1.0 - exceso * 10)  # Cierra más rápido cuanto más alto
+            q_entrada = q_salida_estimada * factor_cierre
+        
+        else:
+            q_entrada = q_salida_estimada * 0.5
+        
+        # Limitar al rango permitido
+        q_entrada = np.clip(q_entrada, 0, q_max_bomba)
     
     else:  # modo_op == "Vaciado"
         # ===== MODO VACIADO: V-01 cerrada, V-02 controla salida =====
