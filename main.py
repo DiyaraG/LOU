@@ -50,7 +50,7 @@ if not st.session_state.bienvenida_mostrada:
                     border: 3px solid #f1c40f;
                     box-shadow: 0 25px 50px rgba(0,0,0,0.3);
                     margin-top: 50px;">
-            <div style="font-size: 4rem; margin-bottom: 10px;">🎓 🧪 ⚙️</div>
+            <div style="font-size: 4rem; margin-bottom: 10px;">⚙️</div>
             <h1 style="color: #f1c40f; font-size: 2rem; margin-bottom: 15px;">¡BIENVENIDO!</h1>
             <p style="color: #f0f4f8; font-size: 1rem; line-height: 1.6;">
                 Esta es la <span style="color: #f1c40f; font-weight: bold;">primera interfaz virtual</span> del<br>
@@ -59,8 +59,8 @@ if not st.session_state.bienvenida_mostrada:
             </p>
             <hr style="border-color: #f1c40f; margin: 15px 0;">
             <p style="color: #f0f4f8;">
-                📐 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
-                🔬 Simula procesos en tiempo real<br>
+                 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
+                 Simula procesos en tiempo real<br>
                 📊 Visualiza datos y aprende de forma interactiva
             </p>
             <p style="color: #c0d0e0; font-size: 0.8rem;">💡 Selecciona una práctica para comenzar</p>
