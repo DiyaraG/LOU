@@ -516,6 +516,65 @@ div[data-testid="column"]:first-child .stButton > button:hover {
     cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='2.5' fill='%23666666' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(45 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(105 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(165 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(225 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(285 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(345 12 12)' fill='%23888888' stroke='none'/><circle cx='12' cy='12' r='5.5' stroke='%23888888' stroke-width='0.8' fill='none'/></svg>") 15 15, pointer !important;
 }
 
+/* ======================== ESTILO UNIFICADO PARA EXPANDERS EN TODAS LAS PRÁCTICAS ======================== */
+/* Este estilo aplica a TODOS los expanders fuera de la barra lateral */
+/* (copiado del estilo exitoso de la práctica Balance) */
+
+.stColumn div[data-testid="stExpander"] {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e0 !important;
+    border-radius: 12px !important;
+    margin-bottom: 15px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+    transition: all 0.3s ease !important;
+}
+
+.stColumn div[data-testid="stExpander"] summary {
+    background: #ffffff !important;
+    color: #1a5276 !important;
+    font-weight: 600 !important;
+    padding: 0.8rem 1rem !important;
+    border-radius: 12px !important;
+    transition: all 0.3s ease !important;
+}
+
+.stColumn div[data-testid="stExpander"]:hover {
+    border: 1px solid #f1c40f !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1) !important;
+    transform: translateY(-3px) !important;
+}
+
+.stColumn div[data-testid="stExpander"] .stExpanderContent {
+    background-color: #ffffff !important;
+    border-radius: 0 0 12px 12px !important;
+    padding: 15px !important;
+    border-top: 1px solid #e2e8f0 !important;
+    color: #2d3748 !important;
+}
+
+/* Forzar texto legible dentro del contenido */
+.stColumn div[data-testid="stExpander"] .stExpanderContent p,
+.stColumn div[data-testid="stExpander"] .stExpanderContent li,
+.stColumn div[data-testid="stExpander"] .stExpanderContent span,
+.stColumn div[data-testid="stExpander"] .stExpanderContent div,
+.stColumn div[data-testid="stExpander"] .stExpanderContent .stMarkdown {
+    color: #2d3748 !important;
+}
+
+/* Títulos dentro del expander */
+.stColumn div[data-testid="stExpander"] .stExpanderContent h1,
+.stColumn div[data-testid="stExpander"] .stExpanderContent h2,
+.stColumn div[data-testid="stExpander"] .stExpanderContent h3,
+.stColumn div[data-testid="stExpander"] .stExpanderContent h4 {
+    color: #1a5276 !important;
+}
+
+/* Código y ecuaciones */
+.stColumn div[data-testid="stExpander"] .stExpanderContent code,
+.stColumn div[data-testid="stExpander"] .stExpanderContent .katex {
+    color: #1a5276 !important;
+}
+
 # ===== FIN DEL CSS GLOBAL =====
     </style>
     """,
