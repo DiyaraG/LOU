@@ -1215,7 +1215,7 @@ def mostrar_simulador(nombre):
         col_btn1, col_btn2 = st.sidebar.columns(2)
         with col_btn1:
             if st.button("▶️ Iniciar", use_container_width=True, type="primary"):
-                st.toast("🚀 Iniciando simulación...", icon="✅")
+                st.toast(" Iniciando simulación...", icon="✅")
                 time.sleep(0.2)
                 st.session_state.ejecutando = True
                 st.session_state.diagrama_abierto = False
