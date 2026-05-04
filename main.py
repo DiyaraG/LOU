@@ -515,6 +515,18 @@ div[data-testid="column"]:first-child .stButton > button:hover {
 .stTabs [aria-selected="true"] {
     cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='2.5' fill='%23666666' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(45 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(105 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(165 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(225 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(285 12 12)' fill='%23888888' stroke='none'/><rect x='6.5' y='6.5' width='11' height='1.5' rx='0.5' transform='rotate(345 12 12)' fill='%23888888' stroke='none'/><circle cx='12' cy='12' r='5.5' stroke='%23888888' stroke-width='0.8' fill='none'/></svg>") 15 15, pointer !important;
 }
+
+/* Fondo blanco sólido para expanders fuera de la barra lateral */
+div[data-testid="stVerticalBlock"] > div:has(.stExpander) .stExpander {
+    background: white !important;
+    backdrop-filter: none !important;
+}
+
+div[data-testid="stVerticalBlock"] .stExpanderContent {
+    background: white !important;
+    color: #2d3748 !important;
+}
+
 # ===== FIN DEL CSS GLOBAL =====
     </style>
     """,
