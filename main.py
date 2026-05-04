@@ -60,10 +60,10 @@ if not st.session_state.bienvenida_mostrada:
             <hr style="border-color: #f1c40f; margin: 15px 0;">
             <p style="color: #f0f4f8;">
                  Explora las prácticas de <strong>LOU I y LOU II</strong><br>
-                 Simula procesos en tiempo real<br>
-                📊 Visualiza datos y aprende de forma interactiva
+                 Simulación disponible: <strong>Balance en Estado No Estacionario</strong><br>
+                 Visualiza datos y aprende de forma interactiva
             </p>
-            <p style="color: #c0d0e0; font-size: 0.8rem;">💡 Selecciona una práctica para comenzar</p>
+            <p style="color: #c0d0e0; font-size: 0.8rem;">👆 Para avanzar por favor presionar "comenzar"</p>
         </div>
         """, unsafe_allow_html=True)
         
