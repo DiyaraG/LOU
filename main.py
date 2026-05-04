@@ -576,58 +576,73 @@ def mostrar_inicio():
         width: 100%;
         overflow: hidden;
         background: linear-gradient(90deg, #0d3251, #1a5276);
-        padding: 15px 0;
-        border-radius: 15px;
-        margin: 30px 0 20px 0;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        padding: 10px 0;
+        border-radius: 12px;
+        margin: 25px 0 15px 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     /* Pista que se mueve */
     .carrousel-practicas .track {
         display: flex;
-        animation: deslizar 30s linear infinite;
-        gap: 25px;
+        animation: deslizar 40s linear infinite;
+        gap: 15px;
         align-items: center;
     }
 
-    /* Cada ítem del carrusel */
+    /* Cada ítem del carrusel - TAMAÑO FIJO PEQUEÑO */
     .carrousel-practicas .item {
         flex-shrink: 0;
         text-align: center;
-        transition: transform 0.3s ease;
-        background: rgba(255,255,255,0.1);
-        padding: 8px;
-        border-radius: 12px;
+        transition: transform 0.2s ease;
+        background: rgba(255,255,255,0.08);
+        padding: 5px 8px;
+        border-radius: 8px;
+        width: 100px;
     }
 
     /* Efecto hover */
     .carrousel-practicas .item:hover {
-        transform: scale(1.05);
-        background: rgba(255,255,255,0.2);
+        transform: scale(1.03);
+        background: rgba(255,255,255,0.15);
     }
 
-    /* Estilo de las imágenes */
+    /* Estilo de las imágenes - TAMAÑO PEQUEÑO UNIFORME */
     .carrousel-practicas .item img {
-        height: 70px;
-        width: auto;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        height: 50px;
+        width: 90px;
+        object-fit: cover;
+        border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
 
-    /* Título de la práctica */
+    /* Contenedor de placeholder cuando no hay imagen */
+    .carrousel-practicas .item .placeholder {
+        width: 90px;
+        height: 50px;
+        background: #2c3e50;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        color: #f1c40f;
+    }
+
+    /* Título de la práctica - TEXTO PEQUEÑO */
     .carrousel-practicas .item .titulo {
         display: block;
-        font-size: 0.65rem;
+        font-size: 0.6rem;
         color: #f1c40f;
-        margin-top: 6px;
-        font-weight: 500;
-        max-width: 120px;
+        margin-top: 4px;
+        font-weight: 400;
+        max-width: 90px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    /* Animación de desplazamiento */
+    /* Animación de desplazamiento más lenta para que se vean bien */
     @keyframes deslizar {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
@@ -643,75 +658,67 @@ def mostrar_inicio():
         <div class="track">
     """, unsafe_allow_html=True)
     
-    # Lista de todas las imágenes de prácticas (LOU I y LOU II)
-    # Formato: (ruta_imagen, nombre_practica)
+    # Lista de todas las imágenes de prácticas
     imagenes_practicas = [
-        ("1.1 CALIBRACIÓN DE UN MEDIDOR DE FLUJO.png", "Calibración de Medidor de Flujo"),
-        ("2 Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías..png", "Pérdidas de Presión por Fricción"),
+        ("1.1 CALIBRACIÓN DE UN MEDIDOR DE FLUJO.png", "Calibración Flujo"),
+        ("2 Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías..png", "Pérdidas por Fricción"),
         ("1.3 Determinación de Curvas Características de Bombas Centrífugas..png", "Bombas Centrífugas"),
-        ("Captura de pantalla 2026-03-29 163125 (1).png", "Balance en Estado No Estacionario"),
+        ("Captura de pantalla 2026-03-29 163125 (1).png", "Balance No Estacionario"),
         ("1.5 LECHOS FLUIDIZADOS.png", "Lechos Fluidizados"),
-        ("2.1 Hidrodinámica de Columnas Empacadas..png", "Hidrodinámica de Columnas Empacadas"),
-        ("2.2 A PRESIÓN CONSTANTE.png", "Filtración a Presión Constante"),
+        ("2.1 Hidrodinámica de Columnas Empacadas..png", "Columnas Empacadas"),
+        ("2.2 A PRESIÓN CONSTANTE.png", "Filtración Constante"),
         ("2.4 ESTUDIO DE LA DESTILACIÓN DIFERENCIAL.png", "Destilación Diferencial"),
         ("2.5 Destilación Continua.png", "Destilación Continua"),
-        ("2.6 Rectificación de una Mezcla Binaria en una Torre Rellena..png", "Rectificación en Torre Rellena"),
+        ("2.6 Rectificación de una Mezcla Binaria en una Torre Rellena..png", "Rectificación Torre"),
     ]
     
-    # Función para obtener imagen en base64 o placeholder
+    # Función para obtener imagen en base64
     def get_img_base64(img_path):
         if os.path.exists(img_path):
             with open(img_path, "rb") as f:
                 return base64.b64encode(f.read()).decode()
         return None
     
-    # Construir HTML del carrusel (primer set)
-    carrusel_html = '<div class="track">'
-    
-    # Primer recorrido
+    # Construir HTML (primer set)
     for img_path, nombre in imagenes_practicas:
         img_data = get_img_base64(img_path)
         if img_data:
-            carrusel_html += f'''
+            st.markdown(f'''
             <div class="item">
                 <img src="data:image/png;base64,{img_data}" alt="{nombre}">
-                <span class="titulo">{nombre[:35]}{"..." if len(nombre) > 35 else ""}</span>
+                <span class="titulo">{nombre}</span>
             </div>
-            '''
+            ''', unsafe_allow_html=True)
         else:
-            carrusel_html += f'''
+            st.markdown(f'''
             <div class="item">
-                <div style="width:100px; height:70px; background:#2c3e50; border-radius:8px; display:flex; align-items:center; justify-content:center;">
-                    <span style="color:#f1c40f; font-size:10px;">{nombre[:20]}</span>
-                </div>
-                <span class="titulo">{nombre[:35]}</span>
+                <div class="placeholder">📷 {nombre[:12]}</div>
+                <span class="titulo">{nombre}</span>
             </div>
-            '''
+            ''', unsafe_allow_html=True)
     
-    # Segundo recorrido (para efecto infinito)
+    # Segundo set (para efecto infinito)
     for img_path, nombre in imagenes_practicas:
         img_data = get_img_base64(img_path)
         if img_data:
-            carrusel_html += f'''
+            st.markdown(f'''
             <div class="item">
                 <img src="data:image/png;base64,{img_data}" alt="{nombre}">
-                <span class="titulo">{nombre[:35]}{"..." if len(nombre) > 35 else ""}</span>
+                <span class="titulo">{nombre}</span>
             </div>
-            '''
+            ''', unsafe_allow_html=True)
         else:
-            carrusel_html += f'''
+            st.markdown(f'''
             <div class="item">
-                <div style="width:100px; height:70px; background:#2c3e50; border-radius:8px; display:flex; align-items:center; justify-content:center;">
-                    <span style="color:#f1c40f; font-size:10px;">{nombre[:20]}</span>
-                </div>
-                <span class="titulo">{nombre[:35]}</span>
+                <div class="placeholder">📷 {nombre[:12]}</div>
+                <span class="titulo">{nombre}</span>
             </div>
-            '''
+            ''', unsafe_allow_html=True)
     
-    carrusel_html += '</div>'
-    
-    st.markdown(carrusel_html, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('''
+        </div>
+    </div>
+    ''', unsafe_allow_html=True)
     
 # =============================================================================
 # SIMULADOR COMPLETO
