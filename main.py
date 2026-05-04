@@ -1256,7 +1256,7 @@ def mostrar_simulador(nombre):
             col_graf, col_met = st.columns([2, 1])
             
             with col_graf:
-                st.subheader("Monitor del Proceso - Control Robusto Anti-Perturbaciones")
+                st.subheader("Monitor del proceso - Control PID")
                 placeholder_tanque = st.empty()
                 st.subheader("📈 Tendencia Temporal")
                 placeholder_grafico = st.empty()
