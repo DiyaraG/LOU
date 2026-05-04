@@ -568,11 +568,11 @@ def mostrar_inicio():
                     st.session_state.page = p
                     st.rerun()
 
-    # ======================== CARRUSEL DE IMÁGENES (PARTE INFERIOR) ========================
+    # ======================== CARRUSEL DE DIAGRAMAS DE PRÁCTICAS ========================
     st.markdown("""
     <style>
     /* Contenedor principal del carrusel */
-    .carrousel-imagenes {
+    .carrousel-practicas {
         width: 100%;
         overflow: hidden;
         background: linear-gradient(90deg, #0d3251, #1a5276);
@@ -583,31 +583,48 @@ def mostrar_inicio():
     }
 
     /* Pista que se mueve */
-    .carrousel-imagenes .track {
+    .carrousel-practicas .track {
         display: flex;
-        animation: deslizar 20s linear infinite;
-        gap: 30px;
+        animation: deslizar 30s linear infinite;
+        gap: 25px;
         align-items: center;
     }
 
     /* Cada ítem del carrusel */
-    .carrousel-imagenes .item {
+    .carrousel-practicas .item {
         flex-shrink: 0;
         text-align: center;
         transition: transform 0.3s ease;
+        background: rgba(255,255,255,0.1);
+        padding: 8px;
+        border-radius: 12px;
     }
 
     /* Efecto hover */
-    .carrousel-imagenes .item:hover {
+    .carrousel-practicas .item:hover {
         transform: scale(1.05);
+        background: rgba(255,255,255,0.2);
     }
 
     /* Estilo de las imágenes */
-    .carrousel-imagenes .item img {
-        height: 80px;
+    .carrousel-practicas .item img {
+        height: 70px;
         width: auto;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Título de la práctica */
+    .carrousel-practicas .item .titulo {
+        display: block;
+        font-size: 0.65rem;
+        color: #f1c40f;
+        margin-top: 6px;
+        font-weight: 500;
+        max-width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     /* Animación de desplazamiento */
@@ -617,49 +634,84 @@ def mostrar_inicio():
     }
 
     /* Pausar al pasar el mouse */
-    .carrousel-imagenes:hover .track {
+    .carrousel-practicas:hover .track {
         animation-play-state: paused;
     }
     </style>
 
-    <div class="carrousel-imagenes">
+    <div class="carrousel-practicas">
         <div class="track">
-            <!-- PRIMER SET DE IMÁGENES (cambia los nombres por los tuyos) -->
-            <div class="item">
-                <img src="imagen1.jpg" alt="Imagen 1" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+1'">
-            </div>
-            <div class="item">
-                <img src="imagen2.jpg" alt="Imagen 2" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+2'">
-            </div>
-            <div class="item">
-                <img src="imagen3.jpg" alt="Imagen 3" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+3'">
-            </div>
-            <div class="item">
-                <img src="imagen4.jpg" alt="Imagen 4" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+4'">
-            </div>
-            <div class="item">
-                <img src="imagen5.jpg" alt="Imagen 5" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+5'">
-            </div>
-            
-            <!-- SEGUNDO SET (repetido para efecto infinito) -->
-            <div class="item">
-                <img src="imagen1.jpg" alt="Imagen 1" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+1'">
-            </div>
-            <div class="item">
-                <img src="imagen2.jpg" alt="Imagen 2" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+2'">
-            </div>
-            <div class="item">
-                <img src="imagen3.jpg" alt="Imagen 3" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+3'">
-            </div>
-            <div class="item">
-                <img src="imagen4.jpg" alt="Imagen 4" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+4'">
-            </div>
-            <div class="item">
-                <img src="imagen5.jpg" alt="Imagen 5" onerror="this.src='https://via.placeholder.com/120x80?text=Imagen+5'">
-            </div>
-        </div>
-    </div>
     """, unsafe_allow_html=True)
+    
+    # Lista de todas las imágenes de prácticas (LOU I y LOU II)
+    # Formato: (ruta_imagen, nombre_practica)
+    imagenes_practicas = [
+        ("1.1 CALIBRACIÓN DE UN MEDIDOR DE FLUJO.png", "Calibración de Medidor de Flujo"),
+        ("2 Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías..png", "Pérdidas de Presión por Fricción"),
+        ("1.3 Determinación de Curvas Características de Bombas Centrífugas..png", "Bombas Centrífugas"),
+        ("Captura de pantalla 2026-03-29 163125 (1).png", "Balance en Estado No Estacionario"),
+        ("1.5 LECHOS FLUIDIZADOS.png", "Lechos Fluidizados"),
+        ("2.1 Hidrodinámica de Columnas Empacadas..png", "Hidrodinámica de Columnas Empacadas"),
+        ("2.2 A PRESIÓN CONSTANTE.png", "Filtración a Presión Constante"),
+        ("2.4 ESTUDIO DE LA DESTILACIÓN DIFERENCIAL.png", "Destilación Diferencial"),
+        ("2.5 Destilación Continua.png", "Destilación Continua"),
+        ("2.6 Rectificación de una Mezcla Binaria en una Torre Rellena..png", "Rectificación en Torre Rellena"),
+    ]
+    
+    # Función para obtener imagen en base64 o placeholder
+    def get_img_base64(img_path):
+        if os.path.exists(img_path):
+            with open(img_path, "rb") as f:
+                return base64.b64encode(f.read()).decode()
+        return None
+    
+    # Construir HTML del carrusel (primer set)
+    carrusel_html = '<div class="track">'
+    
+    # Primer recorrido
+    for img_path, nombre in imagenes_practicas:
+        img_data = get_img_base64(img_path)
+        if img_data:
+            carrusel_html += f'''
+            <div class="item">
+                <img src="data:image/png;base64,{img_data}" alt="{nombre}">
+                <span class="titulo">{nombre[:35]}{"..." if len(nombre) > 35 else ""}</span>
+            </div>
+            '''
+        else:
+            carrusel_html += f'''
+            <div class="item">
+                <div style="width:100px; height:70px; background:#2c3e50; border-radius:8px; display:flex; align-items:center; justify-content:center;">
+                    <span style="color:#f1c40f; font-size:10px;">{nombre[:20]}</span>
+                </div>
+                <span class="titulo">{nombre[:35]}</span>
+            </div>
+            '''
+    
+    # Segundo recorrido (para efecto infinito)
+    for img_path, nombre in imagenes_practicas:
+        img_data = get_img_base64(img_path)
+        if img_data:
+            carrusel_html += f'''
+            <div class="item">
+                <img src="data:image/png;base64,{img_data}" alt="{nombre}">
+                <span class="titulo">{nombre[:35]}{"..." if len(nombre) > 35 else ""}</span>
+            </div>
+            '''
+        else:
+            carrusel_html += f'''
+            <div class="item">
+                <div style="width:100px; height:70px; background:#2c3e50; border-radius:8px; display:flex; align-items:center; justify-content:center;">
+                    <span style="color:#f1c40f; font-size:10px;">{nombre[:20]}</span>
+                </div>
+                <span class="titulo">{nombre[:35]}</span>
+            </div>
+            '''
+    
+    carrusel_html += '</div>'
+    
+    st.markdown(carrusel_html, unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
     
 # =============================================================================
 # SIMULADOR COMPLETO
