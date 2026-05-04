@@ -273,8 +273,13 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_pre
         q_salida = q_salida_estimada
         
         # Agregar perturbación en entrada (si aplica)
-        q_entrada_total = q_entrada + q_p_val
-        q_salida_total = q_salida
+               
+        if p_tipo == "Entrada":
+            q_entrada_total = q_entrada + q_p_val
+            q_salida_total = q_salida
+        else:  # Salida (Fuga)
+            q_entrada_total = q_entrada
+            q_salida_total = q_salida + q_p_val
     
     else:  # modo_op == "Vaciado"
         # ===== MODO VACIADO: V-01 cerrada, V-02 controla salida =====
