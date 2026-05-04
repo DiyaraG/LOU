@@ -55,25 +55,19 @@ if not st.session_state.bienvenida_mostrada:
                     border: 3px solid #f1c40f;
                     box-shadow: 0 25px 50px rgba(0,0,0,0.3);
                     margin-top: 50px;">
-            
-            <img src="https://raw.githubusercontent.com/DiyaraG/LOU/main/Logo_Universidad_Central_de_Venezuela.svg.png" style="width: 80px; height: auto; margin-bottom: 10px;">
-            
+            <div style="font-size: 4rem; margin-bottom: 10px;">⚙️</div>
             <h1 style="color: #f1c40f; font-size: 2rem; margin-bottom: 15px;">¡BIENVENIDO!</h1>
-            
             <p style="color: #f0f4f8; font-size: 1rem; line-height: 1.6;">
                 Esta es la <span style="color: #f1c40f; font-weight: bold;">primera interfaz virtual</span> del<br>
                 <strong>Laboratorio de Operaciones Unitarias</strong><br>
                 de la <strong>Universidad Central de Venezuela</strong>.
             </p>
-            
             <hr style="border-color: #f1c40f; margin: 15px 0;">
-            
             <p style="color: #f0f4f8;">
                  Explora las prácticas de <strong>LOU I y LOU II</strong><br>
                  Simulación disponible: <strong>Balance en Estado No Estacionario</strong><br>
                  Visualiza datos y aprende de forma interactiva
             </p>
-            
             <p style="color: #c0d0e0; font-size: 0.8rem;">👆 Para avanzar por favor presionar "comenzar"</p>
         </div>
         """, unsafe_allow_html=True)
