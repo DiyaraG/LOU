@@ -573,7 +573,7 @@ def mostrar_inicio():
     <div style="background: linear-gradient(135deg, #1a5276 0%, #0d3251 100%); 
                 border-radius: 15px; padding: 15px; margin: 20px 0;
                 text-align: center; border: 1px solid #f1c40f;">
-        <span style="color: #f1c40f; font-size: 1.3rem;">📐</span>
+        <span style="color: #f1c40f; font-size: 1.3rem;"></span>
         <span style="color: white; font-weight: 500; margin-left: 10px;">
             Los diagramas de cada práctica están disponibles dentro de su sección
         </span>
