@@ -576,7 +576,7 @@ def mostrar_inicio():
         width: 100%;
         overflow: hidden;
         background: linear-gradient(90deg, #0d3251, #1a5276);
-        padding: 10px 0;
+        padding: 8px 0;
         border-radius: 12px;
         margin: 25px 0 15px 0;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -586,7 +586,7 @@ def mostrar_inicio():
     .carrousel-practicas .track {
         display: flex;
         animation: deslizar 40s linear infinite;
-        gap: 15px;
+        gap: 12px;
         align-items: center;
     }
 
@@ -596,9 +596,9 @@ def mostrar_inicio():
         text-align: center;
         transition: transform 0.2s ease;
         background: rgba(255,255,255,0.08);
-        padding: 5px 8px;
+        padding: 4px 6px;
         border-radius: 8px;
-        width: 100px;
+        width: 85px;
     }
 
     /* Efecto hover */
@@ -609,40 +609,27 @@ def mostrar_inicio():
 
     /* Estilo de las imágenes - TAMAÑO PEQUEÑO UNIFORME */
     .carrousel-practicas .item img {
-        height: 50px;
-        width: 90px;
+        height: 45px;
+        width: 75px;
         object-fit: cover;
-        border-radius: 6px;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
 
-    /* Contenedor de placeholder cuando no hay imagen */
-    .carrousel-practicas .item .placeholder {
-        width: 90px;
-        height: 50px;
-        background: #2c3e50;
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 10px;
-        color: #f1c40f;
-    }
-
-    /* Título de la práctica - TEXTO PEQUEÑO */
+    /* Título de la práctica - TEXTO MUY PEQUEÑO */
     .carrousel-practicas .item .titulo {
         display: block;
-        font-size: 0.6rem;
+        font-size: 0.55rem;
         color: #f1c40f;
-        margin-top: 4px;
+        margin-top: 3px;
         font-weight: 400;
-        max-width: 90px;
+        max-width: 75px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    /* Animación de desplazamiento más lenta para que se vean bien */
+    /* Animación de desplazamiento */
     @keyframes deslizar {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
@@ -658,10 +645,10 @@ def mostrar_inicio():
         <div class="track">
     """, unsafe_allow_html=True)
     
-    # Lista de todas las imágenes de prácticas
+    # Lista de todas las imágenes de prácticas que existen en tu proyecto
     imagenes_practicas = [
         ("1.1 CALIBRACIÓN DE UN MEDIDOR DE FLUJO.png", "Calibración Flujo"),
-        ("2 Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías..png", "Pérdidas por Fricción"),
+        ("2 Pérdidas de Presión por Fricción en Conexiones y Tramos de Tuberías..png", "Pérdidas Fricción"),
         ("1.3 Determinación de Curvas Características de Bombas Centrífugas..png", "Bombas Centrífugas"),
         ("Captura de pantalla 2026-03-29 163125 (1).png", "Balance No Estacionario"),
         ("1.5 LECHOS FLUIDIZADOS.png", "Lechos Fluidizados"),
@@ -673,15 +660,15 @@ def mostrar_inicio():
     ]
     
     # Función para obtener imagen en base64
-    def get_img_base64(img_path):
+    def get_img_base64_img(img_path):
         if os.path.exists(img_path):
             with open(img_path, "rb") as f:
                 return base64.b64encode(f.read()).decode()
         return None
     
-    # Construir HTML (primer set)
+    # Primer set de imágenes
     for img_path, nombre in imagenes_practicas:
-        img_data = get_img_base64(img_path)
+        img_data = get_img_base64_img(img_path)
         if img_data:
             st.markdown(f'''
             <div class="item">
@@ -690,16 +677,19 @@ def mostrar_inicio():
             </div>
             ''', unsafe_allow_html=True)
         else:
+            # Si no existe la imagen, mostrar un pequeño placeholder
             st.markdown(f'''
             <div class="item">
-                <div class="placeholder">📷 {nombre[:12]}</div>
+                <div style="width:75px; height:45px; background:#2c3e50; border-radius:5px; display:flex; align-items:center; justify-content:center;">
+                    <span style="color:#f1c40f; font-size:9px;">{nombre[:12]}</span>
+                </div>
                 <span class="titulo">{nombre}</span>
             </div>
             ''', unsafe_allow_html=True)
     
-    # Segundo set (para efecto infinito)
+    # Segundo set (repetido para efecto infinito)
     for img_path, nombre in imagenes_practicas:
-        img_data = get_img_base64(img_path)
+        img_data = get_img_base64_img(img_path)
         if img_data:
             st.markdown(f'''
             <div class="item">
@@ -710,7 +700,9 @@ def mostrar_inicio():
         else:
             st.markdown(f'''
             <div class="item">
-                <div class="placeholder">📷 {nombre[:12]}</div>
+                <div style="width:75px; height:45px; background:#2c3e50; border-radius:5px; display:flex; align-items:center; justify-content:center;">
+                    <span style="color:#f1c40f; font-size:9px;">{nombre[:12]}</span>
+                </div>
                 <span class="titulo">{nombre}</span>
             </div>
             ''', unsafe_allow_html=True)
