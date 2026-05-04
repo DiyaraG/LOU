@@ -29,9 +29,14 @@ if 'bienvenida_mostrada' not in st.session_state:
 
 # Mostrar ventana de bienvenida si no se ha mostrado antes
 if not st.session_state.bienvenida_mostrada:
-    # Limpiar la pantalla y mostrar solo la bienvenida
+    # Limpiar la pantalla y mostrar solo la bienvenida con fondo negro
     st.markdown("""
     <style>
+    /* Fondo negro para toda la aplicación */
+    .stApp {
+        background: #000000 !important;
+    }
+    
     /* Ocultar todo el contenido principal */
     .stApp > header, .stApp > .main > div:first-child {
         display: none;
@@ -73,7 +78,7 @@ if not st.session_state.bienvenida_mostrada:
     
     # Detener la ejecución para que no se vea el contenido principal
     st.stop()
-
+    
 # =============================================================================
 # 2. FUNCIONES DE CÁLCULO Y MODELOS FÍSICOS
 # =============================================================================
