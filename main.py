@@ -29,83 +29,49 @@ if 'bienvenida_mostrada' not in st.session_state:
 
 # Mostrar ventana de bienvenida si no se ha mostrado antes
 if not st.session_state.bienvenida_mostrada:
-    # Limpiar la pantalla
+    # Limpiar la pantalla y mostrar solo la bienvenida
     st.markdown("""
     <style>
-    /* Ocultar todo el contenido que no sea la bienvenida */
-    .stApp header, .stApp .stTabs, .stApp .stButton > button:not(.welcome-btn) {
-        display: none !important;
-    }
-    
-    /* Centrar el contenido de bienvenida */
-    .main .block-container {
-        padding-top: 10rem !important;
-        padding-bottom: 5rem !important;
-    }
-    
-    /* Estilo específico para el botón de bienvenida */
-    .welcome-btn {
-        display: block !important;
-        background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
-        color: #1a5276 !important;
-        font-weight: bold !important;
-        font-size: 1.2rem !important;
-        padding: 0.75rem !important;
-        border-radius: 30px !important;
-        border: none !important;
-        cursor: pointer !important;
-        margin-top: 20px !important;
-    }
-    
-    .welcome-btn:hover {
-        background: linear-gradient(90deg, #f39c12, #e67e22) !important;
-        transform: scale(1.02) !important;
+    /* Ocultar todo el contenido principal */
+    .stApp > header, .stApp > .main > div:first-child {
+        display: none;
     }
     </style>
     """, unsafe_allow_html=True)
     
-    # Contenedor del mensaje
+    # Contenedor centrado
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown("""
         <div style="background: linear-gradient(135deg, #1a5276 0%, #0d3251 100%);
-                    border-radius: 20px;
+                    border-radius: 25px;
                     padding: 40px 30px;
                     text-align: center;
-                    border: 2px solid #f1c40f;
-                    box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
-            
-            <div style="font-size: 3rem; margin-bottom: 10px;">🛠️</div>
-            
-            <h1 style="color: #f1c40f; font-size: 1.6rem; margin: 0 0 15px 0; letter-spacing: 2px;">
-                LABORATORIO DE OPERACIONES UNITARIAS
-            </h1>
-            
-            <p style="color: #ffffff; font-size: 1rem; margin: 10px 0;">
-                <strong>Universidad Central de Venezuela</strong>
+                    border: 3px solid #f1c40f;
+                    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+                    margin-top: 50px;">
+            <div style="font-size: 4rem; margin-bottom: 10px;">⚙️</div>
+            <h1 style="color: #f1c40f; font-size: 2rem; margin-bottom: 15px;">¡BIENVENIDO!</h1>
+            <p style="color: #f0f4f8; font-size: 1rem; line-height: 1.6;">
+                Esta es la <span style="color: #f1c40f; font-weight: bold;">primera interfaz virtual</span> del<br>
+                <strong>Laboratorio de Operaciones Unitarias</strong><br>
+                de la <strong>Universidad Central de Venezuela</strong>.
             </p>
-            
-            <hr style="border-color: #f1c40f; margin: 20px auto; width: 50%;">
-            
-            <p style="color: #e0e0e0; font-size: 0.95rem; line-height: 1.8;">
-                💡 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
-                🎓 Simulación disponible: <strong>Balance en Estado No Estacionario</strong><br>
-                📊 Visualiza datos y aprende de forma interactiva
+            <hr style="border-color: #f1c40f; margin: 15px 0;">
+            <p style="color: #f0f4f8;">
+                 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
+                 Simulación disponible: <strong>Balance en Estado No Estacionario</strong><br>
+                 Visualiza datos y aprende de forma interactiva
             </p>
-            
-            <hr style="border-color: #f1c40f; margin: 20px auto; width: 30%;">
-            
-            <p style="color: #f1c40f; font-size: 0.85rem;">
-                👆 Presione "Comenzar" para acceder
-            </p>
+            <p style="color: #c0d0e0; font-size: 0.8rem;">👆 Para avanzar por favor presionar "comenzar"</p>
         </div>
         """, unsafe_allow_html=True)
         
-        # Botón de Streamlit normal
-        if st.button("▶ COMENZAR", use_container_width=True, type="primary"):
+        if st.button("✨ COMENZAR ✨", use_container_width=True, type="primary"):
             st.session_state.bienvenida_mostrada = True
             st.rerun()
     
+    # Detener la ejecución para que no se vea el contenido principal
     st.stop()
 
 # =============================================================================
