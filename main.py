@@ -198,7 +198,7 @@ def calcular_q_max_salida(d_orificio_pulg, cd=0.61, h_max=10.0):
 
 # ===== 2.4 SIMULADOR PRINCIPAL =====
 
-def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, e_sum, e_prev, modo_op, cd_val, kp, ki, kd, d_pulgadas):
+def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, p_tipo, e_sum, e_prev, modo_op, cd_val, kp, ki, kd, d_pulgadas):
     """
     SISTEMA CORREGIDO - Control de VÁLVULAS según modo de operación:
     
@@ -1409,8 +1409,8 @@ def mostrar_simulador(nombre):
                 k_d = st.session_state.get('kd_ejecucion', 1.5)
                 
                 h_corrida, q_entrada, q_salida, e_inst, err_int, err_pasado = resolver_sistema_robusto(
-                    dt, h_corrida, sp_nivel, geom_tanque, r_max, h_total, q_p_inst,
-                    err_int, err_pasado, op_tipo, cd_para_simular, k_p, k_i, k_d, d_pulgadas
+                dt, h_corrida, sp_nivel, geom_tanque, r_max, h_total, q_p_inst, p_tipo,
+                err_int, err_pasado, op_tipo, cd_para_simular, k_p, k_i, k_d, d_pulgadas
                 )
                 
                 valor_presente = h_corrida
