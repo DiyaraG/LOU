@@ -29,12 +29,25 @@ if 'bienvenida_mostrada' not in st.session_state:
 
 # Mostrar ventana de bienvenida si no se ha mostrado antes
 if not st.session_state.bienvenida_mostrada:
-    # Limpiar la pantalla y mostrar solo la bienvenida
+    # Limpiar la pantalla y mostrar solo la bienvenida con fondo negro
     st.markdown("""
     <style>
+    /* Fondo negro para toda la aplicación durante la bienvenida */
+    .stApp {
+        background: #000000 !important;
+    }
+    
     /* Ocultar todo el contenido principal */
     .stApp > header, .stApp > .main > div:first-child {
         display: none;
+    }
+    
+    /* Centrar verticalmente el contenido */
+    .main > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -44,30 +57,39 @@ if not st.session_state.bienvenida_mostrada:
     with col2:
         st.markdown("""
         <div style="background: linear-gradient(135deg, #1a5276 0%, #0d3251 100%);
-                    border-radius: 25px;
-                    padding: 40px 30px;
+                    border-radius: 20px;
+                    padding: 45px 35px;
                     text-align: center;
-                    border: 3px solid #f1c40f;
-                    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-                    margin-top: 50px;">
-            <div style="font-size: 4rem; margin-bottom: 10px;">⚙️</div>
-            <h1 style="color: #f1c40f; font-size: 2rem; margin-bottom: 15px;">¡BIENVENIDO!</h1>
-            <p style="color: #f0f4f8; font-size: 1rem; line-height: 1.6;">
-                Esta es la <span style="color: #f1c40f; font-weight: bold;">primera interfaz virtual</span> del<br>
-                <strong>Laboratorio de Operaciones Unitarias</strong><br>
-                de la <strong>Universidad Central de Venezuela</strong>.
+                    border: 2px solid #f1c40f;
+                    box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+            
+            <div style="font-size: 3rem; margin-bottom: 5px;">🛠️</div>
+            
+            <h1 style="color: #f1c40f; font-size: 1.8rem; margin: 0 0 20px 0; letter-spacing: 2px;">
+                LABORATORIO DE OPERACIONES UNITARIAS
+            </h1>
+            
+            <p style="color: #ffffff; font-size: 1rem; line-height: 1.6; margin: 10px 0;">
+                <strong>Universidad Central de Venezuela</strong>
             </p>
-            <hr style="border-color: #f1c40f; margin: 15px 0;">
-            <p style="color: #f0f4f8;">
-                 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
-                 Simulación disponible: <strong>Balance en Estado No Estacionario</strong><br>
-                 Visualiza datos y aprende de forma interactiva
+            
+            <hr style="border-color: #f1c40f; margin: 20px 0; width: 50%;">
+            
+            <p style="color: #e0e0e0; font-size: 0.95rem; line-height: 1.8; margin: 15px 0;">
+                📚 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
+                ⚙️ Simulación disponible: <strong>Balance en Estado No Estacionario</strong><br>
+                📊 Visualiza datos y aprende de forma interactiva
             </p>
-            <p style="color: #c0d0e0; font-size: 0.8rem;">👆 Para avanzar por favor presionar "comenzar"</p>
+            
+            <hr style="border-color: #f1c40f; margin: 20px 0; width: 30%;">
+            
+            <p style="color: #f1c40f; font-size: 0.85rem; margin: 10px 0;">
+                👆 Presione "Comenzar" para acceder
+            </p>
         </div>
         """, unsafe_allow_html=True)
         
-        if st.button("✨ COMENZAR ✨", use_container_width=True, type="primary"):
+        if st.button("▶ COMENZAR", use_container_width=True, type="primary"):
             st.session_state.bienvenida_mostrada = True
             st.rerun()
     
