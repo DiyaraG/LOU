@@ -29,7 +29,7 @@ if 'bienvenida_mostrada' not in st.session_state:
 
 # Mostrar ventana de bienvenida si no se ha mostrado antes
 if not st.session_state.bienvenida_mostrada:
-    # Limpiar la pantalla y mostrar solo la bienvenida con fondo negro
+    # Fondo negro y overlay
     st.markdown("""
     <style>
     /* Fondo negro para toda la aplicación durante la bienvenida */
@@ -37,22 +37,19 @@ if not st.session_state.bienvenida_mostrada:
         background: #000000 !important;
     }
     
-    /* Ocultar todo el contenido principal */
-    .stApp > header, .stApp > .main > div:first-child {
-        display: none;
+    /* Ocultar solo el header, pero mantener el contenido para el botón */
+    .stApp > header {
+        display: none !important;
     }
     
-    /* Centrar verticalmente el contenido */
-    .main > div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
+    /* Centrar el contenido principal */
+    .main .block-container {
+        padding-top: 15rem !important;
     }
     </style>
     """, unsafe_allow_html=True)
     
-    # Contenedor centrado
+    # Contenedor centrado con el mensaje
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown("""
@@ -89,11 +86,12 @@ if not st.session_state.bienvenida_mostrada:
         </div>
         """, unsafe_allow_html=True)
         
-        if st.button("▶ COMENZAR", use_container_width=True, type="primary"):
+        # Botón fuera del div HTML para que sea clickeable
+        if st.button("▶ COMENZAR", use_container_width=True, type="primary", key="welcome_button"):
             st.session_state.bienvenida_mostrada = True
             st.rerun()
     
-    # Detener la ejecución para que no se vea el contenido principal
+    # Detener la ejecución
     st.stop()
 
 # =============================================================================
