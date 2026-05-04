@@ -1214,39 +1214,41 @@ def mostrar_simulador(nombre):
         # ======================== BOTONES INICIAR Y RESET ========================
         col_btn1, col_btn2 = st.sidebar.columns(2)
         with col_btn1:
-            iniciar_sim = st.button("▶️ Iniciar", use_container_width=True, type="primary")
+            if st.button("▶️ Iniciar", use_container_width=True, type="primary"):
+                st.toast("🚀 Iniciando simulación...", icon="✅")
+                time.sleep(0.2)
+                st.session_state.ejecutando = True
+                st.session_state.diagrama_abierto = False
+                cd_para_usar = st.session_state.get('cd_calculado', 0.61)
+                try:
+                    if modo_auto:
+                        st.session_state['kp_ejecucion'] = kp_val
+                        st.session_state['ki_ejecucion'] = ki_val
+                        st.session_state['kd_ejecucion'] = kd_val
+                        st.session_state['cd_final'] = cd_para_usar
+                    else:
+                        st.session_state['kp_ejecucion'] = kp_val
+                        st.session_state['ki_ejecucion'] = ki_val
+                        st.session_state['kd_ejecucion'] = kd_val
+                        st.session_state['cd_final'] = cd_para_usar
+                except:
+                    st.session_state['kp_ejecucion'] = 18.0
+                    st.session_state['ki_ejecucion'] = 3.5
+                    st.session_state['kd_ejecucion'] = 1.5
+                    st.session_state['cd_final'] = cd_para_usar
+                    
+                st.rerun()
+                
         with col_btn2:
             if st.button("🔄 Reset", use_container_width=True, type="secondary"):
                 st.session_state.ejecutando = False
-                st.session_state.diagrama_abierto = True  # ← REABRE EL DIAGRAMA
+                st.session_state.diagrama_abierto = True
                 st.rerun()
         
         if 'ejecutando' not in st.session_state:
             st.session_state.ejecutando = False
-    
-        # ======================== INICIALIZACIÓN ========================
-        if iniciar_sim:
-            st.session_state.ejecutando = True
-            st.session_state.diagrama_abierto = False  # ← CIERRA EL DIAGRAMA
-            cd_para_usar = st.session_state.get('cd_calculado', 0.61)
-            try:
-                if modo_auto:
-                    st.session_state['kp_ejecucion'] = kp_val
-                    st.session_state['ki_ejecucion'] = ki_val
-                    st.session_state['kd_ejecucion'] = kd_val
-                    st.session_state['cd_final'] = cd_para_usar
-                else:
-                    st.session_state['kp_ejecucion'] = kp_val
-                    st.session_state['ki_ejecucion'] = ki_val
-                    st.session_state['kd_ejecucion'] = kd_val
-                    st.session_state['cd_final'] = cd_para_usar
-            except:
-                st.session_state['kp_ejecucion'] = 18.0
-                st.session_state['ki_ejecucion'] = 3.5
-                st.session_state['kd_ejecucion'] = 1.5
-                st.session_state['cd_final'] = cd_para_usar
-                
-            st.rerun()
+
+        
         # ======================== SIMULACIÓN PRINCIPAL ========================
         if not st.session_state.ejecutando:
             st.info("💡 Ajusta los parámetros en la barra lateral y pulsa 'Iniciar Simulación Robusta'")
