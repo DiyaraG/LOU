@@ -580,6 +580,15 @@ def mostrar_inicio():
         <span style="color: #f1c40f; font-size: 1.3rem; margin-left: 10px;">🔍</span>
     </div>
     """, unsafe_allow_html=True)
+
+    # ======================== FOOTER ========================
+    st.markdown("""
+    <hr style="margin: 2rem 0 1rem 0; border-color: #1a5276;">
+    <div style="text-align: center; color: #5d6d7e; font-size: 0.8rem;">
+        <p>Universidad Central de Venezuela - Escuela de Ingeniería Química</p>
+        <p>Laboratorio de Operaciones Unitarias | Centro de Simulación Virtual | © 2026</p>
+    </div>
+    """, unsafe_allow_html=True)
     
 # =============================================================================
 # SIMULADOR COMPLETO
