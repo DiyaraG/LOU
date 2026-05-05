@@ -235,51 +235,27 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, p_tipo, e_su
     # =========================================================================
     # LÓGICA SEGÚN MODO DE OPERACIÓN
     # =========================================================================
-    
-    if modo_op == "Llenado":
-        # Control de V-01 (Bomba de entrada) con PID - SENSIBILIZADO
-        
-        # 1. Calcular flujo de salida por gravedad (para anticipar equilibrio)
-        if h_prev > 0.001:
-            q_salida_estimada = cd_val * area_orificio * sqrt(2 * g * h_prev)
-        else:
-            q_salida_estimada = 0.0
-        
-        # 2. Control con zona de transición suave
-        if err > 0.05:
-            # Lejos del setpoint (BAJO) - ABRIR
-            q_entrada = np.clip(u_control, q_salida_estimada * 0.5, q_max_bomba)
-            
-        elif err > 0.01:
-            # Aproximándose al setpoint - REDUCIR velocidad
-            factor_acercamiento = err / 0.05
-            flujo_objetivo = q_salida_estimada + (q_max_bomba - q_salida_estimada) * factor_acercamiento * 0.3
-            q_entrada = np.clip(flujo_objetivo, q_salida_estimada * 0.5, q_max_bomba)
-            
-        elif err >= -0.01:
-            # EN EL SETPOINT (±1cm) - Equilibrio exacto
-            q_entrada = q_salida_estimada
-            
-        else:
-            # SOBRE el setpoint (err < -0.01) - CERRAR
-            exceso = abs(err)
-            factor_cierre = max(0, 1.0 - exceso * 10)
-            q_entrada = q_salida_estimada * factor_cierre
-        
-        # Limitar al rango permitido
-        q_entrada = np.clip(q_entrada, 0, q_max_bomba)
+        if modo_op == "Llenado":
+        # La bomba responde directamente al PID
+        # u_control > 0 → abrir | u_control < 0 → cerrar
+        q_entrada = np.clip(u_control, 0, q_max_bomba)
         
         # V-02: Descarga libre por gravedad (COMPLETAMENTE ABIERTA)
-        q_salida = q_salida_estimada
+        if h_prev > 0.001:
+            q_salida = cd_val * area_orificio * sqrt(2 * g * h_prev)
+        else:
+            q_salida = 0.0
         
-        # Agregar perturbación en entrada (si aplica)
-               
+        # Agregar perturbación según su tipo
         if p_tipo == "Entrada":
             q_entrada_total = q_entrada + q_p_val
             q_salida_total = q_salida
         else:  # Salida (Fuga)
             q_entrada_total = q_entrada
             q_salida_total = q_salida + q_p_val
+    
+   
+    
     
     else:  # modo_op == "Vaciado"
         # ===== MODO VACIADO: V-01 cerrada, V-02 controla salida =====
