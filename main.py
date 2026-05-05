@@ -235,27 +235,28 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, p_tipo, e_su
     # =========================================================================
     # LÓGICA SEGÚN MODO DE OPERACIÓN
     # =========================================================================
-        if modo_op == "Llenado":
+    if modo_op == "Llenado":
         # La bomba responde al PID, pero se APAGA si el nivel supera el setpoint
-        
-        if err > 0:  # Nivel BAJO - Necesito SUBIR
+        if err > 0:
             q_entrada = np.clip(u_control, 0, q_max_bomba)
-        else:  # Nivel ALTO o en SETPOINT - CERRAR bomba
+        else:
             q_entrada = 0.0
         
-        # V-02: Descarga libre por gravedad (COMPLETAMENTE ABIERTA)
+        # V-02: Descarga libre por gravedad
         if h_prev > 0.001:
             q_salida = cd_val * area_orificio * sqrt(2 * g * h_prev)
         else:
             q_salida = 0.0
         
-        # Agregar perturbación según su tipo
+        # Agregar perturbacion
         if p_tipo == "Entrada":
             q_entrada_total = q_entrada + q_p_val
             q_salida_total = q_salida
-        else:  # Salida (Fuga)
+        else:
             q_entrada_total = q_entrada
             q_salida_total = q_salida + q_p_val
+    
+    
     
    
     
