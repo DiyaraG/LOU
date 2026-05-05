@@ -118,7 +118,7 @@ def calcular_pid_adaptativo(geom, r_max, h_total):
     return round(kp, 2), round(ki, 3), round(kd, 3)
 
 def sintonizar_controlador_robusto(geom, r, h_t, cd_calculado, area_ori, op_tipo="Llenado"):
-    """Sintonización robusta del PID CORREGIDA con ganancias más altas"""
+    """Sintonización MEJORADA - Más conservadora para evitar oscilaciones"""
     if geom == "Cilíndrico":
         area_t = np.pi * (r**2)
     elif geom == "Cónico":
@@ -126,23 +126,29 @@ def sintonizar_controlador_robusto(geom, r, h_t, cd_calculado, area_ori, op_tipo
     else:  # Esférico
         area_t = (2/3) * np.pi * (r**2)
     
-    # Ganancias base MÁS ALTAS
+    # Ganancias base REDUCIDAS para respuesta más suave
     if op_tipo == "Llenado":
-        kp = 25.0 * (area_t / 3.0)
-        ki = 5.0 * (area_t / 3.0)
-        kd = 2.0 * (area_t / 3.0)
+        kp = 12.0 * (area_t / 3.0)   # Antes: 25.0 → Reducido para menos oscilaciones
+        ki = 2.5 * (area_t / 3.0)    # Antes: 5.0  → Reducido para menos acumulación
+        kd = 3.0 * (area_t / 3.0)    # Antes: 2.0  → AUMENTADO para más amortiguamiento
     else:  # Vaciado
-        kp = 20.0 * (area_t / 3.0)
-        ki = 4.0 * (area_t / 3.0)
-        kd = 1.5 * (area_t / 3.0)
+        kp = 8.0 * (area_t / 3.0)    # Antes: 20.0 → Más conservador
+        ki = 2.0 * (area_t / 3.0)    # Antes: 4.0  → Reducido
+        kd = 2.5 * (area_t / 3.0)    # Antes: 1.5  → Aumentado
     
     factor_cd = np.clip(cd_calculado / 0.61, 0.8, 1.3)
     kp = kp * factor_cd
     ki = ki * factor_cd
     
-    kp = np.clip(kp, 15.0, 50.0)
-    ki = np.clip(ki, 3.0, 10.0)
-    kd = np.clip(kd, 1.0, 3.0)
+    # Límites MÁS ESTRECHOS para evitar valores extremos
+    if op_tipo == "Llenado":
+        kp = np.clip(kp, 5.0, 20.0)    # Antes: 15-50 → Más restrictivo
+        ki = np.clip(ki, 1.5, 5.0)     # Antes: 3-10  → Más restrictivo
+        kd = np.clip(kd, 2.0, 5.0)     # Antes: 1-3   → Más amortiguamiento
+    else:
+        kp = np.clip(kp, 3.0, 12.0)
+        ki = np.clip(ki, 1.0, 3.0)
+        kd = np.clip(kd, 1.5, 3.5)
     
     return round(kp, 2), round(ki, 3), round(kd, 2)
     
@@ -171,7 +177,7 @@ def calcular_cd_inteligente(df_usr, r, h_t, geom, area_ori):
         h_prom = (h1 + h2) / 2
         q_teorico = area_ori * np.sqrt(2 * 9.81 * max(h_prom, 0.001))
         cd_result = q_real / q_teorico if q_teorico > 0 else 0.61
-        return float(np.clip(cd_result, 0.4, 1.0))
+        return float(np.clip(cd_result, 0.4, 0.95))
     except:
         return 0.61
 
@@ -186,7 +192,7 @@ def calcular_cd_automatico(geom, d_orificio_pulg):
     
     factor_diametro = np.clip(d_orificio_pulg / 1.0, 0.9, 1.1)
     cd_final = cd_base * factor_diametro
-    return round(float(np.clip(cd_final, 0.45, 0.75)), 4)
+    return round(float(np.clip(cd_final, 0.45, 0.85)), 4)
 
 def calcular_q_max_salida(d_orificio_pulg, cd=0.61, h_max=10.0):
     """Calcula el caudal máximo de salida basado en el orificio."""
