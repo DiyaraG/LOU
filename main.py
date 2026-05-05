@@ -314,8 +314,13 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, p_tipo, e_su
         q_salida = apertura_salida * q_salida_teorica
         
         # Agregar perturbación (fuga en salida, si aplica)
-        q_entrada_total = q_entrada
-        q_salida_total = q_salida + q_p_val
+               
+        if p_tipo == "Entrada":
+            q_entrada_total = q_entrada + q_p_val
+            q_salida_total = q_salida
+        else:  # Salida (Fuga)
+            q_entrada_total = q_entrada
+            q_salida_total = q_salida + q_p_val
     
     # Balance de masa (Ecuación de continuidad)
     dh_dt = (q_entrada_total - q_salida_total) / area_h
