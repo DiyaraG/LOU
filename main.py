@@ -235,7 +235,7 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, p_tipo, e_su
     # =========================================================================
     # LÓGICA SEGÚN MODO DE OPERACIÓN
     # =========================================================================
-       if modo_op == "Llenado":
+    if modo_op == "Llenado":
         # La bomba responde directamente al PID
         # u_control > 0 → abrir | u_control < 0 → cerrar
         q_entrada = np.clip(u_control, 0, q_max_bomba)
