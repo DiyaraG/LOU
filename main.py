@@ -1030,6 +1030,20 @@ def mostrar_simulador(nombre):
             font-weight: bold !important;
             color: #000000 !important;
         }
+
+        /* ======================== CORREGIR ICONOS DATA EDITOR ======================== */
+        .stDataFrame button svg,
+        .stDataEditor button svg,
+        svg[data-testid="icon"] {
+            color: #1a5276 !important;
+            fill: #1a5276 !important;
+        }
+        
+        .stDataFrame button:hover svg,
+        .stDataEditor button:hover svg {
+            color: #f1c40f !important;
+            fill: #f1c40f !important;
+        }
        
         </style>
         </style>
