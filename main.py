@@ -1025,6 +1025,11 @@ def mostrar_simulador(nombre):
             color: #f0f4f8 !important;
         }
 
+        /* ======================== CORREGIR TEXTO TOOLTIPS ======================== */
+        [role="tooltip"], .stTooltipContent, div[data-testid="stTooltip"] {
+            font-weight: bold !important;
+            color: #000000 !important;
+        }
        
         </style>
         </style>
