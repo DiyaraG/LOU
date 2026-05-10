@@ -1174,9 +1174,9 @@ def mostrar_simulador(nombre):
             if modo_auto:
                 st.success(f"💡 PID optimizado para {op_tipo} (Cd={cd_actual:.3f})")
                 st.caption(f"Kp={kp_sug} | Ki={ki_sug} | Kd={kd_sug}")
-                kp_val = st.number_input("Kp (robusto)", value=kp_sug, key="kp_asist")
-                ki_val = st.number_input("Ki (robusto)", value=ki_sug, format="%.3f", key="ki_asist")
-                kd_val = st.number_input("Kd (robusto)", value=kd_sug, format="%.3f", key="kd_asist")
+                kp_val = st.number_input("Kp", value=kp_sug, key="kp_asist")
+                ki_val = st.number_input("Ki", value=ki_sug, format="%.3f", key="ki_asist")
+                kd_val = st.number_input("Kd", value=kd_sug, format="%.3f", key="kd_asist")
             else:
                 st.info(f"✍️ Modo Manual - {op_tipo}")
                 if op_tipo == "Llenado":
