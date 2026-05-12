@@ -20,7 +20,7 @@ p_tiempo = 80
 st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🛠")
 
 # =============================================================================
-# 1.3 VENTANA DE BIENVENIDA - VERSIÓN MODERNA
+# 1.3 VENTANA DE BIENVENIDA 
 # =============================================================================
 
 # Inicializar estado de bienvenida
@@ -29,66 +29,17 @@ if 'bienvenida_mostrada' not in st.session_state:
 
 # Mostrar ventana de bienvenida si no se ha mostrado antes
 if not st.session_state.bienvenida_mostrada:
-    # Estilos CSS modernos
+    # Limpiar la pantalla y mostrar solo la bienvenida con fondo negro
     st.markdown("""
     <style>
-    /* Fondo negro elegante */
+    /* Fondo negro para toda la aplicación */
     .stApp {
-        background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%) !important;
+        background: #000000 !important;
     }
     
-    /* Ocultar elementos de Streamlit */
-    .stApp > header, .stApp > .main > div:first-child, [data-testid="stSidebar"] {
-        display: none !important;
-    }
-    
-    /* Botón COMENZAR moderno */
-    div[data-testid="stButton"] button {
-        background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%) !important;
-        border: none !important;
-        border-radius: 50px !important;
-        color: #1a1a2e !important;
-        font-weight: 700 !important;
-        font-size: 1.2rem !important;
-        padding: 0.9rem 2.5rem !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        box-shadow: 0 8px 25px rgba(241, 196, 15, 0.3) !important;
-        letter-spacing: 2px !important;
-        width: auto !important;
-        min-width: 220px !important;
-        cursor: pointer !important;
-        margin-top: 10px !important;
-    }
-    
-    div[data-testid="stButton"] button:hover {
-        transform: translateY(-3px) !important;
-        box-shadow: 0 15px 35px rgba(241, 196, 15, 0.45) !important;
-        background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%) !important;
-        color: #ffffff !important;
-        letter-spacing: 3px !important;
-    }
-    
-    div[data-testid="stButton"] button:active {
-        transform: translateY(2px) !important;
-    }
-    
-    /* Animación de brillo en el borde de la tarjeta */
-    @keyframes borderGlow {
-        0% { border-color: rgba(241, 196, 15, 0.3); box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
-        50% { border-color: rgba(241, 196, 15, 0.8); box-shadow: 0 25px 60px rgba(241, 196, 15, 0.2); }
-        100% { border-color: rgba(241, 196, 15, 0.3); box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
-    }
-    
-    /* Animación de pulso para el ícono */
-    @keyframes pulse {
-        0% { transform: scale(1); opacity: 0.9; }
-        50% { transform: scale(1.05); opacity: 1; }
-        100% { transform: scale(1); opacity: 0.9; }
-    }
-    
-    .icon-pulse {
-        animation: pulse 2s ease-in-out infinite;
-        display: inline-block;
+    /* Ocultar todo el contenido principal */
+    .stApp > header, .stApp > .main > div:first-child {
+        display: none;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -97,65 +48,37 @@ if not st.session_state.bienvenida_mostrada:
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown("""
-        <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-                    border-radius: 32px;
-                    padding: 50px 35px;
+        <div style="background: linear-gradient(135deg, #1a5276 0%, #0d3251 100%);
+                    border-radius: 25px;
+                    padding: 40px 30px;
                     text-align: center;
-                    border: 2px solid rgba(241, 196, 15, 0.4);
-                    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
-                    margin-top: 60px;
-                    animation: borderGlow 3s ease-in-out infinite;
-                    backdrop-filter: blur(10px);">
-            
-            <!-- Ícono moderno (sin emojis) -->
-            <div class="icon-pulse" style="margin-bottom: 20px;">
-                <svg width="70" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="8" stroke="#f1c40f" stroke-width="1.5" fill="none"/>
-                    <path d="M12 2L14 7H10L12 2Z" fill="#f1c40f" opacity="0.9"/>
-                    <path d="M12 22L14 17H10L12 22Z" fill="#f1c40f" opacity="0.9"/>
-                    <path d="M2 12L7 10V14L2 12Z" fill="#f1c40f" opacity="0.9"/>
-                    <path d="M22 12L17 10V14L22 12Z" fill="#f1c40f" opacity="0.9"/>
-                    <path d="M5.5 5.5L9 8L8 9L5.5 5.5Z" fill="#f1c40f" opacity="0.9"/>
-                    <path d="M18.5 18.5L15 16L16 15L18.5 18.5Z" fill="#f1c40f" opacity="0.9"/>
-                    <path d="M18.5 5.5L15 8L16 9L18.5 5.5Z" fill="#f1c40f" opacity="0.9"/>
-                    <path d="M5.5 18.5L9 16L8 15L5.5 18.5Z" fill="#f1c40f" opacity="0.9"/>
-                </svg>
-            </div>
-            
-            <h1 style="color: #f1c40f; font-size: 2.6rem; margin-bottom: 15px; font-weight: 800; letter-spacing: -1px;">
-                BIENVENIDO
-            </h1>
-            
-            <p style="color: #e6e6e6; font-size: 1rem; line-height: 1.6; max-width: 450px; margin: 0 auto;">
-                Esta es la <span style="color: #f1c40f; font-weight: 700;">primera interfaz virtual</span> del<br>
-                <strong style="color: #ffffff;">Laboratorio de Operaciones Unitarias</strong><br>
-                de la <strong style="color: #ffffff;">Universidad Central de Venezuela</strong>.
+                    border: 3px solid #f1c40f;
+                    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+                    margin-top: 50px;">
+            <div style="font-size: 4rem; margin-bottom: 10px;">⚙️</div>
+            <h1 style="color: #f1c40f; font-size: 2rem; margin-bottom: 15px;">¡BIENVENIDO!</h1>
+            <p style="color: #f0f4f8; font-size: 1rem; line-height: 1.6;">
+                Esta es la <span style="color: #f1c40f; font-weight: bold;">primera interfaz virtual</span> del<br>
+                <strong>Laboratorio de Operaciones Unitarias</strong><br>
+                de la <strong>Universidad Central de Venezuela</strong>.
             </p>
-            
-            <hr style="border-color: rgba(241, 196, 15, 0.3); margin: 25px auto; width: 80px;">
-            
-            <p style="color: #bbbbbb; font-size: 0.9rem;">
-                Explora las prácticas de <strong>LOU I y LOU II</strong><br>
-                Simulación: <strong>Balance en Estado No Estacionario</strong><br>
-                Visualiza datos y aprende de forma interactiva
+            <hr style="border-color: #f1c40f; margin: 15px 0;">
+            <p style="color: #f0f4f8;">
+                 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
+                 Simulación disponible: <strong>Balance en Estado No Estacionario</strong><br>
+                 Visualiza datos y aprende de forma interactiva
             </p>
-            
-        """, unsafe_allow_html=True)
-        
-        # Botón COMENZAR moderno (sin emojis)
-        if st.button("COMENZAR", use_container_width=False, type="primary"):
-            st.session_state.bienvenida_mostrada = True
-            st.rerun()
-        
-        st.markdown("""
-            <p style="color: #6a6a6a; font-size: 0.7rem; margin-top: 25px; letter-spacing: 1px;">
-                ACCESO AL SIMULADOR
-            </p>
+            <p style="color: #c0d0e0; font-size: 0.8rem;">👆 Para avanzar por favor presionar "comenzar"</p>
         </div>
         """, unsafe_allow_html=True)
+        
+        if st.button(" COMENZAR ", use_container_width=True, type="primary"):
+            st.session_state.bienvenida_mostrada = True
+            st.rerun()
     
     # Detener la ejecución para que no se vea el contenido principal
     st.stop()
+
     
 # =============================================================================
 # 2. FUNCIONES DE CÁLCULO Y MODELOS FÍSICOS
