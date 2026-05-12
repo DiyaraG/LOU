@@ -41,26 +41,6 @@ if not st.session_state.bienvenida_mostrada:
     .stApp > header, .stApp > .main > div:first-child {
         display: none;
     }
-    
-    /* Estilo mejorado para el botón COMENZAR */
-    div[data-testid="stButton"] button {
-        font-weight: 800 !important;
-        font-size: 1.3rem !important;
-        font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
-        letter-spacing: 3px !important;
-        background-color: #f1c40f !important;
-        color: #1a5276 !important;
-        border: none !important;
-        border-radius: 12px !important;
-        padding: 0.7rem 1rem !important;
-        transition: all 0.2s ease !important;
-    }
-    
-    div[data-testid="stButton"] button:hover {
-        background-color: #f39c12 !important;
-        transform: scale(1.02) !important;
-        color: #0d3251 !important;
-    }
     </style>
     """, unsafe_allow_html=True)
     
@@ -88,16 +68,17 @@ if not st.session_state.bienvenida_mostrada:
                  Simulación disponible: <strong>Balance en Estado No Estacionario</strong><br>
                  Visualiza datos y aprende de forma interactiva
             </p>
-            <p style="color: #c0d0e0; font-size: 0.8rem;">Para avanzar presiona "COMENZAR"</p>
+            <p style="color: #c0d0e0; font-size: 0.8rem;">👆 Para avanzar por favor presionar "comenzar"</p>
         </div>
         """, unsafe_allow_html=True)
         
-        if st.button("COMENZAR", use_container_width=True, type="primary"):
+        if st.button("✨ COMENZAR ✨", use_container_width=True, type="primary"):
             st.session_state.bienvenida_mostrada = True
             st.rerun()
     
     # Detener la ejecución para que no se vea el contenido principal
     st.stop()
+
 
     
 # =============================================================================
