@@ -41,6 +41,41 @@ if not st.session_state.bienvenida_mostrada:
     .stApp > header, .stApp > .main > div:first-child {
         display: none;
     }
+    
+    /* Estilo para el botón de comenzar - Moderno y elegante */
+    div[data-testid="stButton"] button {
+        background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%) !important;
+        border: none !important;
+        border-radius: 50px !important;
+        color: #1a1a2e !important;
+        font-weight: 600 !important;
+        font-size: 1.2rem !important;
+        padding: 0.8rem 2rem !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 8px 20px rgba(241, 196, 15, 0.25) !important;
+        letter-spacing: 2px !important;
+        width: auto !important;
+        min-width: 200px !important;
+        cursor: pointer !important;
+    }
+    
+    div[data-testid="stButton"] button:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: 0 15px 30px rgba(241, 196, 15, 0.4) !important;
+        background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%) !important;
+        color: #ffffff !important;
+    }
+    
+    div[data-testid="stButton"] button:active {
+        transform: translateY(2px) !important;
+    }
+    
+    /* Contenedor centrado para el botón */
+    .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 35px;
+    }
     </style>
     """, unsafe_allow_html=True)
     
@@ -48,33 +83,57 @@ if not st.session_state.bienvenida_mostrada:
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown("""
-        <div style="background: linear-gradient(135deg, #1a5276 0%, #0d3251 100%);
-                    border-radius: 25px;
-                    padding: 40px 30px;
+        <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+                    border-radius: 32px;
+                    padding: 50px 35px;
                     text-align: center;
-                    border: 3px solid #f1c40f;
-                    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-                    margin-top: 50px;">
-            <div style="font-size: 4rem; margin-bottom: 10px;">⚙️</div>
-            <h1 style="color: #f1c40f; font-size: 2rem; margin-bottom: 15px;">¡BIENVENIDO!</h1>
-            <p style="color: #f0f4f8; font-size: 1rem; line-height: 1.6;">
-                Esta es la <span style="color: #f1c40f; font-weight: bold;">primera interfaz virtual</span> del<br>
-                <strong>Laboratorio de Operaciones Unitarias</strong><br>
-                de la <strong>Universidad Central de Venezuela</strong>.
+                    border: 1px solid rgba(241, 196, 15, 0.3);
+                    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+                    margin-top: 50px;
+                    backdrop-filter: blur(2px);">
+            
+            <!-- Icono principal minimalista -->
+            <div style="margin-bottom: 20px;">
+                <svg width="70" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#f1c40f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="#f1c40f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="#f1c40f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            
+            <h1 style="color: #f1c40f; font-size: 2.4rem; margin-bottom: 15px; font-weight: 700; letter-spacing: -0.5px;">
+                BIENVENIDO
+            </h1>
+            
+            <p style="color: #e0e0e0; font-size: 1rem; line-height: 1.6; max-width: 450px; margin: 0 auto;">
+                Esta es la <span style="color: #f1c40f; font-weight: 600;">primera interfaz virtual</span> del<br>
+                <strong style="color: #ffffff;">Laboratorio de Operaciones Unitarias</strong><br>
+                de la <strong style="color: #ffffff;">Universidad Central de Venezuela</strong>.
             </p>
-            <hr style="border-color: #f1c40f; margin: 15px 0;">
-            <p style="color: #f0f4f8;">
-                 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
-                 Simulación disponible: <strong>Balance en Estado No Estacionario</strong><br>
-                 Visualiza datos y aprende de forma interactiva
+            
+            <hr style="border-color: rgba(241, 196, 15, 0.3); margin: 25px auto; width: 60px;">
+            
+            <p style="color: #b0b0b0; font-size: 0.9rem;">
+                Explora las prácticas de <strong>LOU I y LOU II</strong><br>
+                Simulación: <strong>Balance en Estado No Estacionario</strong><br>
+                Visualiza datos y aprende de forma interactiva
             </p>
-            <p style="color: #c0d0e0; font-size: 0.8rem;">👆 Para avanzar por favor presionar "comenzar"</p>
-        </div>
+            
+            <div class="button-container">
         """, unsafe_allow_html=True)
         
-        if st.button("✨ COMENZAR ✨", use_container_width=True, type="primary"):
+        # Botón COMENZAR (sin emojis)
+        if st.button("COMENZAR", use_container_width=False, type="primary"):
             st.session_state.bienvenida_mostrada = True
             st.rerun()
+        
+        st.markdown("""
+            </div>
+            <p style="color: #7a7a7a; font-size: 0.75rem; margin-top: 30px;">
+                Haz clic para acceder al simulador
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
     
     # Detener la ejecución para que no se vea el contenido principal
     st.stop()
