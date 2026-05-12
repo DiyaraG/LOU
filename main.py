@@ -1160,7 +1160,7 @@ def mostrar_simulador(nombre):
             if p_activa:
                 p_tipo = st.selectbox("Tipo de Perturbación", ["Entrada", "Salida (Fuga)"])
                 p_tipo = "Entrada" if p_tipo == "Entrada" else "Salida"
-                p_magnitud = st.number_input("Magnitud Qp [m³/s]", value=0.00005, min_value=0.0, max_value=0.001, step=0.00001, format="%.6f")
+                p_magnitud = st.number_input("Magnitud Qp [m³/s]", value=0.00005, min_value=0.0, max_value=3.0, step=0.00001, format="%.6f")
                 p_tiempo = st.slider("Inicio de perturbación [s]", 0, 500, 100)
             else:
                 p_magnitud = 0.0
