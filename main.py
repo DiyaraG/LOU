@@ -34,7 +34,7 @@ if not st.session_state.bienvenida_mostrada:
     <style>
     /* Fondo negro para toda la aplicación */
     .stApp {
-        background: #000000 !important;
+        background: #0a0a0f !important;
     }
     
     /* Ocultar todo el contenido principal */
@@ -76,6 +76,17 @@ if not st.session_state.bienvenida_mostrada:
         justify-content: center;
         margin-top: 35px;
     }
+    
+    /* Animación suave para el SVG */
+    @keyframes subtlePulse {
+        0% { opacity: 0.9; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.02); }
+        100% { opacity: 0.9; transform: scale(1); }
+    }
+    
+    .animated-icon {
+        animation: subtlePulse 3s ease-in-out infinite;
+    }
     </style>
     """, unsafe_allow_html=True)
     
@@ -87,17 +98,25 @@ if not st.session_state.bienvenida_mostrada:
                     border-radius: 32px;
                     padding: 50px 35px;
                     text-align: center;
-                    border: 1px solid rgba(241, 196, 15, 0.3);
+                    border: 1px solid rgba(241, 196, 15, 0.25);
                     box-shadow: 0 25px 50px rgba(0,0,0,0.5);
                     margin-top: 50px;
                     backdrop-filter: blur(2px);">
             
-            <!-- Icono principal minimalista -->
-            <div style="margin-bottom: 20px;">
+            <!-- Icono principal minimalista - Engranaje estilizado -->
+            <div style="margin-bottom: 20px;" class="animated-icon">
                 <svg width="70" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#f1c40f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M2 17L12 22L22 17" stroke="#f1c40f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M2 12L12 17L22 12" stroke="#f1c40f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- Círculo central -->
+                    <circle cx="12" cy="12" r="4" stroke="#f1c40f" stroke-width="1.8" fill="none"/>
+                    <!-- Dientes del engranaje - 6 dientes -->
+                    <path d="M12 2L13.5 5.5L12 4.5L10.5 5.5L12 2Z" fill="#f1c40f" opacity="0.9"/>
+                    <path d="M12 22L13.5 18.5L12 19.5L10.5 18.5L12 22Z" fill="#f1c40f" opacity="0.9"/>
+                    <path d="M2 12L5.5 10.5L4.5 12L5.5 13.5L2 12Z" fill="#f1c40f" opacity="0.9"/>
+                    <path d="M22 12L18.5 10.5L19.5 12L18.5 13.5L22 12Z" fill="#f1c40f" opacity="0.9"/>
+                    <path d="M5.5 5.5L8.5 8L7.5 7L5.5 5.5Z" fill="#f1c40f" opacity="0.9"/>
+                    <path d="M18.5 18.5L15.5 16L16.5 17L18.5 18.5Z" fill="#f1c40f" opacity="0.9"/>
+                    <path d="M18.5 5.5L15.5 8L16.5 7L18.5 5.5Z" fill="#f1c40f" opacity="0.9"/>
+                    <path d="M5.5 18.5L8.5 16L7.5 17L5.5 18.5Z" fill="#f1c40f" opacity="0.9"/>
                 </svg>
             </div>
             
@@ -105,7 +124,7 @@ if not st.session_state.bienvenida_mostrada:
                 BIENVENIDO
             </h1>
             
-            <p style="color: #e0e0e0; font-size: 1rem; line-height: 1.6; max-width: 450px; margin: 0 auto;">
+            <p style="color: #e6e6e6; font-size: 1rem; line-height: 1.6; max-width: 450px; margin: 0 auto;">
                 Esta es la <span style="color: #f1c40f; font-weight: 600;">primera interfaz virtual</span> del<br>
                 <strong style="color: #ffffff;">Laboratorio de Operaciones Unitarias</strong><br>
                 de la <strong style="color: #ffffff;">Universidad Central de Venezuela</strong>.
@@ -129,8 +148,8 @@ if not st.session_state.bienvenida_mostrada:
         
         st.markdown("""
             </div>
-            <p style="color: #7a7a7a; font-size: 0.75rem; margin-top: 30px;">
-                Haz clic para acceder al simulador
+            <p style="color: #7a7a7a; font-size: 0.75rem; margin-top: 30px; letter-spacing: 0.5px;">
+                HAZ CLIC PARA ACCEDER AL SIMULADOR
             </p>
         </div>
         """, unsafe_allow_html=True)
