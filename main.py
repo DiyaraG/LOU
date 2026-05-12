@@ -20,7 +20,7 @@ p_tiempo = 80
 st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🛠")
 
 # =============================================================================
-# 1.3 VENTANA DE BIENVENIDA 
+# 1.3 VENTANA DE BIENVENIDA - VERSIÓN CORREGIDA
 # =============================================================================
 
 # Inicializar estado de bienvenida
@@ -29,7 +29,7 @@ if 'bienvenida_mostrada' not in st.session_state:
 
 # Mostrar ventana de bienvenida si no se ha mostrado antes
 if not st.session_state.bienvenida_mostrada:
-    # Limpiar la pantalla y mostrar solo la bienvenida con fondo negro
+    # Aplicar estilos CSS para fondo negro y ocultar contenido
     st.markdown("""
     <style>
     /* Fondo negro para toda la aplicación */
@@ -37,31 +37,38 @@ if not st.session_state.bienvenida_mostrada:
         background: #0a0a0f !important;
     }
     
-    /* Ocultar todo el contenido principal */
-    .stApp > header, .stApp > .main > div:first-child {
-        display: none;
+    /* Ocultar todo el contenido principal mientras está la bienvenida */
+    .stApp > header,
+    .stApp > .main > div:first-child,
+    .stApp > div:first-child {
+        display: none !important;
     }
     
-    /* Estilo para el botón de comenzar - Moderno y elegante */
+    /* Ocultar también la barra lateral */
+    [data-testid="stSidebar"] {
+        display: none !important;
+    }
+    
+    /* Estilo para el botón de comenzar */
     div[data-testid="stButton"] button {
         background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%) !important;
         border: none !important;
         border-radius: 50px !important;
         color: #1a1a2e !important;
-        font-weight: 600 !important;
+        font-weight: 700 !important;
         font-size: 1.2rem !important;
-        padding: 0.8rem 2rem !important;
+        padding: 0.8rem 2.5rem !important;
         transition: all 0.3s ease !important;
-        box-shadow: 0 8px 20px rgba(241, 196, 15, 0.25) !important;
+        box-shadow: 0 8px 20px rgba(241, 196, 15, 0.3) !important;
         letter-spacing: 2px !important;
         width: auto !important;
-        min-width: 200px !important;
+        min-width: 220px !important;
         cursor: pointer !important;
     }
     
     div[data-testid="stButton"] button:hover {
         transform: translateY(-3px) !important;
-        box-shadow: 0 15px 30px rgba(241, 196, 15, 0.4) !important;
+        box-shadow: 0 15px 30px rgba(241, 196, 15, 0.5) !important;
         background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%) !important;
         color: #ffffff !important;
     }
@@ -86,11 +93,18 @@ if not st.session_state.bienvenida_mostrada:
     
     .animated-icon {
         animation: subtlePulse 3s ease-in-out infinite;
+        display: inline-block;
+    }
+    
+    /* Eliminar márgenes extra de Streamlit */
+    .main .block-container {
+        padding-top: 0rem !important;
+        max-width: 100% !important;
     }
     </style>
     """, unsafe_allow_html=True)
     
-    # Contenedor centrado
+    # Contenedor centrado para la tarjeta de bienvenida
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown("""
@@ -100,15 +114,15 @@ if not st.session_state.bienvenida_mostrada:
                     text-align: center;
                     border: 1px solid rgba(241, 196, 15, 0.25);
                     box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-                    margin-top: 50px;
+                    margin-top: 80px;
                     backdrop-filter: blur(2px);">
             
-            <!-- Icono principal minimalista - Engranaje estilizado -->
-            <div style="margin-bottom: 20px;" class="animated-icon">
+            <!-- Icono - Engranaje minimalista -->
+            <div class="animated-icon" style="margin-bottom: 20px;">
                 <svg width="70" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <!-- Círculo central -->
                     <circle cx="12" cy="12" r="4" stroke="#f1c40f" stroke-width="1.8" fill="none"/>
-                    <!-- Dientes del engranaje - 6 dientes -->
+                    <!-- Dientes del engranaje -->
                     <path d="M12 2L13.5 5.5L12 4.5L10.5 5.5L12 2Z" fill="#f1c40f" opacity="0.9"/>
                     <path d="M12 22L13.5 18.5L12 19.5L10.5 18.5L12 22Z" fill="#f1c40f" opacity="0.9"/>
                     <path d="M2 12L5.5 10.5L4.5 12L5.5 13.5L2 12Z" fill="#f1c40f" opacity="0.9"/>
@@ -132,7 +146,7 @@ if not st.session_state.bienvenida_mostrada:
             
             <hr style="border-color: rgba(241, 196, 15, 0.3); margin: 25px auto; width: 60px;">
             
-            <p style="color: #b0b0b0; font-size: 0.9rem;">
+            <p style="color: #bbbbbb; font-size: 0.9rem;">
                 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
                 Simulación: <strong>Balance en Estado No Estacionario</strong><br>
                 Visualiza datos y aprende de forma interactiva
@@ -141,15 +155,15 @@ if not st.session_state.bienvenida_mostrada:
             <div class="button-container">
         """, unsafe_allow_html=True)
         
-        # Botón COMENZAR (sin emojis)
+        # Botón COMENZAR
         if st.button("COMENZAR", use_container_width=False, type="primary"):
             st.session_state.bienvenida_mostrada = True
             st.rerun()
         
         st.markdown("""
             </div>
-            <p style="color: #7a7a7a; font-size: 0.75rem; margin-top: 30px; letter-spacing: 0.5px;">
-                HAZ CLIC PARA ACCEDER AL SIMULADOR
+            <p style="color: #7a7a7a; font-size: 0.7rem; margin-top: 30px; letter-spacing: 1px;">
+                HAZ CLIC PARA ACCEDER
             </p>
         </div>
         """, unsafe_allow_html=True)
