@@ -20,7 +20,7 @@ p_tiempo = 80
 st.set_page_config(page_title="LOU App - UCV", layout="wide", page_icon="🛠")
 
 # =============================================================================
-# 1.3 VENTANA DE BIENVENIDA - VERSIÓN CORREGIDA
+# 1.3 VENTANA DE BIENVENIDA 
 # =============================================================================
 
 # Inicializar estado de bienvenida
@@ -29,147 +29,56 @@ if 'bienvenida_mostrada' not in st.session_state:
 
 # Mostrar ventana de bienvenida si no se ha mostrado antes
 if not st.session_state.bienvenida_mostrada:
-    # Aplicar estilos CSS para fondo negro y ocultar contenido
+    # Limpiar la pantalla y mostrar solo la bienvenida con fondo negro
     st.markdown("""
     <style>
     /* Fondo negro para toda la aplicación */
     .stApp {
-        background: #0a0a0f !important;
+        background: #000000 !important;
     }
     
-    /* Ocultar todo el contenido principal mientras está la bienvenida */
-    .stApp > header,
-    .stApp > .main > div:first-child,
-    .stApp > div:first-child {
-        display: none !important;
-    }
-    
-    /* Ocultar también la barra lateral */
-    [data-testid="stSidebar"] {
-        display: none !important;
-    }
-    
-    /* Estilo para el botón de comenzar */
-    div[data-testid="stButton"] button {
-        background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%) !important;
-        border: none !important;
-        border-radius: 50px !important;
-        color: #1a1a2e !important;
-        font-weight: 700 !important;
-        font-size: 1.2rem !important;
-        padding: 0.8rem 2.5rem !important;
-        transition: all 0.3s ease !important;
-        box-shadow: 0 8px 20px rgba(241, 196, 15, 0.3) !important;
-        letter-spacing: 2px !important;
-        width: auto !important;
-        min-width: 220px !important;
-        cursor: pointer !important;
-    }
-    
-    div[data-testid="stButton"] button:hover {
-        transform: translateY(-3px) !important;
-        box-shadow: 0 15px 30px rgba(241, 196, 15, 0.5) !important;
-        background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%) !important;
-        color: #ffffff !important;
-    }
-    
-    div[data-testid="stButton"] button:active {
-        transform: translateY(2px) !important;
-    }
-    
-    /* Contenedor centrado para el botón */
-    .button-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 35px;
-    }
-    
-    /* Animación suave para el SVG */
-    @keyframes subtlePulse {
-        0% { opacity: 0.9; transform: scale(1); }
-        50% { opacity: 1; transform: scale(1.02); }
-        100% { opacity: 0.9; transform: scale(1); }
-    }
-    
-    .animated-icon {
-        animation: subtlePulse 3s ease-in-out infinite;
-        display: inline-block;
-    }
-    
-    /* Eliminar márgenes extra de Streamlit */
-    .main .block-container {
-        padding-top: 0rem !important;
-        max-width: 100% !important;
+    /* Ocultar todo el contenido principal */
+    .stApp > header, .stApp > .main > div:first-child {
+        display: none;
     }
     </style>
     """, unsafe_allow_html=True)
     
-    # Contenedor centrado para la tarjeta de bienvenida
+    # Contenedor centrado
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown("""
-        <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-                    border-radius: 32px;
-                    padding: 50px 35px;
+        <div style="background: linear-gradient(135deg, #1a5276 0%, #0d3251 100%);
+                    border-radius: 25px;
+                    padding: 40px 30px;
                     text-align: center;
-                    border: 1px solid rgba(241, 196, 15, 0.25);
-                    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-                    margin-top: 80px;
-                    backdrop-filter: blur(2px);">
-            
-            <!-- Icono - Engranaje minimalista -->
-            <div class="animated-icon" style="margin-bottom: 20px;">
-                <svg width="70" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Círculo central -->
-                    <circle cx="12" cy="12" r="4" stroke="#f1c40f" stroke-width="1.8" fill="none"/>
-                    <!-- Dientes del engranaje -->
-                    <path d="M12 2L13.5 5.5L12 4.5L10.5 5.5L12 2Z" fill="#f1c40f" opacity="0.9"/>
-                    <path d="M12 22L13.5 18.5L12 19.5L10.5 18.5L12 22Z" fill="#f1c40f" opacity="0.9"/>
-                    <path d="M2 12L5.5 10.5L4.5 12L5.5 13.5L2 12Z" fill="#f1c40f" opacity="0.9"/>
-                    <path d="M22 12L18.5 10.5L19.5 12L18.5 13.5L22 12Z" fill="#f1c40f" opacity="0.9"/>
-                    <path d="M5.5 5.5L8.5 8L7.5 7L5.5 5.5Z" fill="#f1c40f" opacity="0.9"/>
-                    <path d="M18.5 18.5L15.5 16L16.5 17L18.5 18.5Z" fill="#f1c40f" opacity="0.9"/>
-                    <path d="M18.5 5.5L15.5 8L16.5 7L18.5 5.5Z" fill="#f1c40f" opacity="0.9"/>
-                    <path d="M5.5 18.5L8.5 16L7.5 17L5.5 18.5Z" fill="#f1c40f" opacity="0.9"/>
-                </svg>
-            </div>
-            
-            <h1 style="color: #f1c40f; font-size: 2.4rem; margin-bottom: 15px; font-weight: 700; letter-spacing: -0.5px;">
-                BIENVENIDO
-            </h1>
-            
-            <p style="color: #e6e6e6; font-size: 1rem; line-height: 1.6; max-width: 450px; margin: 0 auto;">
-                Esta es la <span style="color: #f1c40f; font-weight: 600;">primera interfaz virtual</span> del<br>
-                <strong style="color: #ffffff;">Laboratorio de Operaciones Unitarias</strong><br>
-                de la <strong style="color: #ffffff;">Universidad Central de Venezuela</strong>.
+                    border: 3px solid #f1c40f;
+                    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+                    margin-top: 50px;">
+            <div style="font-size: 4rem; margin-bottom: 10px;">⚙️</div>
+            <h1 style="color: #f1c40f; font-size: 2rem; margin-bottom: 15px;">¡BIENVENIDO!</h1>
+            <p style="color: #f0f4f8; font-size: 1rem; line-height: 1.6;">
+                Esta es la <span style="color: #f1c40f; font-weight: bold;">primera interfaz virtual</span> del<br>
+                <strong>Laboratorio de Operaciones Unitarias</strong><br>
+                de la <strong>Universidad Central de Venezuela</strong>.
             </p>
-            
-            <hr style="border-color: rgba(241, 196, 15, 0.3); margin: 25px auto; width: 60px;">
-            
-            <p style="color: #bbbbbb; font-size: 0.9rem;">
-                Explora las prácticas de <strong>LOU I y LOU II</strong><br>
-                Simulación: <strong>Balance en Estado No Estacionario</strong><br>
-                Visualiza datos y aprende de forma interactiva
+            <hr style="border-color: #f1c40f; margin: 15px 0;">
+            <p style="color: #f0f4f8;">
+                 Explora las prácticas de <strong>LOU I y LOU II</strong><br>
+                 Simulación disponible: <strong>Balance en Estado No Estacionario</strong><br>
+                 Visualiza datos y aprende de forma interactiva
             </p>
-            
-            <div class="button-container">
-        """, unsafe_allow_html=True)
-        
-        # Botón COMENZAR
-        if st.button("COMENZAR", use_container_width=False, type="primary"):
-            st.session_state.bienvenida_mostrada = True
-            st.rerun()
-        
-        st.markdown("""
-            </div>
-            <p style="color: #7a7a7a; font-size: 0.7rem; margin-top: 30px; letter-spacing: 1px;">
-                HAZ CLIC PARA ACCEDER
-            </p>
+            <p style="color: #c0d0e0; font-size: 0.8rem;">👆 Para avanzar por favor presionar "comenzar"</p>
         </div>
         """, unsafe_allow_html=True)
+        
+        if st.button("✨ COMENZAR ✨", use_container_width=True, type="primary"):
+            st.session_state.bienvenida_mostrada = True
+            st.rerun()
     
     # Detener la ejecución para que no se vea el contenido principal
     st.stop()
+
     
 # =============================================================================
 # 2. FUNCIONES DE CÁLCULO Y MODELOS FÍSICOS
