@@ -72,7 +72,7 @@ if not st.session_state.bienvenida_mostrada:
         </div>
         """, unsafe_allow_html=True)
         
-        if st.button("✨ COMENZAR ✨", use_container_width=True, type="primary"):
+        if st.button(" COMENZAR ", use_container_width=True, type="primary"):
             st.session_state.bienvenida_mostrada = True
             st.rerun()
     
