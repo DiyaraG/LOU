@@ -119,10 +119,7 @@ def calcular_pid_adaptativo(geom, r_max, h_total):
         kd = kp * 0.2
     return round(kp, 2), round(ki, 3), round(kd, 3)
 def sintonizar_controlador_robusto(geom, r, h_t, cd_calculado, area_ori, op_tipo, q_max_bomba_usuario):
-    """
-    Sintonización que respeta el caudal que el usuario configuró
-    LAS GANANCIAS SON ADIMENSIONALES (producen señal entre 0 y 1)
-    """
+    """Sintonización que respeta el caudal que el usuario configuró"""
     from math import pi, sqrt
     
     # Calcular área del tanque según geometría
@@ -133,47 +130,34 @@ def sintonizar_controlador_robusto(geom, r, h_t, cd_calculado, area_ori, op_tipo
     else:  # Esférico
         area_tanque = (2/3) * pi * (r ** 2)
     
-    # Estimar constante de tiempo del proceso (segundos)
+    # Estimar ganancia del proceso
     h_prom = h_t / 2.0
     d_metros = 1.0  # Valor temporal para estimación
     area_orificio_est = pi * (d_metros * 0.0254 / 2)**2
     g = 9.81
     
     if h_prom > 0.01 and area_orificio_est > 0 and cd_calculado > 0:
-        # Constante de tiempo estimada (segundos)
-        tau = (2 * area_tanque * sqrt(h_prom)) / (cd_calculado * area_orificio_est * sqrt(2 * g))
+        derivada_salida = (cd_calculado * area_orificio_est * sqrt(g / (2 * h_prom))) / area_tanque
+        ganancia_proc = 1.0 / derivada_salida if derivada_salida > 0 else 10.0
     else:
-        tau = 30.0
+        ganancia_proc = 10.0
     
-    # ========== GANANCIAS ADIMENSIONALES ==========
-    # Valores base (señal de salida entre -1 y 1)
+    # ESCALAMIENTO: Usar el caudal que el usuario configuró
+    escalamiento = q_max_bomba_usuario / max(ganancia_proc, 0.1)
+    
     if op_tipo == "Llenado":
-        kp_base = 0.8   # Adimensional
-        ki_base = 0.15  # Adimensional
-        kd_base = 0.25  # Adimensional
-    else:  # Vaciado
-        kp_base = 0.4   # Adimensional
-        ki_base = 0.08  # Adimensional
-        kd_base = 0.12  # Adimensional
+        kp = 0.6 * escalamiento
+        ki = 0.1 * escalamiento
+        kd = 0.2 * escalamiento
+    else:
+        kp = 0.3 * escalamiento
+        ki = 0.05 * escalamiento
+        kd = 0.1 * escalamiento
     
-    # Ajuste por constante de tiempo (sistemas más lentos necesitan más ganancia)
-    factor_tau = np.clip(tau / 30.0, 0.5, 2.0)
-    kp = kp_base * factor_tau
-    ki = ki_base * factor_tau
-    kd = kd_base * factor_tau
-    
-    # Ajuste por caudal del usuario (si el caudal es muy grande, la ganancia se reduce)
-    # Este es el escalamiento CORRECTO para mantener la señal entre 0 y 1
-    q_referencia = 0.05  # Caudal de referencia (m³/s)
-    factor_caudal = np.clip(q_referencia / max(q_max_bomba_usuario, 0.01), 0.2, 2.0)
-    kp = kp * factor_caudal
-    ki = ki * factor_caudal
-    kd = kd * factor_caudal
-    
-    # Límites de seguridad
-    kp = np.clip(kp, 0.05, 2.0)
-    ki = np.clip(ki, 0.01, 0.5)
-    kd = np.clip(kd, 0.01, 0.8)
+    # Límites de seguridad (evitar valores absurdos)
+    kp = np.clip(kp, 0.01, 10.0)
+    ki = np.clip(ki, 0.001, 2.0)
+    kd = np.clip(kd, 0.01, 3.0)
     
     return round(kp, 2), round(ki, 3), round(kd, 2)
     
@@ -229,10 +213,17 @@ def calcular_q_max_salida(d_orificio_pulg, cd=0.61, h_max=10.0):
 
 # ===== 2.4 SIMULADOR PRINCIPAL =====
 
-def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, p_tipo, e_sum, e_prev, modo_op, cd_val, kp, ki, kd, d_pulgadas, q_max_bomba_usuario):
+def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, p_tipo, e_sum, e_prev, modo_op, cd_val, kp, ki, kd, d_pulgadas,q_max_bomba_usuario):
     """
-    SISTEMA CON UNIDADES CORREGIDAS
-    kp, ki, kd son ADIMENSIONALES (producen señal entre -1 y 1)
+    SISTEMA CORREGIDO - Control de VÁLVULAS según modo de operación:
+    
+    MODO LLENADO:
+    - V-01 (Entrada): Controlada por PID (actúa sobre bomba)
+    - V-02 (Salida): Abierta completamente (descarga libre por gravedad)
+    
+    MODO VACIADO:
+    - V-01 (Entrada): COMPLETAMENTE CERRADA (q_entrada = 0)
+    - V-02 (Salida): Controlada por PID (estrangula el flujo de salida)
     """
     from math import sqrt, pi
     
@@ -241,83 +232,20 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, p_tipo, e_su
     
     err = sp - h_prev
     
-    # ========== ESCALAR EL ERROR A RANGO [-1, 1] ==========
-    # Esto hace que las ganancias sean independientes de la escala del tanque
-    rango_nivel = h_t  # Rango total de nivel [m]
-    err_normalizado = np.clip(err / max(rango_nivel, 0.01), -1.0, 1.0)
-    
-    # ========== PID CON GANANCIAS ADIMENSIONALES ==========
-    P = kp * err_normalizado
-    
-    e_sum += err_normalizado * dt
-    e_sum = np.clip(e_sum, -10.0, 10.0)
+    # Acciones PID
+    P = kp * err
+    e_sum += err * dt
+    e_sum = np.clip(e_sum, -50.0, 50.0)
     I = ki * e_sum
-    
-    D = kd * (err_normalizado - e_prev) / dt if dt > 0 else 0
-    D = np.clip(D, -0.5, 0.5)
-    
-    # Señal de control ADIMENSIONAL (entre aproximadamente -1 y 1)
-    u_control_raw = P + I + D
-    
-    # Normalizar a rango [0, 1]
-    u_normalizado = np.clip((u_control_raw + 1.0) / 2.0, 0.0, 1.0)
+    D = kd * (err - e_prev) / dt if dt > 0 else 0
+    D = np.clip(D, -5.0, 5.0)
+    u_control = P + I + D
     
     # Parámetros físicos
+    q_max_bomba = q_max_bomba_usuario    # Caudal máximo de la bomba [m³/s]
     d_metros = d_pulgadas * 0.0254
     area_orificio = pi * (d_metros / 2)**2
     g = 9.81
-    
-    # ========== LÓGICA SEGÚN MODO DE OPERACIÓN ==========
-    if modo_op == "Llenado":
-        # u_normalizado [0-1] controla la bomba
-        q_entrada = u_normalizado * q_max_bomba_usuario
-        
-        # V-02: Descarga libre por gravedad
-        if h_prev > 0.001:
-            q_salida = cd_val * area_orificio * sqrt(2 * g * h_prev)
-        else:
-            q_salida = 0.0
-        
-        # Perturbaciones
-        if p_tipo == "Entrada":
-            q_entrada_total = q_entrada + q_p_val
-            q_salida_total = q_salida
-        else:
-            q_entrada_total = q_entrada
-            q_salida_total = q_salida + q_p_val
-    
-    else:  # modo_op == "Vaciado"
-        # Bomba apagada
-        q_entrada = 0.0
-        
-        # u_normalizado [0-1] controla la APERTURA de la válvula de salida
-        apertura_minima = 0.05  # 5% mínimo para evitar que se atasque
-        apertura_valvula = apertura_minima + u_normalizado * (1.0 - apertura_minima)
-        apertura_valvula = np.clip(apertura_valvula, apertura_minima, 1.0)
-        
-        # Caudal de salida teórico (Ley de Torricelli)
-        if h_prev > 0.001:
-            q_salida_teorica = cd_val * area_orificio * sqrt(2 * g * h_prev)
-        else:
-            q_salida_teorica = 0.0
-        
-        q_salida = apertura_valvula * q_salida_teorica
-        
-        # Perturbaciones
-        if p_tipo == "Entrada":
-            q_entrada_total = q_entrada + q_p_val
-            q_salida_total = q_salida
-        else:  # Salida (Fuga)
-            q_entrada_total = q_entrada
-            q_salida_total = q_salida + q_p_val
-    
-    # Balance de masa (Ecuación de continuidad)
-    dh_dt = (q_entrada_total - q_salida_total) / area_h
-    h_next = h_prev + dh_dt * dt
-    h_next = np.clip(h_next, 0, h_t)
-    
-    # Retorna: nivel, Qentrada, Qsalida, error, integral_acum, error_normalizado_pasado
-    return h_next, q_entrada, q_salida, err, e_sum, err_normalizado
     
     # =========================================================================
     # LÓGICA SEGÚN MODO DE OPERACIÓN
@@ -2395,3 +2323,4 @@ if st.session_state.page == 'Inicio':
     mostrar_inicio()
 else:
     mostrar_simulador(st.session_state.page)
+
