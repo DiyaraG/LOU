@@ -118,39 +118,46 @@ def calcular_pid_adaptativo(geom, r_max, h_total):
         ki = kp / 18.0
         kd = kp * 0.2
     return round(kp, 2), round(ki, 3), round(kd, 3)
-
-def sintonizar_controlador_robusto(geom, r, h_t, cd_calculado, area_ori, op_tipo="Llenado"):
-    """Sintonización MEJORADA - Más conservadora para evitar oscilaciones"""
+def sintonizar_controlador_robusto(geom, r, h_t, cd_calculado, area_ori, op_tipo, q_max_bomba_usuario):
+    """Sintonización que respeta el caudal que el usuario configuró"""
+    from math import pi, sqrt
+    
+    # Calcular área del tanque según geometría
     if geom == "Cilíndrico":
-        area_t = np.pi * (r**2)
+        area_tanque = pi * (r ** 2)
     elif geom == "Cónico":
-        area_t = np.pi * (r/2)**2
+        area_tanque = pi * (r ** 2) / 3
     else:  # Esférico
-        area_t = (2/3) * np.pi * (r**2)
+        area_tanque = (2/3) * pi * (r ** 2)
     
-    # Ganancias base REDUCIDAS para respuesta más suave
-    if op_tipo == "Llenado":
-        kp = 12.0 * (area_t / 3.0)   # Antes: 25.0 → Reducido para menos oscilaciones
-        ki = 2.5 * (area_t / 3.0)    # Antes: 5.0  → Reducido para menos acumulación
-        kd = 3.0 * (area_t / 3.0)    # Antes: 2.0  → AUMENTADO para más amortiguamiento
-    else:  # Vaciado
-        kp = 8.0 * (area_t / 3.0)    # Antes: 20.0 → Más conservador
-        ki = 2.0 * (area_t / 3.0)    # Antes: 4.0  → Reducido
-        kd = 2.5 * (area_t / 3.0)    # Antes: 1.5  → Aumentado
+    # Estimar ganancia del proceso
+    h_prom = h_t / 2.0
+    d_metros = 1.0  # Valor temporal para estimación
+    area_orificio_est = pi * (d_metros * 0.0254 / 2)**2
+    g = 9.81
     
-    factor_cd = np.clip(cd_calculado / 0.61, 0.8, 1.3)
-    kp = kp * factor_cd
-    ki = ki * factor_cd
-    
-    # Límites MÁS ESTRECHOS para evitar valores extremos
-    if op_tipo == "Llenado":
-        kp = np.clip(kp, 5.0, 20.0)    # Antes: 15-50 → Más restrictivo
-        ki = np.clip(ki, 1.5, 5.0)     # Antes: 3-10  → Más restrictivo
-        kd = np.clip(kd, 2.0, 5.0)     # Antes: 1-3   → Más amortiguamiento
+    if h_prom > 0.01 and area_orificio_est > 0 and cd_calculado > 0:
+        derivada_salida = (cd_calculado * area_orificio_est * sqrt(g / (2 * h_prom))) / area_tanque
+        ganancia_proc = 1.0 / derivada_salida if derivada_salida > 0 else 10.0
     else:
-        kp = np.clip(kp, 3.0, 12.0)
-        ki = np.clip(ki, 1.0, 3.0)
-        kd = np.clip(kd, 1.5, 3.5)
+        ganancia_proc = 10.0
+    
+    # ESCALAMIENTO: Usar el caudal que el usuario configuró
+    escalamiento = q_max_bomba_usuario / max(ganancia_proc, 0.1)
+    
+    if op_tipo == "Llenado":
+        kp = 0.6 * escalamiento
+        ki = 0.1 * escalamiento
+        kd = 0.2 * escalamiento
+    else:
+        kp = 0.3 * escalamiento
+        ki = 0.05 * escalamiento
+        kd = 0.1 * escalamiento
+    
+    # Límites de seguridad (evitar valores absurdos)
+    kp = np.clip(kp, 0.01, 10.0)
+    ki = np.clip(ki, 0.001, 2.0)
+    kd = np.clip(kd, 0.01, 3.0)
     
     return round(kp, 2), round(ki, 3), round(kd, 2)
     
@@ -206,7 +213,7 @@ def calcular_q_max_salida(d_orificio_pulg, cd=0.61, h_max=10.0):
 
 # ===== 2.4 SIMULADOR PRINCIPAL =====
 
-def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, p_tipo, e_sum, e_prev, modo_op, cd_val, kp, ki, kd, d_pulgadas):
+def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, p_tipo, e_sum, e_prev, modo_op, cd_val, kp, ki, kd, d_pulgadas,q_max_bomba_usuario):
     """
     SISTEMA CORREGIDO - Control de VÁLVULAS según modo de operación:
     
@@ -235,7 +242,7 @@ def resolver_sistema_robusto(dt, h_prev, sp, geom, r, h_t, q_p_val, p_tipo, e_su
     u_control = P + I + D
     
     # Parámetros físicos
-    q_max_bomba = 2.0  # Caudal máximo de la bomba [m³/s]
+    q_max_bomba = q_max_bomba_usuario    # Caudal máximo de la bomba [m³/s]
     d_metros = d_pulgadas * 0.0254
     area_orificio = pi * (d_metros / 2)**2
     g = 9.81
@@ -1168,9 +1175,10 @@ def mostrar_simulador(nombre):
                 p_tipo = "Entrada"
 
         with st.sidebar.expander("Parámetros del Controlador PID "):
+           
             cd_actual = st.session_state.get('cd_calculado', 0.61)
             kp_sug, ki_sug, kd_sug = sintonizar_controlador_robusto(
-                geom_tanque, r_max, h_total, cd_actual, area_orificio, op_tipo
+            geom_tanque, r_max, h_total, cd_actual, area_orificio, op_tipo, q_max_bomba  # ← Añadir q_max_bomba
             )
             modo_auto = st.checkbox("🎯 Modo  Auto-sintonía optimizada", value=True)
             if modo_auto:
@@ -1420,9 +1428,11 @@ def mostrar_simulador(nombre):
                 k_i = st.session_state.get('ki_ejecucion', 3.5)
                 k_d = st.session_state.get('kd_ejecucion', 1.5)
                 
+                # DESPUÉS
                 h_corrida, q_entrada, q_salida, e_inst, err_int, err_pasado = resolver_sistema_robusto(
                 dt, h_corrida, sp_nivel, geom_tanque, r_max, h_total, q_p_inst, p_tipo,
-                err_int, err_pasado, op_tipo, cd_para_simular, k_p, k_i, k_d, d_pulgadas
+                err_int, err_pasado, op_tipo, cd_para_simular, k_p, k_i, k_d, d_pulgadas,
+                q_max_bomba  # ← NUEVO: pasar el caudal que configuró el usuario
                 )
                 
                 valor_presente = h_corrida
