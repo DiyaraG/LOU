@@ -1088,13 +1088,13 @@ def mostrar_simulador(nombre):
                 """)
 
         with col_teoria2:
-            with st.expander("Teoría: Estrategia de control PID Robusto", expanded=False):
+            with st.expander("Teoría: Estrategia de control PID ", expanded=False):
                 st.markdown(r"""
                 El "cerebro" de la simulación es un controlador **Proporcional-Integral-Derivativo (PID)** con **Anti-Windup**, cuya acción de control $u(t)$ busca minimizar el error ($e = SP - h$):
                 
                 $$ u(t) = K_p e(t) + K_i \int_{0}^{t} e(\tau) d\tau + K_d \frac{de(t)}{dt} $$
                 
-                **Mejoras implementadas para robustez:**
+                **Mejoras implementadas para confiabilidad:**
                 - **Anti-Windup:** Evita que la integral se sature cuando la válvula está al límite
                 - **Sintonización Ziegler-Nichols adaptada:** Parámetros optimizados para rechazo de perturbaciones
                 - **Límites en derivativo:** Reduce el ruido en la señal de control
@@ -1349,7 +1349,7 @@ def mostrar_simulador(nombre):
         
         # ======================== SIMULACIÓN PRINCIPAL ========================
         if not st.session_state.ejecutando:
-            st.info("💡 Ajusta los parámetros en la barra lateral y pulsa 'Iniciar Simulación Robusta'")
+            st.info("💡 Ajusta los parámetros en la barra lateral y pulsa 'Iniciar Simulación'")
         else:
             col_graf, col_met = st.columns([2, 1])
             
@@ -1529,7 +1529,7 @@ def mostrar_simulador(nombre):
                 
                 # Gráfica de tendencia
                 fig_tr, ax_tr = plt.subplots(figsize=(8, 3.5))
-                ax_tr.plot(vector_t[:i+1], h_log, color='#2980b9', lw=2, label='Nivel (h) - Control Robusto')
+                ax_tr.plot(vector_t[:i+1], h_log, color='#2980b9', lw=2, label='Nivel (h) - Control')
                 ax_tr.axhline(y=sp_nivel, color='red', ls='--', alpha=0.5, label='Setpoint')
                 if p_activa and p_tiempo > 0 and t_act >= p_tiempo:
                     ax_tr.axvspan(p_tiempo, tiempo_ensayo, alpha=0.1, color='orange', label='Zona con Perturbación')
@@ -1562,7 +1562,7 @@ def mostrar_simulador(nombre):
                 
                 # Comparativa
                 fig_comp, ax_comp = plt.subplots(figsize=(8, 4))
-                ax_comp.plot(vector_t[:i+1], h_log, color='#1f77b4', lw=2, label='Simulación Robusta')
+                ax_comp.plot(vector_t[:i+1], h_log, color='#1f77b4', lw=2, label='Simulación')
                 if mostrar_ref and tiene_datos_exp and len(t_exp) > 0:
                     ax_comp.scatter(t_exp, h_exp, color='red', marker='x', s=100, label='Datos Experimentales')
                 ax_comp.set_title("Validación de Resultados")
@@ -1583,7 +1583,7 @@ def mostrar_simulador(nombre):
             
             # ======================== ANÁLISIS FINAL ========================
             st.markdown("---")
-            st.subheader("📈 Análisis de Respuesta - Control Robusto Anti-Perturbaciones")
+            st.subheader("📈 Análisis de Respuesta - Control Anti-Perturbaciones")
             col_an1, col_an2 = st.columns([2, 1])
             with col_an1:
                 fig_amp, ax_amp = plt.subplots(figsize=(10, 5))
@@ -1592,7 +1592,7 @@ def mostrar_simulador(nombre):
                 if p_activa and p_tiempo > 0:
                     ax_amp.axvline(x=p_tiempo, color='orange', linestyle='--', alpha=0.7)
                     ax_amp.axvspan(p_tiempo, tiempo_ensayo, alpha=0.08, color='orange')
-                ax_amp.set_title("Respuesta Transitoria del Lazo de Control Robusto")
+                ax_amp.set_title("Respuesta Transitoria del Lazo de Control")
                 ax_amp.set_xlabel("Tiempo (s)")
                 ax_amp.set_ylabel("Amplitud (m)")
                 ax_amp.grid(True, which='both', linestyle='--', alpha=0.5)
@@ -1601,7 +1601,7 @@ def mostrar_simulador(nombre):
                 plt.close(fig_amp)
             
             with col_an2:
-                st.info("**Interpretación del Control Robusto:**")
+                st.info("**Interpretación del Control:**")
                 sobrepico = ((max(h_log) - sp_nivel) / sp_nivel) * 100 if max(h_log) > sp_nivel else 0
                 st.metric("Sobrepico Máximo", f"{sobrepico:.2f} %")
                 st.metric("IAE Final", f"{iae_acumulado:.2f}")
@@ -1619,7 +1619,7 @@ def mostrar_simulador(nombre):
                 "Kd_Usado": [st.session_state.get('kd_ejecucion', 1.5)] * len(vector_t)
             })
             
-            st.subheader(" Resumen de Datos y Estabilidad del Control Robusto")
+            st.subheader(" Resumen de Datos y Estabilidad del Control")
             col_tab, col_res = st.columns([2, 1])
             with col_tab:
                 st.dataframe(df_final.tail(10).style.format("{:.4f}"), use_container_width=True)
